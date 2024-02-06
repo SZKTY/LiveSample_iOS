@@ -15,7 +15,6 @@
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
 		56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */ = {isa = PBXBuildFile; productRef = 56849A6B2B6FD6B0007294F4 /* Sample */; };
-		56849A6E2B6FD6B0007294F4 /* TicketFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 56849A6D2B6FD6B0007294F4 /* TicketFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +54,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */,
-				56849A6E2B6FD6B0007294F4 /* TicketFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +158,6 @@
 			name = LiveSample;
 			packageProductDependencies = (
 				56849A6B2B6FD6B0007294F4 /* Sample */,
-				56849A6D2B6FD6B0007294F4 /* TicketFeature */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -291,6 +288,7 @@
 			shellPath = /bin/sh;
 			shellScript = "
 ";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -639,10 +637,6 @@
 		56849A6B2B6FD6B0007294F4 /* Sample */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Sample;
-		};
-		56849A6D2B6FD6B0007294F4 /* TicketFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TicketFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

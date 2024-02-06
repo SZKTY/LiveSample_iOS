@@ -6,11 +6,13 @@ import PackageDescription
 let package = Package(
     name: "Tools",
     platforms: [
-      .iOS(.v16),
-      .macOS(.v12),
+      .iOS(.v15),
+      .macOS(.v14),
     ],
     dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", .branch("main")),
+        .package(
+            url: "https://github.com/realm/SwiftLint",
+            branch: "main"),
     ],
     targets: [.target(name: "Tools", path: "")]
 )
