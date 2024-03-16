@@ -14,7 +14,7 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */ = {isa = PBXBuildFile; productRef = 56849A6B2B6FD6B0007294F4 /* Sample */; };
+		DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF9D57382BA5E071001B4A0B /* SampleCounter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */,
+				DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +157,7 @@
 			);
 			name = LiveSample;
 			packageProductDependencies = (
-				56849A6B2B6FD6B0007294F4 /* Sample */,
+				DF9D57382BA5E071001B4A0B /* SampleCounter */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -634,9 +634,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		56849A6B2B6FD6B0007294F4 /* Sample */ = {
+		DF9D57382BA5E071001B4A0B /* SampleCounter */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Sample;
+			productName = SampleCounter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

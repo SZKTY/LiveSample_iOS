@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 public struct Sample {
     public init() {}
