@@ -7,12 +7,18 @@
 
 import SwiftUI
 import ComposableArchitecture
+import SampleCounter
 
 @main
 struct LiveSampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SampleCounterView(
+                store: Store(
+                    initialState: SampleCounter.State()) {
+                        SampleCounter()
+                    }
+            )
         }
     }
 }

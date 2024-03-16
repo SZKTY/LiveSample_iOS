@@ -14,8 +14,7 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		DF1B13D42BA5302E002F8F78 /* Sample in Frameworks */ = {isa = PBXBuildFile; productRef = DF1B13D32BA5302E002F8F78 /* Sample */; };
-		DF1B13D82BA53BC4002F8F78 /* Counter in Frameworks */ = {isa = PBXBuildFile; productRef = DF1B13D72BA53BC4002F8F78 /* Counter */; };
+		DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF9D57382BA5E071001B4A0B /* SampleCounter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF1B13D42BA5302E002F8F78 /* Sample in Frameworks */,
-				DF1B13D82BA53BC4002F8F78 /* Counter in Frameworks */,
+				DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,8 +157,7 @@
 			);
 			name = LiveSample;
 			packageProductDependencies = (
-				DF1B13D32BA5302E002F8F78 /* Sample */,
-				DF1B13D72BA53BC4002F8F78 /* Counter */,
+				DF9D57382BA5E071001B4A0B /* SampleCounter */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -637,13 +634,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF1B13D32BA5302E002F8F78 /* Sample */ = {
+		DF9D57382BA5E071001B4A0B /* SampleCounter */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Sample;
-		};
-		DF1B13D72BA53BC4002F8F78 /* Counter */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Counter;
+			productName = SampleCounter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
