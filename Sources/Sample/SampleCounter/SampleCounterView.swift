@@ -8,10 +8,10 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct CounterView: View {
-    let store: StoreOf<Counter>
+public struct SampleCounterView: View {
+    let store: StoreOf<SampleCounter>
     
-    public init(store: StoreOf<Counter>) {
+    public init(store: StoreOf<SampleCounter>) {
         self.store = store
     }
     

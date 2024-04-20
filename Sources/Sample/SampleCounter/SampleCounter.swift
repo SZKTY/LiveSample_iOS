@@ -1,5 +1,5 @@
 //
-//  Counter.swift
+//  SampleCounter.swift
 //
 //
 //  Created by toya.suzuki on 2024/03/16.
@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-public struct Counter: Reducer {
+public struct SampleCounter: Reducer {
     public struct State: Equatable {
         public var counter = 0
         

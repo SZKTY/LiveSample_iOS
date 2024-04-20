@@ -14,7 +14,26 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF9D57382BA5E071001B4A0B /* SampleCounter */; };
+		DF7180992BD25409003C67D7 /* AccountIdStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7180982BD25408003C67D7 /* AccountIdStore */; };
+		DF71809B2BD25409003C67D7 /* AccountNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF71809A2BD25409003C67D7 /* AccountNameStore */; };
+		DF71809D2BD25409003C67D7 /* HomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF71809C2BD25409003C67D7 /* HomeStore */; };
+		DF71809F2BD25409003C67D7 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF71809E2BD25409003C67D7 /* MailAddressPasswordStore */; };
+		DF7180A12BD25409003C67D7 /* ProfileImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7180A02BD25409003C67D7 /* ProfileImageStore */; };
+		DF7180A32BD25409003C67D7 /* RootStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7180A22BD25409003C67D7 /* RootStore */; };
+		DF7180A52BD25409003C67D7 /* SelectModeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7180A42BD25409003C67D7 /* SelectModeStore */; };
+		DF7180A72BD25409003C67D7 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7180A62BD25409003C67D7 /* WelcomeStore */; };
+		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
+		DF8868562BD20EE100A427A2 /* AccountId in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868552BD20EE100A427A2 /* AccountId */; };
+		DF8868582BD20EE100A427A2 /* AccountName in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868572BD20EE100A427A2 /* AccountName */; };
+		DF88685C2BD20EE100A427A2 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = DF88685B2BD20EE100A427A2 /* Home */; };
+		DF88685E2BD20EE100A427A2 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DF88685D2BD20EE100A427A2 /* MailAddressPassword */; };
+		DF8868602BD20EE100A427A2 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DF88685F2BD20EE100A427A2 /* ProfileImage */; };
+		DF8868622BD20EE100A427A2 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868612BD20EE100A427A2 /* Root */; };
+		DF8868662BD20EE100A427A2 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868652BD20EE100A427A2 /* Routing */; };
+		DF8868682BD20EE100A427A2 /* SelectMode in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868672BD20EE100A427A2 /* SelectMode */; };
+		DF88686A2BD20EE100A427A2 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DF8868692BD20EE100A427A2 /* ViewComponents */; };
+		DF88686C2BD20EE200A427A2 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DF88686B2BD20EE200A427A2 /* Welcome */; };
+		DFBD47DF2BD356AD00508A77 /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47DE2BD356AD00508A77 /* SampleCounter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +65,8 @@
 		56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITests.swift; sourceTree = "<group>"; };
 		56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		56C954092B6FD31800E0B473 /* LiveSample */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LiveSample; path = ../..; sourceTree = "<group>"; };
+		DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewBuildingClient+Impl.swift"; sourceTree = "<group>"; };
+		DF8868542BD20E2B00A427A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = LiveSample/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +74,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF9D57392BA5E071001B4A0B /* SampleCounter in Frameworks */,
+				DF88686A2BD20EE100A427A2 /* ViewComponents in Frameworks */,
+				DF7180992BD25409003C67D7 /* AccountIdStore in Frameworks */,
+				DF7180A12BD25409003C67D7 /* ProfileImageStore in Frameworks */,
+				DFBD47DF2BD356AD00508A77 /* SampleCounter in Frameworks */,
+				DF8868602BD20EE100A427A2 /* ProfileImage in Frameworks */,
+				DF7180A32BD25409003C67D7 /* RootStore in Frameworks */,
+				DF88686C2BD20EE200A427A2 /* Welcome in Frameworks */,
+				DF8868622BD20EE100A427A2 /* Root in Frameworks */,
+				DF71809B2BD25409003C67D7 /* AccountNameStore in Frameworks */,
+				DF8868662BD20EE100A427A2 /* Routing in Frameworks */,
+				DF88685C2BD20EE100A427A2 /* Home in Frameworks */,
+				DF8868562BD20EE100A427A2 /* AccountId in Frameworks */,
+				DF8868582BD20EE100A427A2 /* AccountName in Frameworks */,
+				DF7180A52BD25409003C67D7 /* SelectModeStore in Frameworks */,
+				DF71809F2BD25409003C67D7 /* MailAddressPasswordStore in Frameworks */,
+				DF71809D2BD25409003C67D7 /* HomeStore in Frameworks */,
+				DF7180A72BD25409003C67D7 /* WelcomeStore in Frameworks */,
+				DF8868682BD20EE100A427A2 /* SelectMode in Frameworks */,
+				DF88685E2BD20EE100A427A2 /* MailAddressPassword in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +116,7 @@
 		56703F462B6FCA0B00939C0C = {
 			isa = PBXGroup;
 			children = (
+				DF8868542BD20E2B00A427A2 /* Info.plist */,
 				56C954092B6FD31800E0B473 /* LiveSample */,
 				56703F512B6FCA0B00939C0C /* LiveSample */,
 				56703F622B6FCA0D00939C0C /* LiveSampleTests */,
@@ -99,6 +139,7 @@
 		56703F512B6FCA0B00939C0C /* LiveSample */ = {
 			isa = PBXGroup;
 			children = (
+				DF88684F2BD13EC900A427A2 /* Routing */,
 				56703F522B6FCA0B00939C0C /* LiveSampleApp.swift */,
 				56703F542B6FCA0B00939C0C /* ContentView.swift */,
 				56703F562B6FCA0C00939C0C /* Assets.xcassets */,
@@ -139,6 +180,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DF88684F2BD13EC900A427A2 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				DF8868502BD13ED500A427A2 /* Dependencies */,
+				DF8868512BD13EE300A427A2 /* Environment */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		DF8868502BD13ED500A427A2 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		DF8868512BD13EE300A427A2 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,7 +214,6 @@
 				56703F4B2B6FCA0B00939C0C /* Sources */,
 				56703F4C2B6FCA0B00939C0C /* Frameworks */,
 				56703F4D2B6FCA0B00939C0C /* Resources */,
-				56703F7D2B6FCEFB00939C0C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -157,7 +221,25 @@
 			);
 			name = LiveSample;
 			packageProductDependencies = (
-				DF9D57382BA5E071001B4A0B /* SampleCounter */,
+				DF8868552BD20EE100A427A2 /* AccountId */,
+				DF8868572BD20EE100A427A2 /* AccountName */,
+				DF88685B2BD20EE100A427A2 /* Home */,
+				DF88685D2BD20EE100A427A2 /* MailAddressPassword */,
+				DF88685F2BD20EE100A427A2 /* ProfileImage */,
+				DF8868612BD20EE100A427A2 /* Root */,
+				DF8868652BD20EE100A427A2 /* Routing */,
+				DF8868672BD20EE100A427A2 /* SelectMode */,
+				DF8868692BD20EE100A427A2 /* ViewComponents */,
+				DF88686B2BD20EE200A427A2 /* Welcome */,
+				DF7180982BD25408003C67D7 /* AccountIdStore */,
+				DF71809A2BD25409003C67D7 /* AccountNameStore */,
+				DF71809C2BD25409003C67D7 /* HomeStore */,
+				DF71809E2BD25409003C67D7 /* MailAddressPasswordStore */,
+				DF7180A02BD25409003C67D7 /* ProfileImageStore */,
+				DF7180A22BD25409003C67D7 /* RootStore */,
+				DF7180A42BD25409003C67D7 /* SelectModeStore */,
+				DF7180A62BD25409003C67D7 /* WelcomeStore */,
+				DFBD47DE2BD356AD00508A77 /* SampleCounter */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -270,28 +352,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		56703F7D2B6FCEFB00939C0C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		56703F4B2B6FCA0B00939C0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -299,6 +359,7 @@
 			files = (
 				56703F552B6FCA0B00939C0C /* ContentView.swift in Sources */,
 				56703F532B6FCA0B00939C0C /* LiveSampleApp.swift in Sources */,
+				DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,12 +526,13 @@
 				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,12 +557,13 @@
 				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -634,7 +697,79 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF9D57382BA5E071001B4A0B /* SampleCounter */ = {
+		DF7180982BD25408003C67D7 /* AccountIdStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountIdStore;
+		};
+		DF71809A2BD25409003C67D7 /* AccountNameStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountNameStore;
+		};
+		DF71809C2BD25409003C67D7 /* HomeStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeStore;
+		};
+		DF71809E2BD25409003C67D7 /* MailAddressPasswordStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailAddressPasswordStore;
+		};
+		DF7180A02BD25409003C67D7 /* ProfileImageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProfileImageStore;
+		};
+		DF7180A22BD25409003C67D7 /* RootStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RootStore;
+		};
+		DF7180A42BD25409003C67D7 /* SelectModeStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SelectModeStore;
+		};
+		DF7180A62BD25409003C67D7 /* WelcomeStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WelcomeStore;
+		};
+		DF8868552BD20EE100A427A2 /* AccountId */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountId;
+		};
+		DF8868572BD20EE100A427A2 /* AccountName */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountName;
+		};
+		DF88685B2BD20EE100A427A2 /* Home */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Home;
+		};
+		DF88685D2BD20EE100A427A2 /* MailAddressPassword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailAddressPassword;
+		};
+		DF88685F2BD20EE100A427A2 /* ProfileImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProfileImage;
+		};
+		DF8868612BD20EE100A427A2 /* Root */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Root;
+		};
+		DF8868652BD20EE100A427A2 /* Routing */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Routing;
+		};
+		DF8868672BD20EE100A427A2 /* SelectMode */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SelectMode;
+		};
+		DF8868692BD20EE100A427A2 /* ViewComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewComponents;
+		};
+		DF88686B2BD20EE200A427A2 /* Welcome */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Welcome;
+		};
+		DFBD47DE2BD356AD00508A77 /* SampleCounter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SampleCounter;
 		};

@@ -7,18 +7,25 @@
 
 import SwiftUI
 import ComposableArchitecture
-import SampleCounter
+import Root
+import RootStore
+import Routing
 
 @main
 struct LiveSampleApp: App {
+    @StateObject var loginRouter = LoginRouter()
+    @StateObject var router = NavigationRouter()
+    
     var body: some Scene {
         WindowGroup {
-            SampleCounterView(
+            RootView(
                 store: Store(
-                    initialState: SampleCounter.State()) {
-                        SampleCounter()
+                    initialState: Root.State()) {
+                        Root()
                     }
             )
+            .environmentObject(self.loginRouter)
+            .environmentObject(self.router)
         }
     }
 }
