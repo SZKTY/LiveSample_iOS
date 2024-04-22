@@ -14,7 +14,6 @@ import Routing
 @main
 struct LiveSampleApp: App {
     @StateObject var loginRouter = LoginRouter()
-    @StateObject var router = NavigationRouter()
     
     var body: some Scene {
         WindowGroup {
@@ -25,7 +24,6 @@ struct LiveSampleApp: App {
                     }
             )
             .environmentObject(self.loginRouter)
-            .environmentObject(self.router)
         }
     }
 }
