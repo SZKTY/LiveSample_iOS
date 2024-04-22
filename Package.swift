@@ -17,7 +17,8 @@ let packageDependencies: [PackageDependency] = [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: .init(1, 2, 0)),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: .init(1, 1, 0)),
     .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: .init(2, 6, 1)),
-    .package(url: "https://github.com/kean/Nuke.git", from: .init(12, 1, 5))
+    .package(url: "https://github.com/kean/Nuke.git", from: .init(12, 1, 5)),
+    .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1"))
 ]
 
 let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
@@ -28,6 +29,7 @@ let dependencies: TargetDependency = .product(name: "Dependencies", package: "sw
 let dependenciesMacros: TargetDependency = .product(name: "DependenciesMacros", package: "swift-dependencies")
 let cropViewController: TargetDependency = .product(name: "CropViewController", package: "TOCropViewController")
 let nuke: TargetDependency = .product(name: "Nuke", package: "Nuke")
+let alamofire: TargetDependency = .product(name: "Alamofire", package: "Alamofire")
 
 extension Target {
     static func core(name: String, dependencies: [TargetDependency], resources: [Resource]? = nil, plugins: [Target.PluginUsage]? = nil) -> Target {
@@ -79,6 +81,14 @@ let coreTargets: [Target] = [
         composableArchitecture,
         dependencies,
         dependenciesMacros,
+    ])
+]
+
+let dataTargets: [Target] = [
+    .data(name: "API", dependencies: [
+        alamofire,
+        dependencies,
+        dependenciesMacros
     ])
 ]
 
@@ -185,7 +195,7 @@ let sampleTargets: [Target] = [
 ]
 
 // MARK: - Package
-let allTargets = coreTargets + entityTargets + featureTargets + featureStoreTargets + sampleTargets
+let allTargets = coreTargets + dataTargets + entityTargets + featureTargets + featureStoreTargets + sampleTargets
 
 let package = Package(
     name: "LiveSample",

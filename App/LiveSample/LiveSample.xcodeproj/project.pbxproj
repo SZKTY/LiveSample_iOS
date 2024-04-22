@@ -14,6 +14,7 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
+		DF7620492BD681F000C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620482BD681F000C79F36 /* API */; };
 		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
 		DFBD47E32BD3645500508A77 /* AccountId in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E22BD3645500508A77 /* AccountId */; };
 		DFBD47E52BD3645500508A77 /* AccountIdStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E42BD3645500508A77 /* AccountIdStore */; };
@@ -93,6 +94,7 @@
 				DFBD47E92BD3645500508A77 /* AccountNameStore in Frameworks */,
 				DFBD47FD2BD3645600508A77 /* SampleCounter in Frameworks */,
 				DFBD47FF2BD3645600508A77 /* SelectMode in Frameworks */,
+				DF7620492BD681F000C79F36 /* API in Frameworks */,
 				DFBD47F92BD3645600508A77 /* RootStore in Frameworks */,
 				DFBD47ED2BD3645500508A77 /* HomeStore in Frameworks */,
 			);
@@ -243,6 +245,7 @@
 				DFBD48042BD3645600508A77 /* ViewComponents */,
 				DFBD48062BD3645600508A77 /* Welcome */,
 				DFBD48082BD3645600508A77 /* WelcomeStore */,
+				DF7620482BD681F000C79F36 /* API */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -700,6 +703,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DF7620482BD681F000C79F36 /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
 		DFBD47E22BD3645500508A77 /* AccountId */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AccountId;
