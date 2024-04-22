@@ -6,22 +6,31 @@
 //
 
 import Foundation
-import Dependencies
 import ComposableArchitecture
+import User
+import SelectModeStore
 
-public struct ProfileImage: Reducer, Sendable {
+@Reducer
+public struct ProfileImage {
     public struct State: Equatable {
+        @PresentationState public var destination: Path.State?
         @BindingState public var isShownImagePicker: Bool = false
         @BindingState public var isShownSelfImagePicker: Bool = false
         @BindingState public var imageData: Data = Data()
+        @BindingState public var isEnableNextButton: Bool = false
+        public var userRegist: UserRegist
         
-        public init() {}
+        public init(userRegist: UserRegist) {
+            self.userRegist = userRegist
+        }
     }
     
-    public enum Action: BindableAction, Equatable {
+    public enum Action: BindableAction {
         case didTapShowImagePicker
         case didTapShowSelfImagePicker
+        case nextButtonTapped
         case binding(BindingAction<State>)
+        case destination(PresentationAction<Path.Action>)
     }
     
     public init() {}
@@ -35,7 +44,13 @@ public struct ProfileImage: Reducer, Sendable {
             case .didTapShowSelfImagePicker:
                 state.isShownSelfImagePicker.toggle()
                 return .none
+            case .nextButtonTapped:
+                state.userRegist.profileImage = state.imageData
+                state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
+                return .none
             case .binding:
+                return .none
+            case .destination(_):
                 return .none
             }
         }
@@ -44,3 +59,9 @@ public struct ProfileImage: Reducer, Sendable {
     }
 }
 
+extension ProfileImage {
+    @Reducer(state: .equatable)
+    public enum Path {
+        case selectMode(SelectMode)
+    }
+}

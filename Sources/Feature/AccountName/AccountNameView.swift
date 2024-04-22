@@ -12,8 +12,8 @@ import Routing
 
 @MainActor
 public struct AccountNameView: View {
-    @EnvironmentObject var router: NavigationRouter
-    let store: StoreOf<AccountName>
+    @Dependency(\.viewBuildingClient.profileImageView) var profileImageView
+    private let store: StoreOf<AccountName>
     
     public nonisolated init(store: StoreOf<AccountName>) {
         self.store = store
@@ -36,7 +36,7 @@ public struct AccountNameView: View {
                     .cornerRadius(5)
                 
                 Button(action: {
-                    self.router.items.append(.profileImage)
+                    viewStore.send(.nextButtonTapped)
                 }) {
                     Text("次へ")
                         .frame(maxWidth: .infinity, minHeight: 70)
@@ -55,6 +55,12 @@ public struct AccountNameView: View {
                     .edgesIgnoringSafeArea(.all)
             )
             .navigationBarBackButtonHidden(true)
+            .navigationDestination(
+                store: store.scope(state: \.$destination.profileImage,
+                                   action: \.destination.profileImage)
+            ) { store in
+                self.profileImageView(store)
+            }
         }
     }
 }

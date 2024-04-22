@@ -5,16 +5,20 @@
 //  Created by toya.suzuki on 2024/04/01.
 //
 
-import Foundation
-import Dependencies
 import ComposableArchitecture
+import User
 
-public struct SelectMode: Reducer, Sendable {
+@Reducer
+public struct SelectMode {
     public struct State: Equatable {
-        public init() {}
+        public var userRegist: UserRegist
+        
+        public init(userRegist: UserRegist) {
+            self.userRegist = userRegist
+        }
     }
     
-    public enum Action: Equatable {
+    public enum Action {
         case didTapFan
         case didTapMusician
     }
@@ -25,11 +29,13 @@ public struct SelectMode: Reducer, Sendable {
         Reduce { state, action in
             switch action {
             case .didTapFan:
+                state.userRegist.isMusician = false
                 return .none
+                
             case .didTapMusician:
+                state.userRegist.isMusician = true
                 return .none
             }
         }
     }
 }
-

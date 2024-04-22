@@ -5,16 +5,15 @@
 //  Created by toya.suzuki on 2024/04/08.
 //
 
-import Foundation
-import Dependencies
 import ComposableArchitecture
 
-public struct Home: Reducer, Sendable {
+@Reducer
+public struct Home {
     public struct State: Equatable {
         public init() {}
     }
     
-    public enum Action: BindableAction, Equatable {
+    public enum Action: BindableAction {
         case binding(BindingAction<State>)
     }
     

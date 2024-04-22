@@ -12,7 +12,7 @@ import Routing
 
 @MainActor
 public struct AccountIdView: View {
-    @EnvironmentObject var router: NavigationRouter
+    @Dependency(\.viewBuildingClient.accountNameView) var accountNameView
     let store: StoreOf<AccountId>
     
     public nonisolated init(store: StoreOf<AccountId>) {
@@ -36,7 +36,7 @@ public struct AccountIdView: View {
                     .cornerRadius(5)
                 
                 Button(action: {
-                    self.router.items.append(.accountName)
+                    viewStore.send(.nextButtonTapped)
                 }) {
                     Text("次へ")
                         .frame(maxWidth: .infinity, minHeight: 70)
@@ -45,6 +45,7 @@ public struct AccountIdView: View {
                 .accentColor(Color.white)
                 .background(Color.black)
                 .cornerRadius(.infinity)
+                
                 Spacer()
             }
             .padding(.horizontal, 20)
@@ -55,6 +56,12 @@ public struct AccountIdView: View {
                     .edgesIgnoringSafeArea(.all)
             )
             .navigationBarBackButtonHidden(true)
+            .navigationDestination(
+                store: self.store.scope(state: \.$destination.accountName,
+                                        action: \.destination.accountName)
+            ) { store in
+                self.accountNameView(store)
+            }
         }
     }
 }

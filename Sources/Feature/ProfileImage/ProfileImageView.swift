@@ -13,7 +13,7 @@ import Routing
 
 @MainActor
 public struct ProfileImageView: View {
-    @EnvironmentObject var router: NavigationRouter
+    @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
     let store: StoreOf<ProfileImage>
     
     public nonisolated init(store: StoreOf<ProfileImage>) {
@@ -67,7 +67,7 @@ public struct ProfileImageView: View {
                 .padding(.bottom, 10)
                 
                 Button(action: {
-                    self.router.items.append(.selectMode)
+                    store.send(.nextButtonTapped)
                 }) {
                     Text("次へ")
                         .frame(maxWidth: .infinity, minHeight: 70)
@@ -93,6 +93,12 @@ public struct ProfileImageView: View {
                     .edgesIgnoringSafeArea(.all)
             )
             .navigationBarBackButtonHidden(true)
+            .navigationDestination(
+                store: store.scope(state: \.$destination.selectMode,
+                                   action: \.destination.selectMode)
+            ) { store in
+                self.selectModeView(store)
+            }
         }
     }
 }

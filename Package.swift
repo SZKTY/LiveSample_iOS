@@ -75,10 +75,15 @@ let coreTargets: [Target] = [
         "RootStore",
         "SelectModeStore",
         "WelcomeStore",
+        "User",
         composableArchitecture,
         dependencies,
         dependenciesMacros,
     ])
+]
+
+let entityTargets: [Target] = [
+    .entity(name: "User", dependencies: [])
 ]
 
 let featureTargets: [Target] = [
@@ -139,27 +144,36 @@ let featureTargets: [Target] = [
 
 let featureStoreTargets: [Target] = [
     .featureStore(name: "AccountIdStore", dependencies: [
+        "User",
+        "AccountNameStore",
         composableArchitecture
     ]),
     .featureStore(name: "AccountNameStore", dependencies: [
+        "User",
+        "ProfileImageStore",
         composableArchitecture
     ]),
     .featureStore(name: "HomeStore", dependencies: [
         composableArchitecture
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
+        "AccountIdStore",
         composableArchitecture
     ]),
     .featureStore(name: "ProfileImageStore", dependencies: [
+        "User",
+        "SelectModeStore",
         composableArchitecture,
     ]),
     .featureStore(name: "RootStore", dependencies: [
         composableArchitecture
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [
+        "User",
         composableArchitecture
     ]),
     .featureStore(name: "WelcomeStore", dependencies: [
+        "MailAddressPasswordStore",
         composableArchitecture
     ])
 ]
@@ -171,7 +185,7 @@ let sampleTargets: [Target] = [
 ]
 
 // MARK: - Package
-let allTargets = coreTargets + featureTargets + featureStoreTargets + sampleTargets
+let allTargets = coreTargets + entityTargets + featureTargets + featureStoreTargets + sampleTargets
 
 let package = Package(
     name: "LiveSample",

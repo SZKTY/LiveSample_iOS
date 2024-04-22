@@ -12,9 +12,7 @@ import Routing
 
 @MainActor
 public struct SelectModeView: View {
-    @EnvironmentObject var router: NavigationRouter
     @EnvironmentObject var loginRouter: LoginRouter
-    
     let store: StoreOf<SelectMode>
     
     public nonisolated init(store: StoreOf<SelectMode>) {
@@ -32,8 +30,7 @@ public struct SelectModeView: View {
                 
                 Button(action: {
                     self.store.send(.didTapMusician)
-//                    self.loginRouter.isLogin = true
-//                    self.router.items.removeAll()
+                    self.loginRouter.isLogin = true
                 }) {
                     Text("はい")
                         .frame(maxWidth: .infinity, minHeight: 70)
@@ -44,6 +41,7 @@ public struct SelectModeView: View {
                 .cornerRadius(.infinity)
                 
                 Button(action: {
+                    print("check: userRegist AccountName = \(viewStore.userRegist.acountName)")
                     self.store.send(.didTapFan)
                 }) {
                     Text("いいえ")
