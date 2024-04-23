@@ -9,8 +9,7 @@ import ComposableArchitecture
 import Dependencies
 import DependenciesMacros
 import SwiftUI
-import AccountIdStore
-import AccountNameStore
+import AccountIdNameStore
 import HomeStore
 import MailAddressPasswordStore
 import ProfileImageStore
@@ -20,8 +19,7 @@ import WelcomeStore
 @DependencyClient
 public struct ViewBuildingClient {
     // Test でunimplemented()を使用するためデフォルト値が必要なため "= {}"を追加している
-    public var accountIdView: @Sendable (_ store: StoreOf<AccountId>) -> AnyView = { _ in AnyView(EmptyView()) }
-    public var accountNameView: @Sendable (_ store: StoreOf<AccountName>) -> AnyView = { _ in AnyView(EmptyView()) }
+    public var accountIdNameView: @Sendable (_ store: StoreOf<AccountIdName>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var homeView: @Sendable (_ store: StoreOf<Home>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var mailAddressPasswordView: @Sendable (_ store: StoreOf<MailAddressPassword>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var profileImageView: @Sendable (_ store: StoreOf<ProfileImage>) -> AnyView = { _ in AnyView(EmptyView()) }

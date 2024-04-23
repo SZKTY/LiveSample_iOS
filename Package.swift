@@ -69,8 +69,7 @@ extension Target {
 let coreTargets: [Target] = [
     .core(name: "ViewComponents", dependencies: []),
     .core(name: "Routing", dependencies: [
-        "AccountIdStore",
-        "AccountNameStore",
+        "AccountIdNameStore",
         "HomeStore",
         "MailAddressPasswordStore",
         "ProfileImageStore",
@@ -97,14 +96,8 @@ let entityTargets: [Target] = [
 ]
 
 let featureTargets: [Target] = [
-    .feature(name: "AccountId", dependencies: [
-        "AccountIdStore",
-        "Routing",
-        composableArchitecture,
-        dependencies
-    ]),
-    .feature(name: "AccountName", dependencies: [
-        "AccountNameStore",
+    .feature(name: "AccountIdName", dependencies: [
+        "AccountIdNameStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -153,12 +146,8 @@ let featureTargets: [Target] = [
 ]
 
 let featureStoreTargets: [Target] = [
-    .featureStore(name: "AccountIdStore", dependencies: [
-        "User",
-        "AccountNameStore",
-        composableArchitecture
-    ]),
-    .featureStore(name: "AccountNameStore", dependencies: [
+    .featureStore(name: "AccountIdNameStore", dependencies: [
+        "API",
         "User",
         "ProfileImageStore",
         composableArchitecture
@@ -167,10 +156,12 @@ let featureStoreTargets: [Target] = [
         composableArchitecture
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
-        "AccountIdStore",
+        "API",
+        "AccountIdNameStore",
         composableArchitecture
     ]),
     .featureStore(name: "ProfileImageStore", dependencies: [
+        "API",
         "User",
         "SelectModeStore",
         composableArchitecture,
@@ -179,6 +170,7 @@ let featureStoreTargets: [Target] = [
         composableArchitecture
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [
+        "API",
         "User",
         composableArchitecture
     ]),

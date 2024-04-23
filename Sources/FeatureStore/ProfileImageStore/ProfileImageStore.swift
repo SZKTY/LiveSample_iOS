@@ -7,8 +7,9 @@
 
 import Foundation
 import ComposableArchitecture
-import User
 import SelectModeStore
+import User
+import API
 
 @Reducer
 public struct ProfileImage {
@@ -29,11 +30,15 @@ public struct ProfileImage {
         case didTapShowImagePicker
         case didTapShowSelfImagePicker
         case nextButtonTapped
+        case registerProfilePictureResponse(Result<RegisterProfilePictureResponse, Error>)
         case binding(BindingAction<State>)
         case destination(PresentationAction<Path.Action>)
     }
     
     public init() {}
+    
+    // MARK: - Dependencies
+    @Dependency(\.registerProfilePictureClient) var registerProfilePictureClient
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -45,9 +50,20 @@ public struct ProfileImage {
                 state.isShownSelfImagePicker.toggle()
                 return .none
             case .nextButtonTapped:
+                return .run { [data = state.imageData] send in
+                    await send(.registerProfilePictureResponse(Result {
+                        try await registerProfilePictureClient.send(data: data)
+                    }))
+                }
+                
+            case let .registerProfilePictureResponse(.success(response)):
                 state.userRegist.profileImage = state.imageData
                 state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
                 return .none
+                
+            case let .registerProfilePictureResponse(.failure(error)):
+                return .none
+                
             case .binding:
                 return .none
             case .destination(_):

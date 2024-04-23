@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import User
+import API
 
 @Reducer
 public struct SelectMode {
@@ -21,19 +22,36 @@ public struct SelectMode {
     public enum Action {
         case didTapFan
         case didTapMusician
+        case registerAccountTypeResponse(Result<RegisterAccountTypeResponse, Error>)
     }
     
     public init() {}
+    
+    // MARK: - Dependencies
+    @Dependency(\.registerAccountTypeClient) var registerAccountTypeClient
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapFan:
-                state.userRegist.isMusician = false
-                return .none
+                return .run { send in
+                    await send(.registerAccountTypeResponse(Result {
+                        try await registerAccountTypeClient.send(isMusician: false)
+                    }))
+                }
                 
             case .didTapMusician:
                 state.userRegist.isMusician = true
+                return .run { send in
+                    await send(.registerAccountTypeResponse(Result {
+                        try await registerAccountTypeClient.send(isMusician: true)
+                    }))
+                }
+                
+            case let .registerAccountTypeResponse(.success(response)):
+                return .none
+                
+            case let .registerAccountTypeResponse(.failure(error)):
                 return .none
             }
         }

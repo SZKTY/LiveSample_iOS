@@ -25,7 +25,6 @@ public struct ProfileImageView: View {
             VStack(alignment: .leading, spacing: 20) {
                 Text("プロフィール写真を選択してください")
                     .font(.system(size: 20, weight: .black))
-                    .padding(.bottom, 20)
                 
                 HStack {
                     Image(uiImage: UIImage(data: viewStore.imageData) ?? UIImage(named: "noImage")!)

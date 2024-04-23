@@ -9,7 +9,7 @@ import Foundation
 
 public struct UserRegist: Equatable {
     public var accountId: String?
-    public var acountName: String?
+    public var accountName: String?
     public var profileImage: Data?
     public var isMusician: Bool = false
     
@@ -22,7 +22,7 @@ extension UserRegist {
     public static func stub() -> Self {
         var userRegist = Self()
         userRegist.accountId = ""
-        userRegist.acountName = ""
+        userRegist.accountName = ""
         userRegist.profileImage = Data()
         
         return userRegist

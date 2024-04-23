@@ -6,8 +6,7 @@
 //
 
 import ComposableArchitecture
-import AccountId
-import AccountName
+import AccountIdName
 import Home
 import MailAddressPassword
 import ProfileImage
@@ -20,11 +19,8 @@ extension ViewBuildingClient: DependencyKey {
     
     public static var liveValue: ViewBuildingClient {
         return .init(
-            accountIdView: { store in
-                AnyView(AccountIdView(store: store))
-            },
-            accountNameView:  { store in
-                AnyView(AccountNameView(store: store))
+            accountIdNameView: { store in
+                AnyView(AccountIdNameView(store: store))
             },
             homeView:  { store in
                 AnyView(HomeView(store: store))

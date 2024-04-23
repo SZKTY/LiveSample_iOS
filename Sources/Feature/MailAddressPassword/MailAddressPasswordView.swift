@@ -12,7 +12,7 @@ import Routing
 
 @MainActor
 public struct MailAddressPasswordView: View {
-    @Dependency(\.viewBuildingClient.accountIdView) var accountIdView
+    @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
     let store: StoreOf<MailAddressPassword>
     
     public nonisolated init(store: StoreOf<MailAddressPassword>) {
@@ -24,7 +24,6 @@ public struct MailAddressPasswordView: View {
             VStack(alignment: .leading, spacing: 32) {
                 Text("メールアドレスとパスワードを\n入力してください。")
                     .font(.system(size: 20, weight: .black))
-                    .padding(.top, 80)
                 
                 TextField("メールアドレス", text: viewStore.$email)
                     .padding()
@@ -56,6 +55,7 @@ public struct MailAddressPasswordView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
+            .padding(.top, 20)
             .background(
                 Image("mainBackground")
                     .resizable()
@@ -63,10 +63,10 @@ public struct MailAddressPasswordView: View {
                     .edgesIgnoringSafeArea(.all)
             )
             .navigationDestination(
-                store: self.store.scope(state: \.$destination.accountId,
-                                        action: \.destination.accountId)
+                store: self.store.scope(state: \.$destination.accountIdName,
+                                        action: \.destination.accountIdName)
             ) { store in
-                self.accountIdView(store)
+                self.accountIdNameView(store)
             }
         }
     }

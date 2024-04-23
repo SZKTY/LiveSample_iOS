@@ -7,33 +7,47 @@
 
 import SwiftUI
 import ComposableArchitecture
-import AccountNameStore
+import AccountIdNameStore
 import Routing
 
 @MainActor
-public struct AccountNameView: View {
+public struct AccountIdNameView: View {
     @Dependency(\.viewBuildingClient.profileImageView) var profileImageView
-    private let store: StoreOf<AccountName>
+    let store: StoreOf<AccountIdName>
     
-    public nonisolated init(store: StoreOf<AccountName>) {
+    public nonisolated init(store: StoreOf<AccountIdName>) {
         self.store = store
     }
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 30){
-                Text("名前を入力してください。")
+                Text("アカウントIDを入力してください。")
                     .foregroundColor(.white)
                     .font(.system(size: 20, weight: .black))
-                    .padding(.top, 80)
                 
-                TextField("Your name", text: viewStore.$name)
+                TextField("Your Account ID", text: viewStore.$accountId)
                     .padding()
                     .padding(.leading, 15)
                     .font(.system(size: 27, weight: .medium))
                     .foregroundColor(.black)
                     .background(.white)
                     .cornerRadius(5)
+                
+                Text("アカウント名を入力してください。")
+                    .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .black))
+                    .padding(.top, 20)
+                
+                TextField("Your Account Name", text: viewStore.$accountName)
+                    .padding()
+                    .padding(.leading, 15)
+                    .font(.system(size: 27, weight: .medium))
+                    .foregroundColor(.black)
+                    .background(.white)
+                    .cornerRadius(5)
+                
+                Spacer()
                 
                 Button(action: {
                     viewStore.send(.nextButtonTapped)
@@ -45,9 +59,10 @@ public struct AccountNameView: View {
                 .accentColor(Color.white)
                 .background(Color.black)
                 .cornerRadius(.infinity)
-                Spacer()
             }
             .padding(.horizontal, 20)
+            .padding(.top, 40)
+            .padding(.bottom, 80)
             .background(
                 Image("mainBackground")
                     .resizable()
@@ -56,11 +71,12 @@ public struct AccountNameView: View {
             )
             .navigationBarBackButtonHidden(true)
             .navigationDestination(
-                store: store.scope(state: \.$destination.profileImage,
-                                   action: \.destination.profileImage)
+                store: self.store.scope(state: \.$destination.profileImage,
+                                        action: \.destination.profileImage)
             ) { store in
                 self.profileImageView(store)
             }
         }
     }
 }
+

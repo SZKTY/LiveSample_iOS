@@ -14,28 +14,26 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		DF7620492BD681F000C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620482BD681F000C79F36 /* API */; };
+		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
+		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
+		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
+		DF7620D02BD7BE3E00C79F36 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CF2BD7BE3E00C79F36 /* Home */; };
+		DF7620D22BD7BE3E00C79F36 /* HomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D12BD7BE3E00C79F36 /* HomeStore */; };
+		DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */; };
+		DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */; };
+		DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D72BD7BE3E00C79F36 /* ProfileImage */; };
+		DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */; };
+		DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DB2BD7BE3E00C79F36 /* Root */; };
+		DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DD2BD7BE3E00C79F36 /* RootStore */; };
+		DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DF2BD7BE3E00C79F36 /* Routing */; };
+		DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E12BD7BE3E00C79F36 /* SampleCounter */; };
+		DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E32BD7BE3E00C79F36 /* SelectMode */; };
+		DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E52BD7BE3E00C79F36 /* SelectModeStore */; };
+		DF7620E82BD7BE3E00C79F36 /* User in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E72BD7BE3E00C79F36 /* User */; };
+		DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E92BD7BE3E00C79F36 /* ViewComponents */; };
+		DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620EB2BD7BE3E00C79F36 /* Welcome */; };
+		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
 		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
-		DFBD47E32BD3645500508A77 /* AccountId in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E22BD3645500508A77 /* AccountId */; };
-		DFBD47E52BD3645500508A77 /* AccountIdStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E42BD3645500508A77 /* AccountIdStore */; };
-		DFBD47E72BD3645500508A77 /* AccountName in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E62BD3645500508A77 /* AccountName */; };
-		DFBD47E92BD3645500508A77 /* AccountNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47E82BD3645500508A77 /* AccountNameStore */; };
-		DFBD47EB2BD3645500508A77 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47EA2BD3645500508A77 /* Home */; };
-		DFBD47ED2BD3645500508A77 /* HomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47EC2BD3645500508A77 /* HomeStore */; };
-		DFBD47EF2BD3645500508A77 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47EE2BD3645500508A77 /* MailAddressPassword */; };
-		DFBD47F12BD3645600508A77 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47F02BD3645600508A77 /* MailAddressPasswordStore */; };
-		DFBD47F32BD3645600508A77 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47F22BD3645600508A77 /* ProfileImage */; };
-		DFBD47F52BD3645600508A77 /* ProfileImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47F42BD3645600508A77 /* ProfileImageStore */; };
-		DFBD47F72BD3645600508A77 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47F62BD3645600508A77 /* Root */; };
-		DFBD47F92BD3645600508A77 /* RootStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47F82BD3645600508A77 /* RootStore */; };
-		DFBD47FB2BD3645600508A77 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47FA2BD3645600508A77 /* Routing */; };
-		DFBD47FD2BD3645600508A77 /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47FC2BD3645600508A77 /* SampleCounter */; };
-		DFBD47FF2BD3645600508A77 /* SelectMode in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD47FE2BD3645600508A77 /* SelectMode */; };
-		DFBD48012BD3645600508A77 /* SelectModeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD48002BD3645600508A77 /* SelectModeStore */; };
-		DFBD48032BD3645600508A77 /* User in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD48022BD3645600508A77 /* User */; };
-		DFBD48052BD3645600508A77 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD48042BD3645600508A77 /* ViewComponents */; };
-		DFBD48072BD3645600508A77 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD48062BD3645600508A77 /* Welcome */; };
-		DFBD48092BD3645600508A77 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DFBD48082BD3645600508A77 /* WelcomeStore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,27 +74,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFBD48032BD3645600508A77 /* User in Frameworks */,
-				DFBD48052BD3645600508A77 /* ViewComponents in Frameworks */,
-				DFBD47FB2BD3645600508A77 /* Routing in Frameworks */,
-				DFBD48012BD3645600508A77 /* SelectModeStore in Frameworks */,
-				DFBD47E32BD3645500508A77 /* AccountId in Frameworks */,
-				DFBD48092BD3645600508A77 /* WelcomeStore in Frameworks */,
-				DFBD47F12BD3645600508A77 /* MailAddressPasswordStore in Frameworks */,
-				DFBD47E72BD3645500508A77 /* AccountName in Frameworks */,
-				DFBD47F32BD3645600508A77 /* ProfileImage in Frameworks */,
-				DFBD47F52BD3645600508A77 /* ProfileImageStore in Frameworks */,
-				DFBD47E52BD3645500508A77 /* AccountIdStore in Frameworks */,
-				DFBD47F72BD3645600508A77 /* Root in Frameworks */,
-				DFBD47EB2BD3645500508A77 /* Home in Frameworks */,
-				DFBD48072BD3645600508A77 /* Welcome in Frameworks */,
-				DFBD47EF2BD3645500508A77 /* MailAddressPassword in Frameworks */,
-				DFBD47E92BD3645500508A77 /* AccountNameStore in Frameworks */,
-				DFBD47FD2BD3645600508A77 /* SampleCounter in Frameworks */,
-				DFBD47FF2BD3645600508A77 /* SelectMode in Frameworks */,
-				DF7620492BD681F000C79F36 /* API in Frameworks */,
-				DFBD47F92BD3645600508A77 /* RootStore in Frameworks */,
-				DFBD47ED2BD3645500508A77 /* HomeStore in Frameworks */,
+				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
+				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
+				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
+				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
+				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
+				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
+				DF7620D22BD7BE3E00C79F36 /* HomeStore in Frameworks */,
+				DF7620D02BD7BE3E00C79F36 /* Home in Frameworks */,
+				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
+				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
+				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
+				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
+				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
+				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
+				DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */,
+				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
+				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
+				DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */,
+				DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,27 +221,25 @@
 			);
 			name = LiveSample;
 			packageProductDependencies = (
-				DFBD47E22BD3645500508A77 /* AccountId */,
-				DFBD47E42BD3645500508A77 /* AccountIdStore */,
-				DFBD47E62BD3645500508A77 /* AccountName */,
-				DFBD47E82BD3645500508A77 /* AccountNameStore */,
-				DFBD47EA2BD3645500508A77 /* Home */,
-				DFBD47EC2BD3645500508A77 /* HomeStore */,
-				DFBD47EE2BD3645500508A77 /* MailAddressPassword */,
-				DFBD47F02BD3645600508A77 /* MailAddressPasswordStore */,
-				DFBD47F22BD3645600508A77 /* ProfileImage */,
-				DFBD47F42BD3645600508A77 /* ProfileImageStore */,
-				DFBD47F62BD3645600508A77 /* Root */,
-				DFBD47F82BD3645600508A77 /* RootStore */,
-				DFBD47FA2BD3645600508A77 /* Routing */,
-				DFBD47FC2BD3645600508A77 /* SampleCounter */,
-				DFBD47FE2BD3645600508A77 /* SelectMode */,
-				DFBD48002BD3645600508A77 /* SelectModeStore */,
-				DFBD48022BD3645600508A77 /* User */,
-				DFBD48042BD3645600508A77 /* ViewComponents */,
-				DFBD48062BD3645600508A77 /* Welcome */,
-				DFBD48082BD3645600508A77 /* WelcomeStore */,
-				DF7620482BD681F000C79F36 /* API */,
+				DF7620C92BD7BE3E00C79F36 /* AccountIdName */,
+				DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */,
+				DF7620CD2BD7BE3E00C79F36 /* API */,
+				DF7620CF2BD7BE3E00C79F36 /* Home */,
+				DF7620D12BD7BE3E00C79F36 /* HomeStore */,
+				DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */,
+				DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */,
+				DF7620D72BD7BE3E00C79F36 /* ProfileImage */,
+				DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */,
+				DF7620DB2BD7BE3E00C79F36 /* Root */,
+				DF7620DD2BD7BE3E00C79F36 /* RootStore */,
+				DF7620DF2BD7BE3E00C79F36 /* Routing */,
+				DF7620E12BD7BE3E00C79F36 /* SampleCounter */,
+				DF7620E32BD7BE3E00C79F36 /* SelectMode */,
+				DF7620E52BD7BE3E00C79F36 /* SelectModeStore */,
+				DF7620E72BD7BE3E00C79F36 /* User */,
+				DF7620E92BD7BE3E00C79F36 /* ViewComponents */,
+				DF7620EB2BD7BE3E00C79F36 /* Welcome */,
+				DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -703,87 +697,79 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF7620482BD681F000C79F36 /* API */ = {
+		DF7620C92BD7BE3E00C79F36 /* AccountIdName */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountIdName;
+		};
+		DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountIdNameStore;
+		};
+		DF7620CD2BD7BE3E00C79F36 /* API */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = API;
 		};
-		DFBD47E22BD3645500508A77 /* AccountId */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AccountId;
-		};
-		DFBD47E42BD3645500508A77 /* AccountIdStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AccountIdStore;
-		};
-		DFBD47E62BD3645500508A77 /* AccountName */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AccountName;
-		};
-		DFBD47E82BD3645500508A77 /* AccountNameStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AccountNameStore;
-		};
-		DFBD47EA2BD3645500508A77 /* Home */ = {
+		DF7620CF2BD7BE3E00C79F36 /* Home */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Home;
 		};
-		DFBD47EC2BD3645500508A77 /* HomeStore */ = {
+		DF7620D12BD7BE3E00C79F36 /* HomeStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomeStore;
 		};
-		DFBD47EE2BD3645500508A77 /* MailAddressPassword */ = {
+		DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MailAddressPassword;
 		};
-		DFBD47F02BD3645600508A77 /* MailAddressPasswordStore */ = {
+		DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MailAddressPasswordStore;
 		};
-		DFBD47F22BD3645600508A77 /* ProfileImage */ = {
+		DF7620D72BD7BE3E00C79F36 /* ProfileImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ProfileImage;
 		};
-		DFBD47F42BD3645600508A77 /* ProfileImageStore */ = {
+		DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ProfileImageStore;
 		};
-		DFBD47F62BD3645600508A77 /* Root */ = {
+		DF7620DB2BD7BE3E00C79F36 /* Root */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Root;
 		};
-		DFBD47F82BD3645600508A77 /* RootStore */ = {
+		DF7620DD2BD7BE3E00C79F36 /* RootStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RootStore;
 		};
-		DFBD47FA2BD3645600508A77 /* Routing */ = {
+		DF7620DF2BD7BE3E00C79F36 /* Routing */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Routing;
 		};
-		DFBD47FC2BD3645600508A77 /* SampleCounter */ = {
+		DF7620E12BD7BE3E00C79F36 /* SampleCounter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SampleCounter;
 		};
-		DFBD47FE2BD3645600508A77 /* SelectMode */ = {
+		DF7620E32BD7BE3E00C79F36 /* SelectMode */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SelectMode;
 		};
-		DFBD48002BD3645600508A77 /* SelectModeStore */ = {
+		DF7620E52BD7BE3E00C79F36 /* SelectModeStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SelectModeStore;
 		};
-		DFBD48022BD3645600508A77 /* User */ = {
+		DF7620E72BD7BE3E00C79F36 /* User */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = User;
 		};
-		DFBD48042BD3645600508A77 /* ViewComponents */ = {
+		DF7620E92BD7BE3E00C79F36 /* ViewComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewComponents;
 		};
-		DFBD48062BD3645600508A77 /* Welcome */ = {
+		DF7620EB2BD7BE3E00C79F36 /* Welcome */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Welcome;
 		};
-		DFBD48082BD3645600508A77 /* WelcomeStore */ = {
+		DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WelcomeStore;
 		};

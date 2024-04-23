@@ -24,7 +24,6 @@ public struct SelectModeView: View {
             VStack(alignment: .leading, spacing: 20) {
                 Text("アーティストですか")
                     .font(.system(size: 20, weight: .black))
-                    .padding(.bottom, 20)
                 
                 Spacer()
                 
@@ -41,7 +40,7 @@ public struct SelectModeView: View {
                 .cornerRadius(.infinity)
                 
                 Button(action: {
-                    print("check: userRegist AccountName = \(viewStore.userRegist.acountName)")
+                    print("check: userRegist AccountName = \(viewStore.userRegist.accountName)")
                     self.store.send(.didTapFan)
                 }) {
                     Text("いいえ")

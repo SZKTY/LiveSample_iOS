@@ -7,7 +7,8 @@
 
 import Foundation
 import ComposableArchitecture
-import AccountIdStore
+import AccountIdNameStore
+import API
 
 @Reducer
 public struct MailAddressPassword: Sendable {
@@ -21,17 +22,30 @@ public struct MailAddressPassword: Sendable {
     
     public enum Action: BindableAction {
         case nextButtonTapped
+        case issueAccountResponse(Result<IssueAccountResponse, Error>)
         case destination(PresentationAction<Path.Action>)
         case binding(BindingAction<State>)
     }
     
     public init() {}
     
+    // MARK: - Dependencies
+    @Dependency(\.issueAccountClient) var issueAccountClient
+    
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .nextButtonTapped:
-                state.destination = .accountId(AccountId.State())
+                return .run { [email = state.email, password = state.password] send in
+                    await send(.issueAccountResponse(Result {
+                        try await issueAccountClient.send(email: email, password: password)
+                    }))
+                }
+            case let .issueAccountResponse(.success(response)):
+                state.destination = .accountIdName(AccountIdName.State())
+                return .none
+            case let .issueAccountResponse(.failure(error)):
+                // エラーハンドリング
                 return .none
             case .destination:
                 return .none
@@ -54,6 +68,6 @@ public struct MailAddressPassword: Sendable {
 extension MailAddressPassword {
     @Reducer(state: .equatable)
     public enum Path {
-        case accountId(AccountId)
+        case accountIdName(AccountIdName)
     }
 }

@@ -23,60 +23,60 @@ public protocol APIRequest {
 
 // MARK: - extension
 extension APIRequest {
-    var baseURL: URL {
+    public var baseURL: URL {
 //        return URL(string: Constants.Api.baseURL)!
         return URL(string: "")!
     }
     
-    var url: URL {
+    public var url: URL {
         return baseURL.appendingPathComponent(path)
     }
     
-    var parameters: Alamofire.Parameters? {
+    public var parameters: Alamofire.Parameters? {
         return nil
     }
     
-    var headers: Alamofire.HTTPHeaders? {
+    public var headers: Alamofire.HTTPHeaders? {
         return nil
     }
     
-    var timeout: TimeInterval {
+    public var timeout: TimeInterval {
         return 30.0
     }
     
-    var encoding: ParameterEncoding {
+    public var encoding: ParameterEncoding {
         return JSONEncoding.default
     }
 }
 
-protocol GetRequest: APIRequest {}
+public protocol GetRequest: APIRequest {}
 extension GetRequest {
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         return .get
     }
     
-    var encoding: ParameterEncoding {
+    public var encoding: ParameterEncoding {
         return URLEncoding.queryString
     }
 }
 
-protocol PostRequest: APIRequest {}
+public protocol PostRequest: APIRequest {}
 extension PostRequest {
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         return .post
     }
 }
 
-protocol PutRequest: APIRequest {}
+public protocol PutRequest: APIRequest {}
 extension PutRequest {
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         return .put
     }
 }
 
-protocol DeleteRequest: APIRequest {}
+public protocol DeleteRequest: APIRequest {}
 extension DeleteRequest {
-    var method: HTTPMethod {
+    public var method: HTTPMethod {
         return .delete
     }
 }
