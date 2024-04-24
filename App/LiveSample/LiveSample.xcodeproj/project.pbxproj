@@ -14,11 +14,15 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
+		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
+		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
+		DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E9E2BD8ACEA00D92018 /* TopTab */; };
+		DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA02BD8ACEA00D92018 /* TopTabStore */; };
+		DF191EA32BD8EA9100D92018 /* Post in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA22BD8EA9100D92018 /* Post */; };
+		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
 		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
 		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
 		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
-		DF7620D02BD7BE3E00C79F36 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CF2BD7BE3E00C79F36 /* Home */; };
-		DF7620D22BD7BE3E00C79F36 /* HomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D12BD7BE3E00C79F36 /* HomeStore */; };
 		DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */; };
 		DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */; };
 		DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D72BD7BE3E00C79F36 /* ProfileImage */; };
@@ -77,16 +81,20 @@
 			files = (
 				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
+				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
 				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
+				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
 				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
-				DF7620D22BD7BE3E00C79F36 /* HomeStore in Frameworks */,
-				DF7620D02BD7BE3E00C79F36 /* Home in Frameworks */,
+				DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
+				DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */,
+				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
 				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
 				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
+				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
 				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
@@ -226,8 +234,6 @@
 				DF7620C92BD7BE3E00C79F36 /* AccountIdName */,
 				DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */,
 				DF7620CD2BD7BE3E00C79F36 /* API */,
-				DF7620CF2BD7BE3E00C79F36 /* Home */,
-				DF7620D12BD7BE3E00C79F36 /* HomeStore */,
 				DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */,
 				DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */,
 				DF7620D72BD7BE3E00C79F36 /* ProfileImage */,
@@ -243,6 +249,12 @@
 				DF7620EB2BD7BE3E00C79F36 /* Welcome */,
 				DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */,
 				DF7620F22BD8898D00C79F36 /* Validator */,
+				DF191E962BD8AAC500D92018 /* MapStore */,
+				DF191E982BD8AAC500D92018 /* MyPageStore */,
+				DF191E9E2BD8ACEA00D92018 /* TopTab */,
+				DF191EA02BD8ACEA00D92018 /* TopTabStore */,
+				DF191EA22BD8EA9100D92018 /* Post */,
+				DF191EA42BD8EA9100D92018 /* PostStore */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -530,6 +542,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -561,6 +574,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -700,6 +714,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DF191E962BD8AAC500D92018 /* MapStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MapStore;
+		};
+		DF191E982BD8AAC500D92018 /* MyPageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyPageStore;
+		};
+		DF191E9E2BD8ACEA00D92018 /* TopTab */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TopTab;
+		};
+		DF191EA02BD8ACEA00D92018 /* TopTabStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TopTabStore;
+		};
+		DF191EA22BD8EA9100D92018 /* Post */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Post;
+		};
+		DF191EA42BD8EA9100D92018 /* PostStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostStore;
+		};
 		DF7620C92BD7BE3E00C79F36 /* AccountIdName */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AccountIdName;
@@ -711,14 +749,6 @@
 		DF7620CD2BD7BE3E00C79F36 /* API */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = API;
-		};
-		DF7620CF2BD7BE3E00C79F36 /* Home */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Home;
-		};
-		DF7620D12BD7BE3E00C79F36 /* HomeStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HomeStore;
 		};
 		DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */ = {
 			isa = XCSwiftPackageProductDependency;

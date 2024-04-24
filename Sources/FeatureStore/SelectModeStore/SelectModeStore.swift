@@ -75,5 +75,5 @@ public struct SelectMode {
 }
 
 extension NSNotification {
-    static let didFinishRegisterAccountInfo = Notification.Name.init("didFinishRegisterAccountInfo")
+    public static let didFinishRegisterAccountInfo = Notification.Name.init("didFinishRegisterAccountInfo")
 }

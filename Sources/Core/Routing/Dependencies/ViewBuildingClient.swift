@@ -10,7 +10,6 @@ import Dependencies
 import DependenciesMacros
 import SwiftUI
 import AccountIdNameStore
-import HomeStore
 import MailAddressPasswordStore
 import ProfileImageStore
 import SelectModeStore
@@ -20,7 +19,6 @@ import WelcomeStore
 public struct ViewBuildingClient {
     // Test でunimplemented()を使用するためデフォルト値が必要なため "= {}"を追加している
     public var accountIdNameView: @Sendable (_ store: StoreOf<AccountIdName>) -> AnyView = { _ in AnyView(EmptyView()) }
-    public var homeView: @Sendable (_ store: StoreOf<Home>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var mailAddressPasswordView: @Sendable (_ store: StoreOf<MailAddressPassword>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var profileImageView: @Sendable (_ store: StoreOf<ProfileImage>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var selectModeView: @Sendable (_ store: StoreOf<SelectMode>) -> AnyView = { _ in AnyView(EmptyView()) }

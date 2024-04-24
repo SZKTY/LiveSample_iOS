@@ -70,13 +70,14 @@ let coreTargets: [Target] = [
     .core(name: "ViewComponents", dependencies: []),
     .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
-        "AccountIdNameStore",
-        "HomeStore",
-        "MailAddressPasswordStore",
-        "ProfileImageStore",
         "RootStore",
-        "SelectModeStore",
         "WelcomeStore",
+        "MailAddressPasswordStore",
+        "AccountIdNameStore",
+        "ProfileImageStore",
+        "SelectModeStore",
+        "MapStore",
+        "MyPageStore",
         "User",
         composableArchitecture,
         dependencies,
@@ -103,8 +104,12 @@ let featureTargets: [Target] = [
         composableArchitecture,
         dependencies
     ]),
-    .feature(name: "Home", dependencies: [
-        "HomeStore",
+    .feature(name: "TopTab", dependencies: [
+        "TopTabStore",
+        "Map",
+        "MapStore",
+        "MyPage",
+        "MyPageStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -126,8 +131,10 @@ let featureTargets: [Target] = [
         "RootStore",
         "Welcome",
         "WelcomeStore",
-        "Home",
-        "HomeStore",
+        "TopTab",
+        "TopTabStore",
+        "Post",
+        "PostStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -143,6 +150,24 @@ let featureTargets: [Target] = [
         "Routing",
         composableArchitecture,
         dependencies
+    ]),
+    .feature(name: "Map", dependencies: [
+        "MapStore",
+        "Routing",
+        composableArchitecture,
+        dependencies
+    ]),
+    .feature(name: "MyPage", dependencies: [
+        "MyPageStore",
+        "Routing",
+        composableArchitecture,
+        dependencies
+    ]),
+    .feature(name: "Post", dependencies: [
+        "PostStore",
+        "Routing",
+        composableArchitecture,
+        dependencies
     ])
 ]
 
@@ -153,7 +178,7 @@ let featureStoreTargets: [Target] = [
         "ProfileImageStore",
         composableArchitecture
     ]),
-    .featureStore(name: "HomeStore", dependencies: [
+    .featureStore(name: "TopTabStore", dependencies: [
         composableArchitecture
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
@@ -178,6 +203,18 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "WelcomeStore", dependencies: [
         "MailAddressPasswordStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "MapStore", dependencies: [
+        "API",
+        composableArchitecture
+    ]),
+    .featureStore(name: "MyPageStore", dependencies: [
+        "API",
+        composableArchitecture
+    ]),
+    .featureStore(name: "PostStore", dependencies: [
+        "API",
         composableArchitecture
     ])
 ]

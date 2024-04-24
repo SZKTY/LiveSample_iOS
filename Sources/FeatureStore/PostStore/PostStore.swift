@@ -2,13 +2,13 @@
 //  File.swift
 //  
 //
-//  Created by toya.suzuki on 2024/04/08.
+//  Created by toya.suzuki on 2024/04/24.
 //
 
 import ComposableArchitecture
 
 @Reducer
-public struct Home {
+public struct Post {
     public struct State: Equatable {
         public init() {}
     }
@@ -26,6 +26,6 @@ public struct Home {
                 return .none
             }
         }
-        BindingReducer()
     }
 }
+

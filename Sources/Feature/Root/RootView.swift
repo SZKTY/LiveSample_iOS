@@ -11,8 +11,8 @@ import RootStore
 import Welcome
 import WelcomeStore
 import Routing
-import Home
-import HomeStore
+import TopTab
+import TopTabStore
 
 public struct RootView: View {
     @EnvironmentObject var loginRouter: LoginRouter
@@ -25,15 +25,15 @@ public struct RootView: View {
     public var body: some View {
         switch self.loginRouter.isLogin {
             /// ログイン済み
-        case true:
-            HomeView(
+        case false:
+            TopTabView(
                 store: Store(
-                    initialState: Home.State()) {
-                        Home()
+                    initialState: TopTab.State()) {
+                        TopTab()
                     }
             )
             /// 未ログイン
-        case false:
+        case true:
             WelcomeView(
                 store: Store(
                     initialState: Welcome.State()) {
