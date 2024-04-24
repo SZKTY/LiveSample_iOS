@@ -15,6 +15,8 @@ import API
 public struct ProfileImage {
     public struct State: Equatable {
         @PresentationState public var destination: Path.State?
+        @PresentationState public var alert: AlertState<Action.Alert>?
+        
         @BindingState public var isShownImagePicker: Bool = false
         @BindingState public var isShownSelfImagePicker: Bool = false
         @BindingState public var imageData: Data = Data()
@@ -33,6 +35,11 @@ public struct ProfileImage {
         case registerProfilePictureResponse(Result<RegisterProfilePictureResponse, Error>)
         case binding(BindingAction<State>)
         case destination(PresentationAction<Path.Action>)
+        case alert(PresentationAction<Alert>)
+        
+        public enum Alert: Equatable {
+            case failToRegisterProfilePicture
+        }
     }
     
     public init() {}
@@ -62,14 +69,23 @@ public struct ProfileImage {
                 return .none
                 
             case let .registerProfilePictureResponse(.failure(error)):
+                state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
                 
             case .binding:
                 return .none
             case .destination(_):
                 return .none
+                
+            case .alert(.presented(.failToRegisterProfilePicture)):
+                return .none
+                
+            case .alert:
+                return .none
             }
         }
+        .ifLet(\.$destination, action: \.destination)
+        .ifLet(\.$alert, action: \.alert)
         
         BindingReducer()
     }

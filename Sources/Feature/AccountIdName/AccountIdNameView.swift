@@ -76,6 +76,7 @@ public struct AccountIdNameView: View {
             ) { store in
                 self.profileImageView(store)
             }
+            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
         }
     }
 }

@@ -69,6 +69,7 @@ public struct MailAddressPasswordView: View {
             ) { store in
                 self.accountIdNameView(store)
             }
+            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
         }
     }
 }

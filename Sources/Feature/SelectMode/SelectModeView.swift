@@ -29,7 +29,6 @@ public struct SelectModeView: View {
                 
                 Button(action: {
                     self.store.send(.didTapMusician)
-                    self.loginRouter.isLogin = true
                 }) {
                     Text("はい")
                         .frame(maxWidth: .infinity, minHeight: 70)
@@ -40,7 +39,6 @@ public struct SelectModeView: View {
                 .cornerRadius(.infinity)
                 
                 Button(action: {
-                    print("check: userRegist AccountName = \(viewStore.userRegist.accountName)")
                     self.store.send(.didTapFan)
                 }) {
                     Text("いいえ")
@@ -61,6 +59,10 @@ public struct SelectModeView: View {
                     .edgesIgnoringSafeArea(.all)
             )
             .navigationBarBackButtonHidden(true)
+            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in
+                self.loginRouter.isLogin = true
+            }
         }
     }
 }

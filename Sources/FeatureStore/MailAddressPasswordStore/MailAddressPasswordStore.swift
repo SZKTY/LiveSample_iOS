@@ -15,6 +15,8 @@ import Validator
 public struct MailAddressPassword: Sendable {
     public struct State: Equatable {
         @PresentationState public var destination: Path.State?
+        @PresentationState public var alert: AlertState<Action.Alert>?
+        
         @BindingState public var email: String = ""
         @BindingState public var password: String = ""
         @BindingState public var isEnableNextButton: Bool = false
@@ -26,7 +28,12 @@ public struct MailAddressPassword: Sendable {
         case nextButtonTapped
         case issueAccountResponse(Result<IssueAccountResponse, Error>)
         case destination(PresentationAction<Path.Action>)
+        case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
+        
+        public enum Alert: Equatable {
+            case failToIssueAccount
+        }
     }
     
     public init() {}
@@ -48,8 +55,13 @@ public struct MailAddressPassword: Sendable {
                 return .none
             case let .issueAccountResponse(.failure(error)):
                 // エラーハンドリング
+                state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
             case .destination:
+                return .none
+            case .alert(.presented(.failToIssueAccount)):
+                return .none
+            case .alert:
                 return .none
             case .binding(\.$email):
                 state.isEnableNextButton = Validator.isEmail(state.email) && Validator.isPassword(state.password)
@@ -64,6 +76,7 @@ public struct MailAddressPassword: Sendable {
             }
         }
         .ifLet(\.$destination, action: \.destination)
+        .ifLet(\.$alert, action: \.alert)
         
         BindingReducer()
     }

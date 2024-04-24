@@ -98,6 +98,7 @@ public struct ProfileImageView: View {
             ) { store in
                 self.selectModeView(store)
             }
+            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
         }
     }
 }
