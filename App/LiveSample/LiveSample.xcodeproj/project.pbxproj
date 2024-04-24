@@ -33,6 +33,7 @@
 		DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E92BD7BE3E00C79F36 /* ViewComponents */; };
 		DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620EB2BD7BE3E00C79F36 /* Welcome */; };
 		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
+		DF7620F32BD8898D00C79F36 /* Validator in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620F22BD8898D00C79F36 /* Validator */; };
 		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
 				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
+				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
 				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
@@ -240,6 +242,7 @@
 				DF7620E92BD7BE3E00C79F36 /* ViewComponents */,
 				DF7620EB2BD7BE3E00C79F36 /* Welcome */,
 				DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */,
+				DF7620F22BD8898D00C79F36 /* Validator */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -772,6 +775,10 @@
 		DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WelcomeStore;
+		};
+		DF7620F22BD8898D00C79F36 /* Validator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Validator;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

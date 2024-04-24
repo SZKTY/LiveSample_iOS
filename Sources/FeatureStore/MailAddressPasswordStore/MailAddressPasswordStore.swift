@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import AccountIdNameStore
 import API
+import Validator
 
 @Reducer
 public struct MailAddressPassword: Sendable {
@@ -16,6 +17,7 @@ public struct MailAddressPassword: Sendable {
         @PresentationState public var destination: Path.State?
         @BindingState public var email: String = ""
         @BindingState public var password: String = ""
+        @BindingState public var isEnableNextButton: Bool = false
         
         public init() {}
     }
@@ -50,10 +52,12 @@ public struct MailAddressPassword: Sendable {
             case .destination:
                 return .none
             case .binding(\.$email):
-                print("変更:", state.email)
+                state.isEnableNextButton = Validator.isEmail(state.email) && Validator.isPassword(state.password)
+                print("変更:", state.email, "Validator.isEmail(state.email):", Validator.isEmail(state.email))
                 return .none
             case .binding(\.$password):
-                print("変更:", state.password)
+                state.isEnableNextButton = Validator.isEmail(state.email) && Validator.isPassword(state.password)
+                print("変更:", state.password, "Validator.isPassword(state.password):", Validator.isPassword(state.password))
                 return .none
             case .binding:
                 return .none

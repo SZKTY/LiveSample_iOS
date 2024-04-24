@@ -68,6 +68,7 @@ extension Target {
 
 let coreTargets: [Target] = [
     .core(name: "ViewComponents", dependencies: []),
+    .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
         "AccountIdNameStore",
         "HomeStore",
@@ -157,6 +158,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
         "API",
+        "Validator",
         "AccountIdNameStore",
         composableArchitecture
     ]),

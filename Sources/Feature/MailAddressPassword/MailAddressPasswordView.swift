@@ -51,6 +51,7 @@ public struct MailAddressPasswordView: View {
                 .accentColor(Color.white)
                 .background(Color.black)
                 .cornerRadius(.infinity)
+                .disabled(!viewStore.isEnableNextButton)
                 
                 Spacer()
             }
