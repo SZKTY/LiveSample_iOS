@@ -34,8 +34,8 @@ public struct TopTabView: View {
             }
             
             PostView(store: Store(
-                initialState: Post.State()) {
-                    Post()
+                initialState: PostStore.State()) {
+                    PostStore()
                 }
             )
             .tabItem {

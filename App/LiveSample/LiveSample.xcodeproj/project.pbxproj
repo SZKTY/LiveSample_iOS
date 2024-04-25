@@ -194,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				DF8868502BD13ED500A427A2 /* Dependencies */,
-				DF8868512BD13EE300A427A2 /* Environment */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -205,13 +204,6 @@
 				DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */,
 			);
 			path = Dependencies;
-			sourceTree = "<group>";
-		};
-		DF8868512BD13EE300A427A2 /* Environment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Environment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
