@@ -17,8 +17,8 @@ public struct PostStore {
         @BindingState public var freeText: String = ""
         @BindingState public var coordinateX: String = ""
         @BindingState public var coordinateY: String = ""
-        @BindingState public var startDateTime: String = ""
-        @BindingState public var endDateTime: String = ""
+        @BindingState public var startDate: Date = Date()
+        @BindingState public var endDate: Date = Date()
         
         @BindingState public var isEnableCreatePostButton: Bool = false
         public init() {}
