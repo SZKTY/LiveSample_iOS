@@ -7,12 +7,23 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Root
+import RootStore
+import Routing
 
 @main
 struct LiveSampleApp: App {
+    @StateObject var loginRouter = LoginRouter()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(
+                store: Store(
+                    initialState: Root.State()) {
+                        Root()
+                    }
+            )
+            .environmentObject(self.loginRouter)
         }
     }
 }

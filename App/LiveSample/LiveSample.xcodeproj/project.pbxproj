@@ -14,7 +14,31 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */ = {isa = PBXBuildFile; productRef = 56849A6B2B6FD6B0007294F4 /* Sample */; };
+		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
+		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
+		DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E9E2BD8ACEA00D92018 /* TopTab */; };
+		DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA02BD8ACEA00D92018 /* TopTabStore */; };
+		DF191EA32BD8EA9100D92018 /* Post in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA22BD8EA9100D92018 /* Post */; };
+		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
+		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
+		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
+		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
+		DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */; };
+		DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */; };
+		DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D72BD7BE3E00C79F36 /* ProfileImage */; };
+		DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */; };
+		DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DB2BD7BE3E00C79F36 /* Root */; };
+		DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DD2BD7BE3E00C79F36 /* RootStore */; };
+		DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DF2BD7BE3E00C79F36 /* Routing */; };
+		DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E12BD7BE3E00C79F36 /* SampleCounter */; };
+		DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E32BD7BE3E00C79F36 /* SelectMode */; };
+		DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E52BD7BE3E00C79F36 /* SelectModeStore */; };
+		DF7620E82BD7BE3E00C79F36 /* User in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E72BD7BE3E00C79F36 /* User */; };
+		DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E92BD7BE3E00C79F36 /* ViewComponents */; };
+		DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620EB2BD7BE3E00C79F36 /* Welcome */; };
+		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
+		DF7620F32BD8898D00C79F36 /* Validator in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620F22BD8898D00C79F36 /* Validator */; };
+		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +70,8 @@
 		56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITests.swift; sourceTree = "<group>"; };
 		56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		56C954092B6FD31800E0B473 /* LiveSample */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LiveSample; path = ../..; sourceTree = "<group>"; };
+		DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewBuildingClient+Impl.swift"; sourceTree = "<group>"; };
+		DF8868542BD20E2B00A427A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = LiveSample/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +79,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56849A6C2B6FD6B0007294F4 /* Sample in Frameworks */,
+				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
+				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
+				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
+				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
+				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
+				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
+				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
+				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
+				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
+				DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */,
+				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
+				DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */,
+				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
+				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
+				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
+				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
+				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
+				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
+				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
+				DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */,
+				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
+				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
+				DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */,
+				DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +126,7 @@
 		56703F462B6FCA0B00939C0C = {
 			isa = PBXGroup;
 			children = (
+				DF8868542BD20E2B00A427A2 /* Info.plist */,
 				56C954092B6FD31800E0B473 /* LiveSample */,
 				56703F512B6FCA0B00939C0C /* LiveSample */,
 				56703F622B6FCA0D00939C0C /* LiveSampleTests */,
@@ -99,6 +149,7 @@
 		56703F512B6FCA0B00939C0C /* LiveSample */ = {
 			isa = PBXGroup;
 			children = (
+				DF88684F2BD13EC900A427A2 /* Routing */,
 				56703F522B6FCA0B00939C0C /* LiveSampleApp.swift */,
 				56703F542B6FCA0B00939C0C /* ContentView.swift */,
 				56703F562B6FCA0C00939C0C /* Assets.xcassets */,
@@ -139,6 +190,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DF88684F2BD13EC900A427A2 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				DF8868502BD13ED500A427A2 /* Dependencies */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		DF8868502BD13ED500A427A2 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,7 +216,6 @@
 				56703F4B2B6FCA0B00939C0C /* Sources */,
 				56703F4C2B6FCA0B00939C0C /* Frameworks */,
 				56703F4D2B6FCA0B00939C0C /* Resources */,
-				56703F7D2B6FCEFB00939C0C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -157,7 +223,30 @@
 			);
 			name = LiveSample;
 			packageProductDependencies = (
-				56849A6B2B6FD6B0007294F4 /* Sample */,
+				DF7620C92BD7BE3E00C79F36 /* AccountIdName */,
+				DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */,
+				DF7620CD2BD7BE3E00C79F36 /* API */,
+				DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */,
+				DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */,
+				DF7620D72BD7BE3E00C79F36 /* ProfileImage */,
+				DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */,
+				DF7620DB2BD7BE3E00C79F36 /* Root */,
+				DF7620DD2BD7BE3E00C79F36 /* RootStore */,
+				DF7620DF2BD7BE3E00C79F36 /* Routing */,
+				DF7620E12BD7BE3E00C79F36 /* SampleCounter */,
+				DF7620E32BD7BE3E00C79F36 /* SelectMode */,
+				DF7620E52BD7BE3E00C79F36 /* SelectModeStore */,
+				DF7620E72BD7BE3E00C79F36 /* User */,
+				DF7620E92BD7BE3E00C79F36 /* ViewComponents */,
+				DF7620EB2BD7BE3E00C79F36 /* Welcome */,
+				DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */,
+				DF7620F22BD8898D00C79F36 /* Validator */,
+				DF191E962BD8AAC500D92018 /* MapStore */,
+				DF191E982BD8AAC500D92018 /* MyPageStore */,
+				DF191E9E2BD8ACEA00D92018 /* TopTab */,
+				DF191EA02BD8ACEA00D92018 /* TopTabStore */,
+				DF191EA22BD8EA9100D92018 /* Post */,
+				DF191EA42BD8EA9100D92018 /* PostStore */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -270,28 +359,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		56703F7D2B6FCEFB00939C0C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		56703F4B2B6FCA0B00939C0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -299,6 +366,7 @@
 			files = (
 				56703F552B6FCA0B00939C0C /* ContentView.swift in Sources */,
 				56703F532B6FCA0B00939C0C /* LiveSampleApp.swift in Sources */,
+				DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,12 +533,14 @@
 				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,12 +565,14 @@
 				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -634,9 +706,101 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		56849A6B2B6FD6B0007294F4 /* Sample */ = {
+		DF191E962BD8AAC500D92018 /* MapStore */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Sample;
+			productName = MapStore;
+		};
+		DF191E982BD8AAC500D92018 /* MyPageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyPageStore;
+		};
+		DF191E9E2BD8ACEA00D92018 /* TopTab */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TopTab;
+		};
+		DF191EA02BD8ACEA00D92018 /* TopTabStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TopTabStore;
+		};
+		DF191EA22BD8EA9100D92018 /* Post */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Post;
+		};
+		DF191EA42BD8EA9100D92018 /* PostStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostStore;
+		};
+		DF7620C92BD7BE3E00C79F36 /* AccountIdName */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountIdName;
+		};
+		DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccountIdNameStore;
+		};
+		DF7620CD2BD7BE3E00C79F36 /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
+		DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailAddressPassword;
+		};
+		DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailAddressPasswordStore;
+		};
+		DF7620D72BD7BE3E00C79F36 /* ProfileImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProfileImage;
+		};
+		DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProfileImageStore;
+		};
+		DF7620DB2BD7BE3E00C79F36 /* Root */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Root;
+		};
+		DF7620DD2BD7BE3E00C79F36 /* RootStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RootStore;
+		};
+		DF7620DF2BD7BE3E00C79F36 /* Routing */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Routing;
+		};
+		DF7620E12BD7BE3E00C79F36 /* SampleCounter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SampleCounter;
+		};
+		DF7620E32BD7BE3E00C79F36 /* SelectMode */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SelectMode;
+		};
+		DF7620E52BD7BE3E00C79F36 /* SelectModeStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SelectModeStore;
+		};
+		DF7620E72BD7BE3E00C79F36 /* User */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = User;
+		};
+		DF7620E92BD7BE3E00C79F36 /* ViewComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewComponents;
+		};
+		DF7620EB2BD7BE3E00C79F36 /* Welcome */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Welcome;
+		};
+		DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WelcomeStore;
+		};
+		DF7620F22BD8898D00C79F36 /* Validator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Validator;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
