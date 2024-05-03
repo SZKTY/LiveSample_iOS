@@ -23,23 +23,29 @@ public struct RootView: View {
     }
     
     public var body: some View {
-        switch self.loginRouter.isLogin {
-            /// ログイン済み
-        case false:
-            TopTabView(
-                store: Store(
-                    initialState: TopTab.State()) {
-                        TopTab()
-                    }
-            )
-            /// 未ログイン
-        case true:
-            WelcomeView(
-                store: Store(
-                    initialState: Welcome.State()) {
-                        Welcome()
-                    }
-            )
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            switch self.loginRouter.isLogin {
+                /// ログイン済み
+            case false:
+                TopTabView(
+                    store: Store(
+                        initialState: TopTab.State()) {
+                            TopTab()
+                        }
+                )
+                /// 未ログイン
+            case true:
+                WelcomeView(
+                    store: Store(
+                        initialState: Welcome.State()) {
+                            Welcome()
+                        }
+                )
+            }
+        }
+        .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+        .task {
+            await store.send(.task).finish()
         }
     }
 }

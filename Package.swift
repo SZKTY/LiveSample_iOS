@@ -23,6 +23,7 @@ let packageDependencies: [PackageDependency] = [
 
 let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
 let analytics: TargetDependency = .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
+let remoteConfig: TargetDependency = .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk")
 let popupView: TargetDependency = .product(name: "PopupView", package: "PopupView")
 let composableArchitecture: TargetDependency = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
 let dependencies: TargetDependency = .product(name: "Dependencies", package: "swift-dependencies")
@@ -87,14 +88,17 @@ let coreTargets: [Target] = [
 
 let dataTargets: [Target] = [
     .data(name: "API", dependencies: [
+        "Config",
         alamofire,
+        remoteConfig,
         dependencies,
         dependenciesMacros
     ])
 ]
 
 let entityTargets: [Target] = [
-    .entity(name: "User", dependencies: [])
+    .entity(name: "User", dependencies: []),
+    .entity(name: "Config", dependencies: [])
 ]
 
 let featureTargets: [Target] = [
@@ -195,6 +199,7 @@ let featureStoreTargets: [Target] = [
         composableArchitecture,
     ]),
     .featureStore(name: "RootStore", dependencies: [
+        "API",
         composableArchitecture
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [
