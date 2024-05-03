@@ -110,6 +110,8 @@ let featureTargets: [Target] = [
         "MapStore",
         "MyPage",
         "MyPageStore",
+        "Post",
+        "PostStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -134,8 +136,6 @@ let featureTargets: [Target] = [
         "WelcomeStore",
         "TopTab",
         "TopTabStore",
-        "Post",
-        "PostStore",
         "Routing",
         composableArchitecture,
         dependencies
