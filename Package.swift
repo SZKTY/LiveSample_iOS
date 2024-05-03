@@ -200,6 +200,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "RootStore", dependencies: [
         "API",
+        "Config",
         composableArchitecture
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [

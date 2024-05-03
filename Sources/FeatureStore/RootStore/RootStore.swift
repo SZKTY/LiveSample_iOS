@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import API
+import Config
 
 @Reducer
 public struct Root {
@@ -19,7 +20,7 @@ public struct Root {
     
     public enum Action {
         case task
-        case listenRemoteConfigResponse(TaskResult<String?>)
+        case listenRemoteConfigResponse(TaskResult<Config?>)
         case alert(PresentationAction<Alert>)
         
         public enum Alert: Equatable {
@@ -45,9 +46,10 @@ public struct Root {
                     await send(.listenRemoteConfigResponse(.failure(error)))
                 }
                 
-            case let .listenRemoteConfigResponse(.success(text)):
-                print("check: config version = \(text)")
-                state.alert = AlertState(title: TextState(text ?? "nil"))
+            case let .listenRemoteConfigResponse(.success(config)):
+                if let config = config {
+                    state.alert = AlertState(title: TextState("\(config.requiredVersion ?? 0)"))
+                }
                 return .none
                 
             case let .listenRemoteConfigResponse(.failure(error)):
