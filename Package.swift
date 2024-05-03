@@ -128,6 +128,7 @@ let featureTargets: [Target] = [
         dependencies
     ]),
     .feature(name: "Root", dependencies: [
+        analytics,
         "RootStore",
         "Welcome",
         "WelcomeStore",

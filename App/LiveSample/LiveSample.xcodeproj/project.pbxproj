@@ -20,6 +20,7 @@
 		DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA02BD8ACEA00D92018 /* TopTabStore */; };
 		DF191EA32BD8EA9100D92018 /* Post in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA22BD8EA9100D92018 /* Post */; };
 		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
+		DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */; };
 		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
 		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
 		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
@@ -70,6 +71,7 @@
 		56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITests.swift; sourceTree = "<group>"; };
 		56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		56C954092B6FD31800E0B473 /* LiveSample */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LiveSample; path = ../..; sourceTree = "<group>"; };
+		DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewBuildingClient+Impl.swift"; sourceTree = "<group>"; };
 		DF8868542BD20E2B00A427A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = LiveSample/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +151,7 @@
 		56703F512B6FCA0B00939C0C /* LiveSample */ = {
 			isa = PBXGroup;
 			children = (
+				DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */,
 				DF88684F2BD13EC900A427A2 /* Routing */,
 				56703F522B6FCA0B00939C0C /* LiveSampleApp.swift */,
 				56703F542B6FCA0B00939C0C /* ContentView.swift */,
@@ -339,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56703F5A2B6FCA0C00939C0C /* Preview Assets.xcassets in Resources */,
+				DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */,
 				56703F572B6FCA0C00939C0C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,8 +534,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
-				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
@@ -562,8 +567,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
-				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
