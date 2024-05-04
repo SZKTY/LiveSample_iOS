@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import ComposableArchitecture
 import FirebaseRemoteConfig
+import Dependencies
+import DependenciesMacros
 import Config
 
 public struct RemoteConfigClient: Sendable {
