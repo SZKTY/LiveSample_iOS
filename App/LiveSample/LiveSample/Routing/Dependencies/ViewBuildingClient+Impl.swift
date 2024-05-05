@@ -12,6 +12,9 @@ import ProfileImage
 import SelectMode
 import Welcome
 import Routing
+import Map
+import MyPage
+import Post
 import SwiftUI
 
 extension ViewBuildingClient: DependencyKey {
@@ -21,17 +24,26 @@ extension ViewBuildingClient: DependencyKey {
             accountIdNameView: { store in
                 AnyView(AccountIdNameView(store: store))
             },
-            mailAddressPasswordView:  { store in
+            mailAddressPasswordView: { store in
                 AnyView(MailAddressPasswordView(store: store))
             },
-            profileImageView:  { store in
+            profileImageView: { store in
                 AnyView(ProfileImageView(store: store))
             },
-            selectModeView:  { store in
+            selectModeView: { store in
                 AnyView(SelectModeView(store: store))
             },
-            welcomeView:  { store in
+            welcomeView: { store in
                 AnyView(WelcomeView(store: store))
+            },
+            mapView: { store in
+                AnyView(MapView(store: store))
+            },
+            myPageView: { store in
+                AnyView(MyPageView(store: store))
+            },
+            postView: { store in
+                AnyView(PostView(store: store))
             }
         )
     }

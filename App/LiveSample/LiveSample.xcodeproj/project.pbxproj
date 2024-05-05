@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		562CE10A2BE5DA0D00EDBD53 /* Location in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE1092BE5DA0D00EDBD53 /* Location */; };
+		562CE10C2BE6378C00EDBD53 /* Map in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE10B2BE6378C00EDBD53 /* Map */; };
+		562CE10E2BE6379500EDBD53 /* MyPage in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE10D2BE6379500EDBD53 /* MyPage */; };
 		56703F532B6FCA0B00939C0C /* LiveSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F522B6FCA0B00939C0C /* LiveSampleApp.swift */; };
 		56703F552B6FCA0B00939C0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F542B6FCA0B00939C0C /* ContentView.swift */; };
 		56703F572B6FCA0C00939C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56703F562B6FCA0C00939C0C /* Assets.xcassets */; };
@@ -100,10 +103,13 @@
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
 				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
+				562CE10A2BE5DA0D00EDBD53 /* Location in Frameworks */,
 				DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */,
 				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
 				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
+				562CE10C2BE6378C00EDBD53 /* Map in Frameworks */,
 				DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */,
+				562CE10E2BE6379500EDBD53 /* MyPage in Frameworks */,
 				DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +256,9 @@
 				DF191EA02BD8ACEA00D92018 /* TopTabStore */,
 				DF191EA22BD8EA9100D92018 /* Post */,
 				DF191EA42BD8EA9100D92018 /* PostStore */,
+				562CE1092BE5DA0D00EDBD53 /* Location */,
+				562CE10B2BE6378C00EDBD53 /* Map */,
+				562CE10D2BE6379500EDBD53 /* MyPage */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -539,12 +548,13 @@
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -572,12 +582,13 @@
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,6 +723,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		562CE1092BE5DA0D00EDBD53 /* Location */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Location;
+		};
+		562CE10B2BE6378C00EDBD53 /* Map */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Map;
+		};
+		562CE10D2BE6379500EDBD53 /* MyPage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyPage;
+		};
 		DF191E962BD8AAC500D92018 /* MapStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MapStore;

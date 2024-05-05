@@ -12,7 +12,7 @@ import MyPageStore
 public struct MyPageView: View {
     let store: StoreOf<MyPage>
     
-    public init(store: StoreOf<MyPage>) {
+    public nonisolated init(store: StoreOf<MyPage>) {
         self.store = store
     }
     

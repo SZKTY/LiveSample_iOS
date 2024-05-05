@@ -68,7 +68,10 @@ extension Target {
 }
 
 let coreTargets: [Target] = [
-    .core(name: "ViewComponents", dependencies: []),
+    .core(name: "Location", dependencies: []),
+    .core(name: "ViewComponents", dependencies: [
+        "Location"
+    ]),
     .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
         "RootStore",
@@ -80,6 +83,7 @@ let coreTargets: [Target] = [
         "MapStore",
         "MyPageStore",
         "User",
+        "PostStore",
         composableArchitecture,
         dependencies,
         dependenciesMacros,
@@ -114,8 +118,6 @@ let featureTargets: [Target] = [
         "MapStore",
         "MyPage",
         "MyPageStore",
-        "Post",
-        "PostStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -157,8 +159,10 @@ let featureTargets: [Target] = [
         dependencies
     ]),
     .feature(name: "Map", dependencies: [
+        "Location",
         "MapStore",
         "Routing",
+        "ViewComponents",
         composableArchitecture,
         dependencies
     ]),
@@ -214,6 +218,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "MapStore", dependencies: [
         "API",
+        "PostStore",
         composableArchitecture
     ]),
     .featureStore(name: "MyPageStore", dependencies: [
