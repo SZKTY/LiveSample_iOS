@@ -30,8 +30,8 @@ public struct MapView: View {
                         .setCallback(didLongPress: {
                             // do nothing
                             print("check: didLongPress")
-                        }, didChangeCenterRegion: { location in
-                            viewStore.send(.centerRegionChanged(region: location))
+                        }, didChangeCenterRegion: { region in
+                            viewStore.send(.centerRegionChanged(region: region))
                         })
                     
                     // 投稿作成ボタン

@@ -38,7 +38,9 @@ public struct MapStore {
                 }
                 return .none
             case let .centerRegionChanged(region):
-                state.centerRegion = region
+                if state.isSelectPlaceMode {
+                    state.centerRegion = region
+                }
                 return .none
             case .cancelButtonTappedInSelectPlaceMode:
                 if state.isSelectPlaceMode == true {
