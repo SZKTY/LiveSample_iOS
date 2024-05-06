@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 import PostStore
-import CoreLocation
+import MapKit
 
 @Reducer
 public struct MapStore {
@@ -48,7 +48,10 @@ public struct MapStore {
                 }
                 return .none
             case .confirmButtonTappedInSelectPlaceMode:
-                state.destination = .post(PostStore.State())
+                if let center = state.centerRegion {
+                    state.destination = .post(PostStore.State(center: center))
+                    state.isSelectPlaceMode = false
+                }
                 return .none
             case .destination(_):
                 return .none
@@ -66,11 +69,5 @@ extension MapStore {
     @Reducer(state: .equatable)
     public enum Path {
         case post(PostStore)
-    }
-}
-
-extension CLLocationCoordinate2D: Equatable {
-    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 }

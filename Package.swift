@@ -84,6 +84,7 @@ let coreTargets: [Target] = [
         "MyPageStore",
         "User",
         "PostStore",
+        "MapWithCrossStore",
         composableArchitecture,
         dependencies,
         dependenciesMacros,
@@ -175,6 +176,14 @@ let featureTargets: [Target] = [
     .feature(name: "Post", dependencies: [
         "PostStore",
         "Routing",
+        "ViewComponents",
+        composableArchitecture,
+        dependencies
+    ]),
+    .feature(name: "MapWithCross", dependencies: [
+        "MapWithCrossStore",
+        "Routing",
+        "ViewComponents",
         composableArchitecture,
         dependencies
     ])
@@ -227,6 +236,10 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "PostStore", dependencies: [
         "API",
+        "MapWithCrossStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "MapWithCrossStore", dependencies: [
         composableArchitecture
     ])
 ]

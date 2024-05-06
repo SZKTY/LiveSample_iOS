@@ -13,18 +13,30 @@ public struct MapViewComponent: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
     private var didLongPressCallback: (() -> Void)?
     private var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
-    private let mapView = MKMapView()
     private var isFirst: Bool = true
+    private var region: MKCoordinateRegion?
     
-    public init() {}
+    public init(region: MKCoordinateRegion? = nil) {
+        if region != nil {
+            self.region = region
+            self.isFirst = false
+        }
+    }
     
     // 初期化
     public func makeUIView(context: Context) -> MKMapView {
-        self.mapView.delegate = context.coordinator
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        
+        if let region = self.region {
+            mapView.setRegion(region, animated: false)
+        }
+        
         let longPressed = UILongPressGestureRecognizer(target: context.coordinator,
                                                        action: #selector(context.coordinator.didLongPress(_:)))
-        self.mapView.addGestureRecognizer(longPressed)
-        return self.mapView
+        mapView.addGestureRecognizer(longPressed)
+        
+        return mapView
     }
     
     // 更新時
@@ -33,9 +45,9 @@ public struct MapViewComponent: UIViewRepresentable {
         context.coordinator.didChangeCenterRegionCallback = self.didChangeCenterRegionCallback
         
         // 位置の設定は初回のみ
-        if let center = self.manager.region, context.coordinator.isFirst {
+        if let region = self.manager.region, context.coordinator.isFirst, self.region == nil {
             context.coordinator.isFirst = false
-            uiView.setRegion(center, animated: false)
+            uiView.setRegion(region, animated: false)
         }
     }
     
