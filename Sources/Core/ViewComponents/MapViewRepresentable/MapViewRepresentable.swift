@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 import Location
 
-public struct MapViewComponent: UIViewRepresentable {
+public struct MapViewRepresentable: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
     private var didLongPressCallback: (() -> Void)?
     private var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
@@ -72,11 +72,11 @@ public struct MapViewComponent: UIViewRepresentable {
         var didLongPressCallback: (() -> Void)?
         var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
         
-        init(_ parent: MapViewComponent) {
+        init(_ parent: MapViewRepresentable) {
             self.parent = parent
         }
         
-        private var parent: MapViewComponent
+        private var parent: MapViewRepresentable
         var isFirst: Bool = true
         
         // 中心の座標を取得

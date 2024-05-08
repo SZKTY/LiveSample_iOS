@@ -27,7 +27,7 @@ public struct MapView: View {
                 GeometryReader { geometry in
                     ZStack {
                         // マップ表示
-                        MapViewComponent()
+                        MapViewRepresentable()
                             .setCallback(didLongPress: {
                                 // do nothing
                                 print("check: didLongPress")

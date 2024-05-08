@@ -23,7 +23,7 @@ public struct MapWithCrossView: View {
             GeometryReader { geometry in
                 ZStack {
                     // マップ表示
-                    MapViewComponent(
+                    MapViewRepresentable(
                         region: MKCoordinateRegion(
                             center: viewStore.center,
                             latitudinalMeters: 1000.0,

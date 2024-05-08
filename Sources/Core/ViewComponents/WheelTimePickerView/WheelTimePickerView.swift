@@ -23,6 +23,7 @@ public struct WheelTimePickerView: UIViewRepresentable {
 
         picker.preferredDatePickerStyle = .wheels
         picker.datePickerMode = .time
+        picker.minuteInterval = 5
 
         picker.addTarget(context.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
 
