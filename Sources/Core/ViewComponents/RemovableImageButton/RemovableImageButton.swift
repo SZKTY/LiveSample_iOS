@@ -25,6 +25,7 @@ public struct RemovableImageButton: View {
             }) {
                 Image(uiImage: UIImage(data: image) ?? UIImage(named: "noImage")!)
                     .resizable()
+                    .aspectRatio(contentMode: .fit)
             }
             .frame(width: 80, height: 80)
             

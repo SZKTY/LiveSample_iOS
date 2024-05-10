@@ -24,32 +24,33 @@ public struct MapView: View {
     public var body: some View {
         NavigationStack {
             WithViewStore(self.store, observe: { $0 }) { viewStore in
-                ZStack {
-                    // マップ表示
-                    MapViewComponent()
-                        .setCallback(didLongPress: {
-                            // do nothing
-                            print("check: didLongPress")
-                        }, didChangeCenterRegion: { region in
-                            viewStore.send(.centerRegionChanged(region: region))
+                GeometryReader { geometry in
+                    ZStack {
+                        // マップ表示
+                        MapViewRepresentable()
+                            .setCallback(didLongPress: {
+                                // do nothing
+                                print("check: didLongPress")
+                            }, didChangeCenterRegion: { region in
+                                viewStore.send(.centerRegionChanged(region: region))
+                            })
+                        
+                        // 投稿作成ボタン
+                        FloatingButton {
+                            viewStore.send(.floatingButtonTapped)
+                        }
+                        .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
+                        
+                        // 場所選択モード
+                        SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
+                            viewStore.send(.confirmButtonTappedInSelectPlaceMode)
+                        }, cancelAction: {
+                            viewStore.send(.cancelButtonTappedInSelectPlaceMode)
                         })
-                    
-                    // 投稿作成ボタン
-                    FloatingButton {
-                        viewStore.send(.floatingButtonTapped)
+                        .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
                     }
-                    .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
-                    
-                    // 場所選択モード
-                    SelectPLaceModeView {
-                        viewStore.send(.confirmButtonTappedInSelectPlaceMode)
-                    } cancelAction: {
-                        viewStore.send(.cancelButtonTappedInSelectPlaceMode)
-                    }
-                    .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
-                    
+                    .edgesIgnoringSafeArea(.top)
                 }
-                .edgesIgnoringSafeArea(.top)
             }
             .navigationDestination(
                 store: store.scope(state: \.$destination.post,

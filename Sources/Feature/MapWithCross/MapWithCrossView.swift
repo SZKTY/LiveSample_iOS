@@ -20,31 +20,33 @@ public struct MapWithCrossView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ZStack {
-                // マップ表示
-                MapViewComponent(
-                    region: MKCoordinateRegion(
-                        center: viewStore.center,
-                        latitudinalMeters: 1000.0,
-                        longitudinalMeters: 1000.0
+            GeometryReader { geometry in
+                ZStack {
+                    // マップ表示
+                    MapViewRepresentable(
+                        region: MKCoordinateRegion(
+                            center: viewStore.center,
+                            latitudinalMeters: 1000.0,
+                            longitudinalMeters: 1000.0
+                        )
                     )
-                )
-                .setCallback(didLongPress: {
-                    // do nothing
-                    print("check: didLongPress")
-                }, didChangeCenterRegion: { center in
-                    viewStore.send(.centerRegionChanged(location: center))
-                })
-                
-                // 場所選択モード
-                SelectPLaceModeView {
-                    viewStore.send(.determineButtonTapped)
-                } cancelAction: {
-                    viewStore.send(.cancelButtonTapped)
+                    .setCallback(didLongPress: {
+                        // do nothing
+                        print("check: didLongPress")
+                    }, didChangeCenterRegion: { center in
+                        viewStore.send(.centerRegionChanged(location: center))
+                    })
+                    
+                    // 場所選択モード
+                    SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
+                        viewStore.send(.determineButtonTapped)
+                    }, cancelAction: {
+                        viewStore.send(.cancelButtonTapped)
+                    })
                 }
+                .edgesIgnoringSafeArea(.top)
+                .navigationBarBackButtonHidden()
             }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarBackButtonHidden()
         }
     }
 }
