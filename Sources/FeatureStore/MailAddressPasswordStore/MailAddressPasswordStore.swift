@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import AccountIdNameStore
 import API
+import UserDefaults
 import Validator
 
 @Reducer
@@ -40,6 +41,7 @@ public struct MailAddressPassword: Sendable {
     
     // MARK: - Dependencies
     @Dependency(\.issueAccountClient) var issueAccountClient
+    @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -51,9 +53,13 @@ public struct MailAddressPassword: Sendable {
                     }))
                 }
             case let .issueAccountResponse(.success(response)):
+                print("check: SUCCESS")
                 state.destination = .accountIdName(AccountIdName.State())
-                return .none
+                return .run { send in
+                    await self.userDefaults.setSessionId(response.sessionId)
+                }
             case let .issueAccountResponse(.failure(error)):
+                print("check: FAIL")
                 // エラーハンドリング
                 state.alert = AlertState(title: TextState("登録失敗"))
                 return .none

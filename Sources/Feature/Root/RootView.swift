@@ -26,7 +26,7 @@ public struct RootView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             switch self.loginRouter.isLogin {
                 /// ログイン済み
-            case false:
+            case true:
                 TopTabView(
                     store: Store(
                         initialState: TopTab.State()) {
@@ -34,7 +34,7 @@ public struct RootView: View {
                         }
                 )
                 /// 未ログイン
-            case true:
+            case false:
                 WelcomeView(
                     store: Store(
                         initialState: Welcome.State()) {

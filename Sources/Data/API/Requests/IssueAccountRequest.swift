@@ -9,18 +9,22 @@ import Foundation
 import Alamofire
 
 /// アカウント発行
-public struct IssueAccountRequest: PutRequest {
+public struct IssueAccountRequest: PostRequest {
     public typealias Response = IssueAccountResponse
     
     public var path: String {
-        return ""
+        return "/users/account"
     }
     
     public var headers: HTTPHeaders?
     public var parameters: Parameters?
     
     public init(email: String, password: String) {
-        parameters = [
+        self.headers = [
+            "Content-Type": "application/json"
+        ]
+        
+        self.parameters = [
             "email": email,
             "password": password
         ]
@@ -28,5 +32,6 @@ public struct IssueAccountRequest: PutRequest {
 }
 
 public struct IssueAccountResponse: Decodable {
-    
+    public var userId: Int
+    public var sessionId: String
 }

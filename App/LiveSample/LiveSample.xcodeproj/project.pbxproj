@@ -12,6 +12,8 @@
 		562CE10E2BE6379500EDBD53 /* MyPage in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE10D2BE6379500EDBD53 /* MyPage */; };
 		562CE1102BE8974B00EDBD53 /* MapWithCross in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE10F2BE8974B00EDBD53 /* MapWithCross */; };
 		562CE1122BE8974B00EDBD53 /* MapWithCrossStore in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE1112BE8974B00EDBD53 /* MapWithCrossStore */; };
+		562CE1142BEEFBB300EDBD53 /* PostEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE1132BEEFBB300EDBD53 /* PostEntity */; };
+		562CE1162BEF60CD00EDBD53 /* UserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = 562CE1152BEF60CD00EDBD53 /* UserDefaults */; };
 		56703F532B6FCA0B00939C0C /* LiveSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F522B6FCA0B00939C0C /* LiveSampleApp.swift */; };
 		56703F552B6FCA0B00939C0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F542B6FCA0B00939C0C /* ContentView.swift */; };
 		56703F572B6FCA0C00939C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56703F562B6FCA0C00939C0C /* Assets.xcassets */; };
@@ -91,6 +93,7 @@
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
 				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
 				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
+				562CE1162BEF60CD00EDBD53 /* UserDefaults in Frameworks */,
 				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
 				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
@@ -105,6 +108,7 @@
 				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
+				562CE1142BEEFBB300EDBD53 /* PostEntity in Frameworks */,
 				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
 				562CE10A2BE5DA0D00EDBD53 /* Location in Frameworks */,
 				562CE1102BE8974B00EDBD53 /* MapWithCross in Frameworks */,
@@ -265,6 +269,8 @@
 				562CE10D2BE6379500EDBD53 /* MyPage */,
 				562CE10F2BE8974B00EDBD53 /* MapWithCross */,
 				562CE1112BE8974B00EDBD53 /* MapWithCrossStore */,
+				562CE1132BEEFBB300EDBD53 /* PostEntity */,
+				562CE1152BEF60CD00EDBD53 /* UserDefaults */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -748,6 +754,14 @@
 		562CE1112BE8974B00EDBD53 /* MapWithCrossStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MapWithCrossStore;
+		};
+		562CE1132BEEFBB300EDBD53 /* PostEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostEntity;
+		};
+		562CE1152BEF60CD00EDBD53 /* UserDefaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserDefaults;
 		};
 		DF191E962BD8AAC500D92018 /* MapStore */ = {
 			isa = XCSwiftPackageProductDependency;

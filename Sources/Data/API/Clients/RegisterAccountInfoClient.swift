@@ -11,7 +11,7 @@ import DependenciesMacros
 
 @DependencyClient
 public struct RegisterAccountInfoClient: Sendable {
-    public var send: @Sendable (_ accountId: String, _ accountName: String) async throws -> RegisterAccountInfoResponse
+    public var send: @Sendable (_ sessionId: String, _ accountId: String, _ accountName: String) async throws -> RegisterAccountInfoResponse
 }
 
 extension RegisterAccountInfoClient: TestDependencyKey {
@@ -31,10 +31,10 @@ extension RegisterAccountInfoClient: DependencyKey {
     
     static func request() -> Self {
         .init(
-            send: { accountId, accountName in
+            send: { sessionId, accountId, accountName in
                 try await APIClient.send(
                     RegisterAccountInfoRequest(accountId: accountId, accountName: accountName),
-                    withAuth: false
+                    with: sessionId
                 )
             }
         )

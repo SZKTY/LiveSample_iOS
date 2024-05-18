@@ -34,7 +34,7 @@ extension IssueAccountClient: DependencyKey {
             send: { email, password in
                 try await APIClient.send(
                     IssueAccountRequest(email: email, password: password),
-                    withAuth: false
+                    with: ""
                 )
             }
         )

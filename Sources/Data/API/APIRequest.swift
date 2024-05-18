@@ -24,8 +24,7 @@ public protocol APIRequest {
 // MARK: - extension
 extension APIRequest {
     public var baseURL: URL {
-//        return URL(string: Constants.Api.baseURL)!
-        return URL(string: "")!
+        return URL(string: "http://localhost:8080")!
     }
     
     public var url: URL {

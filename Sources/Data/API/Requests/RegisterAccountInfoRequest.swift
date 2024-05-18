@@ -9,11 +9,11 @@ import Foundation
 import Alamofire
 
 /// アカウント情報登録
-public struct RegisterAccountInfoRequest: PutRequest {
+public struct RegisterAccountInfoRequest: PostRequest {
     public typealias Response = RegisterAccountInfoResponse
     
     public var path: String {
-        return ""
+        return "/users/account/info"
     }
     
     public var headers: HTTPHeaders?
@@ -28,6 +28,5 @@ public struct RegisterAccountInfoRequest: PutRequest {
 }
 
 public struct RegisterAccountInfoResponse: Decodable {
-    
 }
 

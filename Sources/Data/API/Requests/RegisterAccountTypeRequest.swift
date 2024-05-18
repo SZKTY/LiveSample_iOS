@@ -8,24 +8,23 @@
 import Foundation
 import Alamofire
 
-/// プロフィール写真登録
-public struct RegisterAccountTypeRequest: PutRequest {
+/// ユーザーアカウント種別登録
+public struct RegisterAccountTypeRequest: PostRequest {
     public typealias Response = RegisterAccountTypeResponse
     
     public var path: String {
-        return ""
+        return "/users/account/type"
     }
     
     public var headers: HTTPHeaders?
     public var parameters: Parameters?
     
-    public init(isMusician: Bool) {
+    public init(accountType: String) {
         parameters = [
-            "isMusician": isMusician
+            "account_type": accountType
         ]
     }
 }
 
 public struct RegisterAccountTypeResponse: Decodable {
-    
 }

@@ -93,9 +93,14 @@ let coreTargets: [Target] = [
 
 let dataTargets: [Target] = [
     .data(name: "API", dependencies: [
+        "PostEntity",
         "Config",
         alamofire,
         remoteConfig,
+        dependencies,
+        dependenciesMacros
+    ]),
+    .data(name: "UserDefaults", dependencies: [
         dependencies,
         dependenciesMacros
     ])
@@ -103,7 +108,8 @@ let dataTargets: [Target] = [
 
 let entityTargets: [Target] = [
     .entity(name: "User", dependencies: []),
-    .entity(name: "Config", dependencies: [])
+    .entity(name: "Config", dependencies: []),
+    .entity(name: "PostEntity", dependencies: [])
 ]
 
 let featureTargets: [Target] = [
@@ -192,6 +198,7 @@ let featureTargets: [Target] = [
 let featureStoreTargets: [Target] = [
     .featureStore(name: "AccountIdNameStore", dependencies: [
         "API",
+        "UserDefaults",
         "User",
         "ProfileImageStore",
         composableArchitecture
@@ -201,12 +208,14 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
         "API",
+        "UserDefaults",
         "Validator",
         "AccountIdNameStore",
         composableArchitecture
     ]),
     .featureStore(name: "ProfileImageStore", dependencies: [
         "API",
+        "UserDefaults",
         "User",
         "SelectModeStore",
         composableArchitecture,
@@ -218,6 +227,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [
         "API",
+        "UserDefaults",
         "User",
         composableArchitecture
     ]),

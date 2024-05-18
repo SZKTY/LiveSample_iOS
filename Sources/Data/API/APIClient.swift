@@ -15,26 +15,30 @@ public protocol AuthObjectType {
 }
 
 public protocol AuthenticateStrategy {
-    func addAuthInfo<T: APIRequest>(to request: T, token: String?) -> T
+    func addAuthInfo<T: APIRequest>(to request: T, token: String) -> T
 }
 
 public final class APIClient: Sendable {
-    public static var authObject: AuthObjectType?
-    public static var authenticateStrategy: AuthenticateStrategy?
+    public static var authenticateStrategy: AuthenticateStrategy = ParameterAuthenticationStrategy()
 
-    public static func register(authObject: AuthObjectType? = nil, authenticateStrategy: AuthenticateStrategy? = nil) {
-        self.authObject = authObject
-        self.authenticateStrategy = authenticateStrategy
-    }
-
-    public static func send<T: APIRequest>(_ origin: T, withAuth: Bool = false) async throws -> T.Response {
+    public static func send<T: APIRequest>(_ origin: T, with sessionId: String? = nil) async throws -> T.Response {
         let request: T
-        if withAuth {
-            request = authenticateStrategy?.addAuthInfo(to: origin, token: authObject?.token()) ?? origin
+        if let sessionId = sessionId {
+            request = authenticateStrategy.addAuthInfo(to: origin, token: sessionId)
         } else {
             request = origin
         }
         return try await self.requestData(request)
+    }
+    
+    public static func upload<T: APIRequest>(_ origin: T, with sessionId: String? = nil) async throws -> T.Response {
+        let request: T
+        if let sessionId = sessionId {
+            request = authenticateStrategy.addAuthInfo(to: origin, token: sessionId)
+        } else {
+            request = origin
+        }
+        return try await self.uploadData(request)
     }
 }
 
@@ -44,6 +48,7 @@ extension APIClient {
 #if DEBUG
         print("baseURL: \(origin.baseURL)")
         print("request path: \(origin.path)")
+        print("url: \(origin.url)")
         print("method: \(origin.method)")
         print("headers: \(origin.headers ?? [])")
         print("parameters: \(origin.parameters ?? [:])")
@@ -55,9 +60,35 @@ extension APIClient {
         let dataRequest = AF.request(origin.url,
                                      method: origin.method,
                                      parameters: origin.parameters,
+                                     encoding: JSONEncoding.default,
+                                     headers: origin.headers,
                                      requestModifier: { $0.timeoutInterval = origin.timeout })
         
         return try await dataRequest.publish(T.Response.self)
+    }
+    
+    private static func uploadData<T: APIRequest>(_ origin: T) async throws -> T.Response {
+
+#if DEBUG
+        print("baseURL: \(origin.baseURL)")
+        print("request path: \(origin.path)")
+        print("url: \(origin.url)")
+        print("method: \(origin.method)")
+        print("headers: \(origin.headers ?? [])")
+        print("parameters: \(origin.parameters ?? [:])")
+        print("timeout: \(origin.timeout)")
+#endif
+
+        URLCache.shared.removeAllCachedResponses()
+        
+        let dataUpload = AF.upload(multipartFormData: { data in
+            data.append(origin.parameters!["image"] as! Data,
+                        withName: "image",
+                        fileName: "image.jpeg",
+                        mimeType: "image/jpeg")
+        }, to: origin.url, method: origin.method, headers: origin.headers)
+        
+        return try await dataUpload.publish(T.Response.self)
     }
 }
 
@@ -67,7 +98,12 @@ extension DataRequest {
             self.response { response in
                 switch response.result {
                 case .success(let element): do {
-                    let decodedResponse = try JSONDecoder().decode(type, from: element!)
+                    print("check: data = \(element?.base64EncodedString())")
+                    
+                    let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    
+                    let decodedResponse = try jsonDecoder.decode(type, from: element!)
                     continuation.resume(returning: decodedResponse)
                 } catch {
                     continuation.resume(throwing: error)

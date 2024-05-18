@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import User
+import UserDefaults
 import API
 
 @Reducer
@@ -37,22 +38,33 @@ public struct SelectMode {
     
     // MARK: - Dependencies
     @Dependency(\.registerAccountTypeClient) var registerAccountTypeClient
+    @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapFan:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
                 return .run { send in
                     await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(isMusician: false)
+                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "fan")
                     }))
                 }
                 
             case .didTapMusician:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
                 state.userRegist.isMusician = true
                 return .run { send in
                     await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(isMusician: true)
+                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "artist")
                     }))
                 }
                 

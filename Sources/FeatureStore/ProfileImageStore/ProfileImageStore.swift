@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by toya.suzuki on 2024/04/01.
 //
@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import SelectModeStore
 import User
+import UserDefaults
 import API
 
 @Reducer
@@ -32,6 +33,7 @@ public struct ProfileImage {
         case didTapShowImagePicker
         case didTapShowSelfImagePicker
         case nextButtonTapped
+        case uploadProfilePictureResponse(Result<UploadProfilePictureResponse, Error>)
         case registerProfilePictureResponse(Result<RegisterProfilePictureResponse, Error>)
         case binding(BindingAction<State>)
         case destination(PresentationAction<Path.Action>)
@@ -45,7 +47,9 @@ public struct ProfileImage {
     public init() {}
     
     // MARK: - Dependencies
+    @Dependency(\.uploadProfilePictureClient) var uploadProfilePictureClient
     @Dependency(\.registerProfilePictureClient) var registerProfilePictureClient
+    @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -57,14 +61,39 @@ public struct ProfileImage {
                 state.isShownSelfImagePicker.toggle()
                 return .none
             case .nextButtonTapped:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                if state.imageData == Data() {
+                    state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
+                    return .none
+                }
+                
                 return .run { [data = state.imageData] send in
-                    await send(.registerProfilePictureResponse(Result {
-                        try await registerProfilePictureClient.send(data: data)
+                    await send(.uploadProfilePictureResponse(Result {
+                        try await uploadProfilePictureClient.upload(sessionId: sessionId, data: data)
                     }))
                 }
                 
+            case let .uploadProfilePictureResponse(.success(response)):
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.registerProfilePictureResponse(Result {
+                        try await registerProfilePictureClient.send(sessionId: sessionId, path: response.imagePath)
+                    }))
+                }
+                
+            case let .uploadProfilePictureResponse(.failure(error)):
+                state.alert = AlertState(title: TextState("登録失敗"))
+                return .none
+                
             case let .registerProfilePictureResponse(.success(response)):
-                state.userRegist.profileImage = state.imageData
                 state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
                 return .none
                 

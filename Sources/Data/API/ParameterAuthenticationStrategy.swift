@@ -7,15 +7,18 @@
 
 import Foundation
 
-class ParameterAuthenticationStrategy: AuthenticateStrategy {
-    func addAuthInfo<T: APIRequest>(to request: T, token: String?) -> T {
+public class ParameterAuthenticationStrategy: AuthenticateStrategy {
+    public init() {}
+    
+    public func addAuthInfo<T: APIRequest>(to request: T, token: String) -> T {
         var origin = request
-        if origin.parameters == nil {
-            origin.parameters = [:]
+        
+        if origin.headers == nil {
+            origin.headers = [:]
         }
-        if let token = token {
-            origin.parameters!["token"] = token
-        }
+        
+        origin.headers!["X-Inemuri-Session-Id"] = token
+        
         return origin
     }
 }

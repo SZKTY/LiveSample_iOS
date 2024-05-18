@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by toya.suzuki on 2024/04/22.
+//  Created by 鈴木登也 on 2024/05/13.
 //
 
 import Foundation
@@ -11,7 +11,7 @@ import DependenciesMacros
 
 @DependencyClient
 public struct RegisterProfilePictureClient: Sendable {
-    public var send: @Sendable (_ data: Data) async throws -> RegisterProfilePictureResponse
+    public var send: @Sendable (_ sessionId: String, _ path: String) async throws -> RegisterProfilePictureResponse
 }
 
 extension RegisterProfilePictureClient: TestDependencyKey {
@@ -31,13 +31,14 @@ extension RegisterProfilePictureClient: DependencyKey {
     
     static func request() -> Self {
         .init(
-            send: { data in
+            send: { sessionId, path in
                 try await APIClient.send(
-                    RegisterProfilePictureRequest(data: data),
-                    withAuth: false
+                    RegisterProfilePictureRequest(path: path),
+                    with: sessionId
                 )
             }
         )
     }
 }
+
 

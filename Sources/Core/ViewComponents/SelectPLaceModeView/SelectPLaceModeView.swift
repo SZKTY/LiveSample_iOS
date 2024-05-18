@@ -42,10 +42,10 @@ public struct SelectPLaceModeView: View {
                                 Image(systemName: "xmark")
                                 Text("Cancel")
                             }
+                            .frame(width: 100, height: 36)
                             .font(.system(size: 14))
                             .foregroundColor(.black)
                         })
-                        .frame(width: 100, height: 36)
                         
                         Spacer(minLength: 0)
                     }
@@ -77,14 +77,14 @@ public struct SelectPLaceModeView: View {
                     self.action()
                 }, label: {
                     Text("確定")
+                        .frame(width: 120.0, height: 60.0)
+                        .background(.black)
                         .foregroundColor(.white)
                         .font(.system(size: 16))
                         .bold()
+                        .cornerRadius(6)
+                        .padding(.bottom, 42.0)
                 })
-                .frame(width: 120.0, height: 60.0)
-                .background(.black)
-                .cornerRadius(6)
-                .padding(.bottom, 42.0)
             }
         }
     }

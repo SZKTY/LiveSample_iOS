@@ -117,11 +117,15 @@ public struct PostView: View {
                         Spacer()
                     }
                     
-                    Text(viewStore.dateString)
-                        .frame(width: 256, height: 36, alignment: .center)
-                        .background(.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    VStack {
+                        Text(viewStore.dateString)
+                            .font(.system(size: 18))
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 40)
+                    .padding(.horizontal, 8)
+                    .background(.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                     
                     Spacer()
                         .frame(height: self.bottomPadding)
@@ -173,12 +177,12 @@ public struct PostView: View {
                         print("check: Post !!!!")
                     }) {
                         Text("投稿する")
-                            .frame(maxWidth: .infinity, minHeight: 40)
                             .font(.system(size: 15, weight: .medium))
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .background(.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                    .foregroundColor(.white)
-                    .background(.black)
-                    .cornerRadius(10)
                     .buttonStyle(PlainButtonStyle())
                     
                 }

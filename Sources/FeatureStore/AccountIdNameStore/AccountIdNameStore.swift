@@ -9,6 +9,7 @@ import ComposableArchitecture
 import ProfileImageStore
 import User
 import API
+import UserDefaults
 
 @Reducer
 public struct AccountIdName {
@@ -40,22 +41,30 @@ public struct AccountIdName {
     
     // MARK: - Dependencies
     @Dependency(\.registerAccountInfoClient) var registerAccountInfoClient
+    @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .nextButtonTapped:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
                 return .run { [accountId = state.accountId, accountName = state.accountName] send in
                     await send(.registerAccountInfoResponse(Result {
-                        try await registerAccountInfoClient.send(accountId: accountId, accountName: accountName)
+                        try await registerAccountInfoClient.send(sessionId: sessionId, accountId: accountId, accountName: accountName)
                     }))
                 }
                 
             case let .registerAccountInfoResponse(.success(response)):
+                print("check: SUCCESS")
                 state.destination = .profileImage(ProfileImage.State(userRegist: state.userRegist))
                 return .none
                 
             case let .registerAccountInfoResponse(.failure(error)):
+                print("check: FAIL")
                 return .none
                 
             case .destination:
