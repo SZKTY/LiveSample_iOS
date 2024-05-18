@@ -246,6 +246,8 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "PostStore", dependencies: [
         "API",
+        "UserDefaults",
+        "PostEntity",
         "MapWithCrossStore",
         composableArchitecture
     ]),

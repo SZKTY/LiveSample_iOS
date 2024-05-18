@@ -8,9 +8,9 @@
 import Foundation
 import Alamofire
 
-/// プロフィール写真登録
-public struct UploadProfilePictureRequest: PostRequest {
-    public typealias Response = UploadProfilePictureResponse
+/// 写真登録
+public struct UploadPictureRequest: PostRequest {
+    public typealias Response = UploadPictureResponse
     
     public var path: String {
         return "/image/upload"
@@ -26,6 +26,10 @@ public struct UploadProfilePictureRequest: PostRequest {
     }
 }
 
-public struct UploadProfilePictureResponse: Decodable {
+public struct UploadPictureResponse: Decodable {
     public var imagePath: String
+    
+    public init(imagePath: String) {
+        self.imagePath = imagePath
+    }
 }

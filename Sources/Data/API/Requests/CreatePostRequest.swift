@@ -21,10 +21,23 @@ public struct CreatePostRequest: PostRequest {
     public var parameters: Parameters?
     
     public init(param: PostEntity) {
-        parameters = [:]
+        parameters = [
+            "coordinate_x": param.coordinateX,
+            "coordinate_y": param.coordinateY,
+            "start_datetime": param.startDateTime,
+            "end_datetime": param.endDateTime
+        ]
+        
+        if !param.imagePath.isEmpty {
+            parameters?["image_path"] = param.imagePath
+        }
+        
+        if !param.freeText.isEmpty {
+            parameters?["free_text"] = param.freeText
+        }
     }
 }
 
 public struct CreatePostResponse: Decodable {
-    
+    var postId: Int
 }

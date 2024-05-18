@@ -33,7 +33,7 @@ public struct ProfileImage {
         case didTapShowImagePicker
         case didTapShowSelfImagePicker
         case nextButtonTapped
-        case uploadProfilePictureResponse(Result<UploadProfilePictureResponse, Error>)
+        case uploadProfilePictureResponse(Result<UploadPictureResponse, Error>)
         case registerProfilePictureResponse(Result<RegisterProfilePictureResponse, Error>)
         case binding(BindingAction<State>)
         case destination(PresentationAction<Path.Action>)
@@ -47,7 +47,7 @@ public struct ProfileImage {
     public init() {}
     
     // MARK: - Dependencies
-    @Dependency(\.uploadProfilePictureClient) var uploadProfilePictureClient
+    @Dependency(\.uploadPictureClient) var uploadPictureClient
     @Dependency(\.registerProfilePictureClient) var registerProfilePictureClient
     @Dependency(\.userDefaults) var userDefaults
     
@@ -73,7 +73,7 @@ public struct ProfileImage {
                 
                 return .run { [data = state.imageData] send in
                     await send(.uploadProfilePictureResponse(Result {
-                        try await uploadProfilePictureClient.upload(sessionId: sessionId, data: data)
+                        try await uploadPictureClient.upload(sessionId: sessionId, data: data)
                     }))
                 }
                 

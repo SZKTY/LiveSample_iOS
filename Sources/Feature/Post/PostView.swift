@@ -175,6 +175,7 @@ public struct PostView: View {
                     
                     Button(action: {
                         print("check: Post !!!!")
+                        viewStore.send(.createPostButtonTapped)
                     }) {
                         Text("投稿する")
                             .font(.system(size: 15, weight: .medium))

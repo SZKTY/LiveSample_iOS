@@ -10,6 +10,9 @@ import ComposableArchitecture
 import CoreLocation
 import MapKit
 import MapWithCrossStore
+import PostEntity
+import API
+import UserDefaults
 
 struct SharedData: Equatable {
     var center: CLLocationCoordinate2D?
@@ -78,8 +81,9 @@ public struct PostStore {
         case imageButtonTapped
         case imageRemoveButtonTapped
         case createPostButtonTapped
+        case uploadPictureResponse(Result<UploadPictureResponse, Error>)
+        case createPostResponse(Result<CreatePostResponse, Error>)
         case centerDidChange(center: CLLocationCoordinate2D)
-//        case postResponse(Result<IssueAccountResponse, Error>)
         case alert(PresentationAction<Alert>)
         case destination(PresentationAction<Path.Action>)
         case binding(BindingAction<State>)
@@ -90,6 +94,11 @@ public struct PostStore {
     }
     
     public init() {}
+    
+    // MARK: - Dependencies
+    @Dependency(\.uploadPictureClient) var uploadPictureClient
+    @Dependency(\.createPostClient) var createPostClient
+    @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -116,7 +125,56 @@ public struct PostStore {
                 state.image = Data()
                 return .none
             case .createPostButtonTapped:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                if state.image == Data() {
+                    return .run { send in
+                        await send(.uploadPictureResponse(.success(UploadPictureResponse(imagePath: ""))))
+                    }
+                }
+                
+                return .run { [data = state.image] send in
+                    await send(.uploadPictureResponse(Result {
+                        try await uploadPictureClient.upload(sessionId: sessionId, data: data)
+                    }))
+                }
+                
+            case let .uploadPictureResponse(.success(response)):
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                let entity: PostEntity = .init(imagePath: response.imagePath,
+                                               freeText: state.freeText,
+                                               coordinateX: "\(state.center.latitude)",
+                                               coordinateY: "\(state.center.longitude)",
+                                               startDateTime: "\(state.startDateTime)",
+                                               endDateTime: "\(state.endDateTime)")
+                
+                return .run { send in
+                    await send(.createPostResponse(Result {
+                        try await createPostClient.send(sessionId: sessionId, entity: entity)
+                    }))
+                }
+                
+            case let .uploadPictureResponse(.failure(error)):
+                print("check: FAIL uploadPicture")
+                state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
+                
+            case let .createPostResponse(.success(response)):
+                print("check: SUCCESS")
+                return .none
+                
+            case let .createPostResponse(.failure(error)):
+                print("check: FAIL createPost")
+                state.alert = AlertState(title: TextState("登録失敗"))
+                return .none
+                
             case let .centerDidChange(center):
                 state.center = center
                 state.region.center = center

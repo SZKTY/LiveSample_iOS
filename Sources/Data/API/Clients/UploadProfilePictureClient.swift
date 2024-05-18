@@ -10,30 +10,30 @@ import Dependencies
 import DependenciesMacros
 
 @DependencyClient
-public struct UploadProfilePictureClient: Sendable {
-    public var upload: @Sendable (_ sessionId: String, _ data: Data) async throws -> UploadProfilePictureResponse
+public struct UploadPictureClient: Sendable {
+    public var upload: @Sendable (_ sessionId: String, _ data: Data) async throws -> UploadPictureResponse
 }
 
-extension UploadProfilePictureClient: TestDependencyKey {
+extension UploadPictureClient: TestDependencyKey {
     public static let testValue = Self()
     public static let previewValue = Self()
 }
 
 public extension DependencyValues {
-    var uploadProfilePictureClient: UploadProfilePictureClient {
-        get { self[UploadProfilePictureClient.self] }
-        set { self[UploadProfilePictureClient.self] = newValue }
+    var uploadPictureClient: UploadPictureClient {
+        get { self[UploadPictureClient.self] }
+        set { self[UploadPictureClient.self] = newValue }
     }
 }
 
-extension UploadProfilePictureClient: DependencyKey {
-    public static var liveValue: UploadProfilePictureClient = .request()
+extension UploadPictureClient: DependencyKey {
+    public static var liveValue: UploadPictureClient = .request()
     
     static func request() -> Self {
         .init(
             upload: { sessionId, data in
                 try await APIClient.upload(
-                    UploadProfilePictureRequest(data: data),
+                    UploadPictureRequest(data: data),
                     with: sessionId
                 )
             }
