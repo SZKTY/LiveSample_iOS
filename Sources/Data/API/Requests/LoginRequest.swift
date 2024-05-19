@@ -2,18 +2,18 @@
 //  File.swift
 //  
 //
-//  Created by toya.suzuki on 2024/04/22.
+//  Created by 鈴木登也 on 2024/05/19.
 //
 
 import Foundation
 import Alamofire
 
 /// アカウント発行
-public struct IssueAccountRequest: PostRequest {
-    public typealias Response = IssueAccountResponse
+public struct LoginRequest: PostRequest {
+    public typealias Response = LoginResponse
     
     public var path: String {
-        return "/users/account"
+        return "/login/email"
     }
     
     public var headers: HTTPHeaders?
@@ -27,7 +27,6 @@ public struct IssueAccountRequest: PostRequest {
     }
 }
 
-public struct IssueAccountResponse: Decodable {
-    public var userId: Int
+public struct LoginResponse: Decodable {
     public var sessionId: String
 }

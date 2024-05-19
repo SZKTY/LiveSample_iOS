@@ -12,6 +12,7 @@ import Routing
 
 @MainActor
 public struct MailAddressPasswordView: View {
+    @EnvironmentObject var loginRouter: LoginRouter
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
     let store: StoreOf<MailAddressPassword>
     
@@ -44,7 +45,7 @@ public struct MailAddressPasswordView: View {
                 Button(action: {
                     viewStore.send(.nextButtonTapped)
                 }) {
-                    Text("次へ")
+                    Text(viewStore.isLogin ? "ログイン" : "次へ")
                         .frame(maxWidth: .infinity, minHeight: 70)
                         .font(.system(size: 20, weight: .medium))
                 }
@@ -70,6 +71,9 @@ public struct MailAddressPasswordView: View {
                 self.accountIdNameView(store)
             }
             .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishLogin)) { _ in
+                self.loginRouter.isLogin = true
+            }
         }
     }
 }

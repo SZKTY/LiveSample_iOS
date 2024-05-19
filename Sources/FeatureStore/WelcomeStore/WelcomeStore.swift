@@ -28,8 +28,11 @@ public struct Welcome {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .signInButtonTapped, .loginButtonTapped:
-                state.destination = .mailAddressPassword(MailAddressPassword.State())
+            case .signInButtonTapped:
+                state.destination = .mailAddressPassword(MailAddressPassword.State(isLogin: false))
+                return .none
+            case .loginButtonTapped:
+                state.destination = .mailAddressPassword(MailAddressPassword.State(isLogin: true))
                 return .none
             case .binding:
                 return .none

@@ -22,11 +22,16 @@ public struct MailAddressPassword: Sendable {
         @BindingState public var password: String = ""
         @BindingState public var isEnableNextButton: Bool = false
         
-        public init() {}
+        public var isLogin: Bool
+        
+        public init(isLogin: Bool) {
+            self.isLogin = isLogin
+        }
     }
     
     public enum Action: BindableAction {
         case nextButtonTapped
+        case loginResponse(Result<LoginResponse, Error>)
         case issueAccountResponse(Result<IssueAccountResponse, Error>)
         case destination(PresentationAction<Path.Action>)
         case alert(PresentationAction<Alert>)
@@ -41,25 +46,46 @@ public struct MailAddressPassword: Sendable {
     
     // MARK: - Dependencies
     @Dependency(\.issueAccountClient) var issueAccountClient
+    @Dependency(\.loginClient) var loginClient
     @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .nextButtonTapped:
-                return .run { [email = state.email, password = state.password] send in
-                    await send(.issueAccountResponse(Result {
-                        try await issueAccountClient.send(email: email, password: password)
-                    }))
+                return .run { [
+                    isLogin = state.isLogin,
+                    email = state.email,
+                    password = state.password] send in
+                    if isLogin {
+                        await send(.loginResponse(Result {
+                            try await loginClient.send(email: email, password: password)
+                        }))
+                    } else {
+                        await send(.issueAccountResponse(Result {
+                            try await issueAccountClient.send(email: email, password: password)
+                        }))
+                    }
                 }
+            case let .loginResponse(.success(response)):
+                print("check: Login SUCCESS")
+                NotificationCenter.default.post(name: NSNotification.didFinishLogin, object: nil, userInfo: nil)
+                return .run { send in
+                    await self.userDefaults.setSessionId(response.sessionId)
+                }
+            case let .loginResponse(.failure(error)):
+                print("check: Login FAIL")
+                // エラーハンドリング
+                state.alert = AlertState(title: TextState("ログイン失敗"))
+                return .none
             case let .issueAccountResponse(.success(response)):
-                print("check: SUCCESS")
+                print("check: issueAccount SUCCESS")
                 state.destination = .accountIdName(AccountIdName.State())
                 return .run { send in
                     await self.userDefaults.setSessionId(response.sessionId)
                 }
             case let .issueAccountResponse(.failure(error)):
-                print("check: FAIL")
+                print("check: issueAccount FAIL")
                 // エラーハンドリング
                 state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
@@ -93,4 +119,8 @@ extension MailAddressPassword {
     public enum Path {
         case accountIdName(AccountIdName)
     }
+}
+
+extension NSNotification {
+    public static let didFinishLogin = Notification.Name.init("didFinishLogin")
 }
