@@ -8,10 +8,11 @@
 import SwiftUI
 
 public struct SuccessToastBanner: View {
-    @Binding public var showFlag: Bool
     
-    public init(showFlag: Binding<Bool>) {
-        self._showFlag = showFlag
+    private let onAppear: () -> Void
+    
+    public init(onAppear: @escaping () -> Void) {
+        self.onAppear = onAppear
     }
     
     public var body: some View {
@@ -40,7 +41,7 @@ public struct SuccessToastBanner: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 withAnimation {
-                    showFlag = false
+                    onAppear()
                 }
             }
         }

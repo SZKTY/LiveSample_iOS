@@ -17,6 +17,31 @@ public struct MyPageView: View {
     }
     
     public var body: some View {
-        Text("MyPage")
+        List {
+            Text("プロフィール編集")
+                .onTapGesture {
+                    // プロフィール編集遷移処理
+                }
+            
+            Text("利用規約")
+                .onTapGesture {
+                    // 利用規約遷移処理
+                }
+            
+            Text("プライバシーポリシー")
+                .onTapGesture {
+                    // プライバシーポリシー遷移処理
+                }
+            
+            Text("アカウントの削除")
+                .onTapGesture {
+                    // メーラー？
+                }
+            
+            Text("お問い合わせ")
+                .onTapGesture {
+                    // お問い合わせ遷移処理
+                }
+        }
     }
 }

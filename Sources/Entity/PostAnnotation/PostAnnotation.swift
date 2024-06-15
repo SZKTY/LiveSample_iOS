@@ -2,12 +2,13 @@
 //  File.swift
 //  
 //
-//  Created by toya.suzuki on 2024/04/24.
+//  Created by toya.suzuki on 2024/06/14.
 //
 
 import Foundation
+import MapKit
 
-public struct PostEntity: Equatable {
+public class PostAnnotation: MKPointAnnotation {
     public var imagePath: String
     public var freeText: String
     public var coordinateX: String
@@ -25,9 +26,13 @@ public struct PostEntity: Equatable {
     }
 }
 
-extension PostEntity {
-    public static func stub() -> Self {
-        return .init(imagePath: "", freeText: "", coordinateX: "", coordinateY: "", startDateTime: "", endDateTime: "")
+extension PostAnnotation {
+    public static func stub() -> PostAnnotation {
+        return .init(imagePath: "", freeText: "やほー", coordinateX: "", coordinateY: "", startDateTime: "", endDateTime: "")
     }
+    
+//    public static func convert(from request: ) -> Self {
+//        return .init(imagePath: "", freeText: "", coordinateX: "", coordinateY: "", startDateTime: "", endDateTime: "")
+//    }
 
 }

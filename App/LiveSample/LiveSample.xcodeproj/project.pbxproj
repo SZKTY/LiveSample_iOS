@@ -47,6 +47,9 @@
 		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
 		DF7620F32BD8898D00C79F36 /* Validator in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620F22BD8898D00C79F36 /* Validator */; };
 		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
+		DF9303612C1B04E700F770AE /* PostDetail in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303602C1B04E700F770AE /* PostDetail */; };
+		DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303622C1B04E700F770AE /* PostDetailStore */; };
+		DF9303662C1BED4F00F770AE /* PostAnnotation in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303652C1BED4F00F770AE /* PostAnnotation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,9 +94,11 @@
 				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
 				562CE1122BE8974B00EDBD53 /* MapWithCrossStore in Frameworks */,
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
+				DF9303612C1B04E700F770AE /* PostDetail in Frameworks */,
 				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
 				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
 				562CE1162BEF60CD00EDBD53 /* UserDefaults in Frameworks */,
+				DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */,
 				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
 				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
@@ -115,6 +120,7 @@
 				DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */,
 				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
 				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
+				DF9303662C1BED4F00F770AE /* PostAnnotation in Frameworks */,
 				562CE10C2BE6378C00EDBD53 /* Map in Frameworks */,
 				DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */,
 				562CE10E2BE6379500EDBD53 /* MyPage in Frameworks */,
@@ -271,6 +277,9 @@
 				562CE1112BE8974B00EDBD53 /* MapWithCrossStore */,
 				562CE1132BEEFBB300EDBD53 /* PostEntity */,
 				562CE1152BEF60CD00EDBD53 /* UserDefaults */,
+				DF9303602C1B04E700F770AE /* PostDetail */,
+				DF9303622C1B04E700F770AE /* PostDetailStore */,
+				DF9303652C1BED4F00F770AE /* PostAnnotation */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -555,7 +564,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
-				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
+				DEVELOPMENT_TEAM = 5342DUJCBP;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -573,7 +582,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.inemuri.LiveSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inemuri.LiveSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -589,7 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
-				DEVELOPMENT_TEAM = 9K3B3ZYB2V;
+				DEVELOPMENT_TEAM = 5342DUJCBP;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -607,7 +616,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.inemuri.LiveSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inemuri.LiveSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -858,6 +867,18 @@
 		DF7620F22BD8898D00C79F36 /* Validator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Validator;
+		};
+		DF9303602C1B04E700F770AE /* PostDetail */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostDetail;
+		};
+		DF9303622C1B04E700F770AE /* PostDetailStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostDetailStore;
+		};
+		DF9303652C1BED4F00F770AE /* PostAnnotation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostAnnotation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -8,21 +8,31 @@
 import SwiftUI
 
 public struct FloatingButton: View {
-    public let action: () -> ()
+    private let action: () -> ()
+    private let imageName: String
+    private let position: FloatingButtonPosition
     
-    public init(action: @escaping () -> Void) {
+    public init(position: FloatingButtonPosition, imageName: String, action: @escaping () -> Void) {
+        self.position = position
+        self.imageName = imageName
         self.action = action
     }
     
     public var body: some View {
         VStack {
-            Spacer()
-            HStack {
+            if position == .bottomLeading || position == .bottomTailing {
                 Spacer()
+            }
+            
+            HStack {
+                if position == .topTailing || position == .bottomTailing {
+                    Spacer()
+                }
+                
                 Button(action: {
                     self.action()
                 }, label: {
-                    Image(systemName: "plus")
+                    Image(systemName: imageName)
                         .foregroundColor(.white)
                         .font(.system(size: 24))
                         .bold()
@@ -31,9 +41,38 @@ public struct FloatingButton: View {
                 .background(.black)
                 .cornerRadius(30.0)
                 .shadow(color: .gray, radius: 3, x: 3, y: 3)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
+                .padding(makeEdgeInsets())
                 
+                if position == .topLeading || position == .bottomLeading {
+                    Spacer()
+                }
+            }
+            
+            if position == .topLeading || position == .topTailing {
+                Spacer()
             }
         }
     }
+    
+    private func makeEdgeInsets() -> EdgeInsets {
+        switch position {
+        case .topLeading:
+            return EdgeInsets(top: 80.0, leading: 16.0, bottom: 0, trailing: 0)
+        case .topTailing:
+            return EdgeInsets(top: 80.0, leading: 0, bottom: 0, trailing: 16.0)
+        case .bottomLeading:
+            return EdgeInsets(top: 0, leading: 16.0, bottom: 16.0, trailing: 0)
+        case .bottomTailing:
+            return EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0)
+        }
+        
+    }
+    
+}
+
+public enum FloatingButtonPosition {
+    case topLeading
+    case topTailing
+    case bottomLeading
+    case bottomTailing
 }

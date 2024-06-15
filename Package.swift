@@ -70,7 +70,8 @@ extension Target {
 let coreTargets: [Target] = [
     .core(name: "Location", dependencies: []),
     .core(name: "ViewComponents", dependencies: [
-        "Location"
+        "Location",
+        "PostAnnotation"
     ]),
     .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
@@ -84,6 +85,7 @@ let coreTargets: [Target] = [
         "MyPageStore",
         "User",
         "PostStore",
+        "PostDetailStore",
         "MapWithCrossStore",
         composableArchitecture,
         dependencies,
@@ -109,7 +111,8 @@ let dataTargets: [Target] = [
 let entityTargets: [Target] = [
     .entity(name: "User", dependencies: []),
     .entity(name: "Config", dependencies: []),
-    .entity(name: "PostEntity", dependencies: [])
+    .entity(name: "PostEntity", dependencies: []),
+    .entity(name: "PostAnnotation", dependencies: [])
 ]
 
 let featureTargets: [Target] = [
@@ -186,6 +189,11 @@ let featureTargets: [Target] = [
         composableArchitecture,
         dependencies
     ]),
+    .feature(name: "PostDetail", dependencies: [
+        "PostDetailStore",
+        "ViewComponents",
+        composableArchitecture
+    ]),
     .feature(name: "MapWithCross", dependencies: [
         "MapWithCrossStore",
         "Routing",
@@ -239,6 +247,9 @@ let featureStoreTargets: [Target] = [
         "API",
         "UserDefaults",
         "PostStore",
+        "PostDetailStore",
+        "MyPageStore",
+        "PostAnnotation",
         composableArchitecture
     ]),
     .featureStore(name: "MyPageStore", dependencies: [
@@ -250,6 +261,12 @@ let featureStoreTargets: [Target] = [
         "UserDefaults",
         "PostEntity",
         "MapWithCrossStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "PostDetailStore", dependencies: [
+        "API",
+        "UserDefaults",
+        "PostAnnotation",
         composableArchitecture
     ]),
     .featureStore(name: "MapWithCrossStore", dependencies: [

@@ -24,6 +24,7 @@ public struct MapWithCrossView: View {
                 ZStack {
                     // マップ表示
                     MapViewRepresentable(
+                        postAnnotations: nil,
                         region: MKCoordinateRegion(
                             center: viewStore.center,
                             latitudinalMeters: 1000.0,
@@ -35,6 +36,8 @@ public struct MapWithCrossView: View {
                         print("check: didLongPress")
                     }, didChangeCenterRegion: { center in
                         viewStore.send(.centerRegionChanged(location: center))
+                    }, didTapPin: { _ in
+                        print("check: didTapPin")
                     })
                     
                     // 場所選択モード
