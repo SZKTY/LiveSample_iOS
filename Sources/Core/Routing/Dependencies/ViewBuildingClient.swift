@@ -17,6 +17,7 @@ import WelcomeStore
 import MapStore
 import MyPageStore
 import PostStore
+import PostDetailStore
 import MapWithCrossStore
 
 @DependencyClient
@@ -30,6 +31,7 @@ public struct ViewBuildingClient {
     public var mapView: @Sendable (_ store: StoreOf<MapStore>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var myPageView: @Sendable (_ store: StoreOf<MyPage>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var postView: @Sendable (_ store: StoreOf<PostStore>) -> AnyView = { _ in AnyView(EmptyView()) }
+    public var postDetailView: @Sendable (_ store: StoreOf<PostDetail>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var mapWithCrossView: @Sendable (_ store: StoreOf<MapWithCrossStore>) -> AnyView = { _ in AnyView(EmptyView()) }
 }
 

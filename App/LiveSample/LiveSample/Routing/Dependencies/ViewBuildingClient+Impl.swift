@@ -15,6 +15,7 @@ import Routing
 import Map
 import MyPage
 import Post
+import PostDetail
 import MapWithCross
 import SwiftUI
 
@@ -45,6 +46,9 @@ extension ViewBuildingClient: DependencyKey {
             },
             postView: { store in
                 AnyView(PostView(store: store))
+            },
+            postDetailView: { store in
+                AnyView(PostDetailView(store: store))
             },
             mapWithCrossView: { store in
                 AnyView(MapWithCrossView(store: store))
