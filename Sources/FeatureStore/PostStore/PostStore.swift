@@ -99,6 +99,7 @@ public struct PostStore {
     @Dependency(\.uploadPictureClient) var uploadPictureClient
     @Dependency(\.createPostClient) var createPostClient
     @Dependency(\.userDefaults) var userDefaults
+    @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -166,9 +167,15 @@ public struct PostStore {
                 state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
                 
-            case let .createPostResponse(.success(response)):
+            case .createPostResponse(.success(_)):
                 print("check: SUCCESS")
-                return .none
+                return .run { send in
+                    await self.dismiss()
+                    
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.didSuccessCreatePost, object: nil)
+                    }
+                }
                 
             case let .createPostResponse(.failure(error)):
                 print("check: FAIL createPost")

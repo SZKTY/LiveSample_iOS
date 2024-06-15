@@ -64,4 +64,5 @@ extension CLLocationCoordinate2D: Equatable {
 
 extension NSNotification {
     public static let didDetermineCenter = Notification.Name.init("didDetermineCenter")
+    public static let didSuccessCreatePost = Notification.Name.init("didSuccessCreatePost")
 }

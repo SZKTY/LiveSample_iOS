@@ -46,13 +46,13 @@ extension APIClient {
     private static func requestData<T: APIRequest>(_ origin: T) async throws -> T.Response {
 
 #if DEBUG
-        print("baseURL: \(origin.baseURL)")
-        print("request path: \(origin.path)")
-        print("url: \(origin.url)")
-        print("method: \(origin.method)")
-        print("headers: \(origin.headers ?? [])")
-        print("parameters: \(origin.parameters ?? [:])")
-        print("timeout: \(origin.timeout)")
+        print("check: baseURL: \(origin.baseURL)")
+        print("check: request path: \(origin.path)")
+        print("check: url: \(origin.url)")
+        print("check: method: \(origin.method)")
+        print("check: headers: \(origin.headers ?? [])")
+        print("check: parameters: \(origin.parameters ?? [:])")
+        print("check: timeout: \(origin.timeout)")
 #endif
 
         URLCache.shared.removeAllCachedResponses()
@@ -70,13 +70,13 @@ extension APIClient {
     private static func uploadData<T: APIRequest>(_ origin: T) async throws -> T.Response {
 
 #if DEBUG
-        print("baseURL: \(origin.baseURL)")
-        print("request path: \(origin.path)")
-        print("url: \(origin.url)")
-        print("method: \(origin.method)")
-        print("headers: \(origin.headers ?? [])")
-        print("parameters: \(origin.parameters ?? [:])")
-        print("timeout: \(origin.timeout)")
+        print("check: baseURL: \(origin.baseURL)")
+        print("check: request path: \(origin.path)")
+        print("check: url: \(origin.url)")
+        print("check: method: \(origin.method)")
+        print("check: headers: \(origin.headers ?? [])")
+        print("check: parameters: \(origin.parameters ?? [:])")
+        print("check: timeout: \(origin.timeout)")
 #endif
 
         URLCache.shared.removeAllCachedResponses()

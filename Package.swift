@@ -237,6 +237,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "MapStore", dependencies: [
         "API",
+        "UserDefaults",
         "PostStore",
         composableArchitecture
     ]),
