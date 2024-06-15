@@ -172,9 +172,7 @@ public struct PostView: View {
                 
                 // MARK: - Post
                 VStack {
-                    
                     Button(action: {
-                        print("check: Post !!!!")
                         viewStore.send(.createPostButtonTapped)
                     }) {
                         Text("投稿する")

@@ -28,6 +28,12 @@ public struct MapView: View {
             GeometryReader { geometry in
                 mapView(geometry: geometry)
             }
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.didSuccessCreatePost)) { notification in
+                store.send(.showSuccessToast)
+            }
+            .task {
+                await store.send(.task).finish()
+            }
             .navigationDestination(
                 store: store.scope(state: \.$destination.post,
                                    action: \.destination.post)
@@ -90,6 +96,13 @@ public struct MapView: View {
                     viewStore.send(.cancelButtonTappedInSelectPlaceMode)
                 })
                 .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
+                
+                // 投稿作成完了のトーストバナー
+                if viewStore.isShowSuccessToast {
+                    SuccessToastBanner(onAppear: {
+                        viewStore.send(.hideSuccessToast)
+                    })
+                }
             }
             .edgesIgnoringSafeArea(.top)
         }

@@ -69,9 +69,13 @@ public struct MailAddressPassword: Sendable {
                 }
             case let .loginResponse(.success(response)):
                 print("check: Login SUCCESS")
-                NotificationCenter.default.post(name: NSNotification.didFinishLogin, object: nil, userInfo: nil)
                 return .run { send in
                     await self.userDefaults.setSessionId(response.sessionId)
+                    
+                    // 画面遷移に繋がるためメインスレッドに流す
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.didFinishLogin, object: nil, userInfo: nil)
+                    }
                 }
             case let .loginResponse(.failure(error)):
                 print("check: Login FAIL")

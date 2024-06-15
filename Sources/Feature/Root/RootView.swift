@@ -35,16 +35,10 @@ public struct RootView: View {
                 )
                 /// 未ログイン
             case false:
-//                WelcomeView(
-//                    store: Store(
-//                        initialState: Welcome.State()) {
-//                            Welcome()
-//                        }
-//                )
-                TopTabView(
+                WelcomeView(
                     store: Store(
-                        initialState: TopTab.State()) {
-                            TopTab()
+                        initialState: Welcome.State()) {
+                            Welcome()
                         }
                 )
             }
