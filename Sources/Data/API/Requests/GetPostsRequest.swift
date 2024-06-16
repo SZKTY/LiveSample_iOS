@@ -28,7 +28,29 @@ public struct GetPostsResponse: Decodable {
 }
 
 public struct GetPostEntity: Equatable, Decodable {
-    public init(postUserAccountName: String, postUserAccountId: String, postUserProfileImagePath: String, postImagePath: String, coordinateX: String, coordinateY: String, freeText: String, startDatetime: String, endDatetime: String, createdAt: String) {
+    public var postUserAccountName: String
+    public var postUserAccountId: String
+    public var postUserProfileImagePath: String
+    public var postImagePath: String
+    public var coordinateX: String
+    public var coordinateY: String
+    public var freeText: String
+    public var startDatetime: String
+    public var endDatetime: String
+    public var createdAt: String
+    
+    public init(
+        postUserAccountName: String,
+        postUserAccountId: String,
+        postUserProfileImagePath: String,
+        postImagePath: String,
+        coordinateX: String,
+        coordinateY: String,
+        freeText: String,
+        startDatetime: String,
+        endDatetime: String,
+        createdAt: String
+    ) {
         self.postUserAccountName = postUserAccountName
         self.postUserAccountId = postUserAccountId
         self.postUserProfileImagePath = postUserProfileImagePath
@@ -40,15 +62,4 @@ public struct GetPostEntity: Equatable, Decodable {
         self.endDatetime = endDatetime
         self.createdAt = createdAt
     }
-    
-    public var postUserAccountName: String
-    public var postUserAccountId: String
-    public var postUserProfileImagePath: String
-    public var postImagePath: String
-    public var coordinateX: String
-    public var coordinateY: String
-    public var freeText: String
-    public var startDatetime: String
-    public var endDatetime: String
-    public var createdAt: String
 }

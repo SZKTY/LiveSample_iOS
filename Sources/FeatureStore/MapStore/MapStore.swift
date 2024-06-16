@@ -23,10 +23,9 @@ public struct MapStore {
         @BindingState public var isShownPostDetailSheet: Bool = false
         @BindingState public var postAnnotations: [PostAnnotation] = []
         @BindingState public var isShowSuccessToast: Bool = false
+        @BindingState public var text: String = ""
         
         public var centerRegion: CLLocationCoordinate2D?
-        public var posts: [GetPostEntity]?
-        
         public init() {}
     }
     
@@ -70,14 +69,16 @@ public struct MapStore {
                 
             case let .getPostsResponse(.success(response)):
                 print("check: success getPostsResponse")
-                state.posts = response.posts
+                response.posts.forEach { post in
+                    state.postAnnotations.append(post.convert())
+                }
+                
                 return .none
                 
             case let .getPostsResponse(.failure(error)):
-                print("check: failure getPostsResponse")
                 
                 // 仮
-                state.posts = [
+                state.postAnnotations.append(
                     GetPostEntity(
                         postUserAccountName: "hoge",
                         postUserAccountId: "piyo",
@@ -88,8 +89,13 @@ public struct MapStore {
                         freeText: "huga",
                         startDatetime: "2024-06-08 13:23:47 +0000",
                         endDatetime: "2024-06-08 13:23:47 +0000",
-                        createdAt: "2024-06-08 13:23:47 +0000")
-                ]
+                        createdAt: "2024-06-08 13:23:47 +0000"
+                    )
+                    .convert()
+                )
+                 
+                
+                print("check: failure getPostsResponse = \(state.postAnnotations.count)")
                 
                 
                 return .none
@@ -158,5 +164,22 @@ extension MapStore {
         case post(PostStore)
         case myPage(MyPage)
         case postDetail(PostDetail)
+    }
+}
+
+extension GetPostEntity {
+    func convert() -> PostAnnotation {
+        return .init(
+            postUserAccountName: self.postUserAccountName,
+            postUserAccountId: self.postUserAccountId,
+            postUserProfileImagePath: self.postUserProfileImagePath,
+            postImagePath: self.postImagePath,
+            coordinateX: self.coordinateX,
+            coordinateY: self.coordinateY,
+            freeText: self.freeText,
+            startDatetime: self.startDatetime,
+            endDatetime: self.endDatetime,
+            createdAt: self.createdAt
+        )
     }
 }

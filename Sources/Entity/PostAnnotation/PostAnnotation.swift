@@ -9,30 +9,57 @@ import Foundation
 import MapKit
 
 public class PostAnnotation: MKPointAnnotation {
-    public var imagePath: String
-    public var freeText: String
+    public var postUserAccountName: String
+    public var postUserAccountId: String
+    public var postUserProfileImagePath: String
+    public var postImagePath: String
     public var coordinateX: String
     public var coordinateY: String
-    public var startDateTime: String
-    public var endDateTime: String
+    public var freeText: String
+    public var startDatetime: String
+    public var endDatetime: String
+    public var createdAt: String
     
-    public init(imagePath: String, freeText: String, coordinateX: String, coordinateY: String, startDateTime: String, endDateTime: String) {
-        self.imagePath = imagePath
-        self.freeText = freeText
+    public init(
+        postUserAccountName: String,
+        postUserAccountId: String,
+        postUserProfileImagePath: String,
+        postImagePath: String,
+        coordinateX: String,
+        coordinateY: String,
+        freeText: String,
+        startDatetime: String,
+        endDatetime: String,
+        createdAt: String
+    ) {
+        self.postUserAccountName = postUserAccountName
+        self.postUserAccountId = postUserAccountId
+        self.postUserProfileImagePath = postUserProfileImagePath
+        self.postImagePath = postImagePath
         self.coordinateX = coordinateX
         self.coordinateY = coordinateY
-        self.startDateTime = startDateTime
-        self.endDateTime = endDateTime
+        self.freeText = freeText
+        self.startDatetime = startDatetime
+        self.endDatetime = endDatetime
+        self.createdAt = createdAt
     }
+    
+    
 }
 
 extension PostAnnotation {
     public static func stub() -> PostAnnotation {
-        return .init(imagePath: "", freeText: "やほー", coordinateX: "", coordinateY: "", startDateTime: "", endDateTime: "")
+        .init(
+            postUserAccountName: "",
+            postUserAccountId: "",
+            postUserProfileImagePath: "",
+            postImagePath: "",
+            coordinateX: "",
+            coordinateY: "",
+            freeText: "",
+            startDatetime: "",
+            endDatetime: "",
+            createdAt: ""
+        )
     }
-    
-//    public static func convert(from request: ) -> Self {
-//        return .init(imagePath: "", freeText: "", coordinateX: "", coordinateY: "", startDateTime: "", endDateTime: "")
-//    }
-
 }

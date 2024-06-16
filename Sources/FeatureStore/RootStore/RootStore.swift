@@ -47,9 +47,7 @@ public struct Root {
                 }
                 
             case let .listenRemoteConfigResponse(.success(config)):
-                if let config = config {
-                    state.alert = AlertState(title: TextState("\(config.requiredVersion ?? 0)"))
-                }
+                // TODO: ハンドリング
                 return .none
                 
             case let .listenRemoteConfigResponse(.failure(error)):

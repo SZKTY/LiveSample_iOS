@@ -11,8 +11,8 @@ import RootStore
 import Welcome
 import WelcomeStore
 import Routing
-import TopTab
-import TopTabStore
+import Map
+import MapStore
 
 public struct RootView: View {
     @EnvironmentObject var loginRouter: LoginRouter
@@ -27,10 +27,10 @@ public struct RootView: View {
             switch self.loginRouter.isLogin {
                 /// ログイン済み
             case true:
-                TopTabView(
+                MapView(
                     store: Store(
-                        initialState: TopTab.State()) {
-                            TopTab()
+                        initialState: MapStore.State()) {
+                            MapStore()
                         }
                 )
                 /// 未ログイン

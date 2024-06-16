@@ -23,8 +23,6 @@
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
 		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
 		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
-		DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E9E2BD8ACEA00D92018 /* TopTab */; };
-		DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA02BD8ACEA00D92018 /* TopTabStore */; };
 		DF191EA32BD8EA9100D92018 /* Post in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA22BD8EA9100D92018 /* Post */; };
 		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
 		DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */; };
@@ -104,9 +102,7 @@
 				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
-				DF191EA12BD8ACEA00D92018 /* TopTabStore in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
-				DF191E9F2BD8ACEA00D92018 /* TopTab in Frameworks */,
 				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
 				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
 				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
@@ -266,8 +262,6 @@
 				DF7620F22BD8898D00C79F36 /* Validator */,
 				DF191E962BD8AAC500D92018 /* MapStore */,
 				DF191E982BD8AAC500D92018 /* MyPageStore */,
-				DF191E9E2BD8ACEA00D92018 /* TopTab */,
-				DF191EA02BD8ACEA00D92018 /* TopTabStore */,
 				DF191EA22BD8EA9100D92018 /* Post */,
 				DF191EA42BD8EA9100D92018 /* PostStore */,
 				562CE1092BE5DA0D00EDBD53 /* Location */,
@@ -779,14 +773,6 @@
 		DF191E982BD8AAC500D92018 /* MyPageStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyPageStore;
-		};
-		DF191E9E2BD8ACEA00D92018 /* TopTab */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TopTab;
-		};
-		DF191EA02BD8ACEA00D92018 /* TopTabStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TopTabStore;
 		};
 		DF191EA22BD8EA9100D92018 /* Post */ = {
 			isa = XCSwiftPackageProductDependency;

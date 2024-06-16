@@ -12,7 +12,7 @@ import PostAnnotation
 
 public struct MapViewRepresentable: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
-    private var postAnnotations: [PostAnnotation]?
+    @Binding private var postAnnotations: [PostAnnotation]
     private var didLongPressCallback: (() -> Void)?
     private var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
     private var didTapPinCallback: ((PostAnnotation) -> Void)?
@@ -21,8 +21,12 @@ public struct MapViewRepresentable: UIViewRepresentable {
     private var isShownPostDetailSheet: Bool = false
     private var region: MKCoordinateRegion?
     
-    public init(postAnnotations: [PostAnnotation]?, isShownPostDetailSheet: Bool = false, region: MKCoordinateRegion? = nil) {
-        self.postAnnotations = postAnnotations
+    public init(
+        postAnnotations: Binding<[PostAnnotation]>?,
+        isShownPostDetailSheet: Bool = false,
+        region: MKCoordinateRegion? = nil
+    ) {
+        _postAnnotations = postAnnotations ?? Binding.constant([])
         self.isShownPostDetailSheet = isShownPostDetailSheet
         
         if region != nil {
@@ -97,12 +101,21 @@ public struct MapViewRepresentable: UIViewRepresentable {
         return ret
     }
     
-    /// 任意のPostAnnotationをMapView中央に表示
+    /// 任意のPostAnnotationをMapView中央に表示（ピンタップ時に動かす用）
     /// - Parameters:
     ///   - annotation: マップ中央に表示したいPostAnnotation
     ///   - mapView: 表示中のMapView
     private func setCenter(from annotation: PostAnnotation, mapView: MKMapView) {
+        guard let lat = Double(annotation.coordinateX),
+              let long = Double(annotation.coordinateY) else { return }
         
+        let region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: lat - 0.0008 , longitude: long),
+            latitudinalMeters: 120.0,
+            longitudinalMeters: 120.0
+        )
+        
+        mapView.setRegion(region, animated: true)
     }
     
     public class Coordinator: NSObject, MKMapViewDelegate {
@@ -128,19 +141,17 @@ public struct MapViewRepresentable: UIViewRepresentable {
             }
             
             // postが存在する時はピンを追加する
-            if let annotations = parent.postAnnotations {
-                mapView.addAnnotations(annotations)
+            parent.postAnnotations.forEach { annotation in
+                guard let lat = Double(annotation.coordinateX),
+                      let long = Double(annotation.coordinateY) else { return }
+                annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
+                mapView.addAnnotation(annotation)
             }
-            
-            let annotaion: PostAnnotation = .stub()
-            annotaion.coordinate = CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)
-            mapView.addAnnotation(annotaion)
         }
         
         // 中心の座標を取得
         public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             self.didChangeCenterRegionCallback?(mapView.region.center)
-            self.updateAnnotations(mapView)
         }
         
         @objc func didLongPress(_ gestureRecognizer:UIGestureRecognizer) {
@@ -156,8 +167,11 @@ public struct MapViewRepresentable: UIViewRepresentable {
         public func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
             print("check: Map will start loading")
         }
+        
         public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
             print("check: Map did finish loading")
+            // マップの読み込みが完了したタイミングでピンを追加する
+            self.updateAnnotations(mapView)
         }
         
         public func mapViewWillStartLocatingUser(_ mapView: MKMapView) {

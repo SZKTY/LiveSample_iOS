@@ -122,16 +122,6 @@ let featureTargets: [Target] = [
         composableArchitecture,
         dependencies
     ]),
-    .feature(name: "TopTab", dependencies: [
-        "TopTabStore",
-        "Map",
-        "MapStore",
-        "MyPage",
-        "MyPageStore",
-        "Routing",
-        composableArchitecture,
-        dependencies
-    ]),
     .feature(name: "MailAddressPassword", dependencies: [
         "MailAddressPasswordStore",
         "Routing",
@@ -150,8 +140,8 @@ let featureTargets: [Target] = [
         "RootStore",
         "Welcome",
         "WelcomeStore",
-        "TopTab",
-        "TopTabStore",
+        "Map",
+        "MapStore",
         "Routing",
         composableArchitecture,
         dependencies
@@ -209,9 +199,6 @@ let featureStoreTargets: [Target] = [
         "UserDefaults",
         "User",
         "ProfileImageStore",
-        composableArchitecture
-    ]),
-    .featureStore(name: "TopTabStore", dependencies: [
         composableArchitecture
     ]),
     .featureStore(name: "MailAddressPasswordStore", dependencies: [
