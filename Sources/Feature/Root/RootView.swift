@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by toya.suzuki on 2024/04/08.
 //
@@ -20,32 +20,42 @@ public struct RootView: View {
     
     public init(store: StoreOf<Root>) {
         self.store = store
+        store.send(.initialize)
     }
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            switch self.loginRouter.isLogin {
-                /// ログイン済み
+            // 初期化済みか
+            switch viewStore.isInitialized {
             case true:
-                MapView(
-                    store: Store(
-                        initialState: MapStore.State()) {
-                            MapStore()
-                        }
-                )
-                /// 未ログイン
+                // ログイン済みか
+                switch self.loginRouter.isLogin {
+                case true:
+                    MapView(
+                        store: Store(
+                            initialState: MapStore.State()) {
+                                MapStore()
+                            }
+                    )
+                case false:
+                    WelcomeView(
+                        store: Store(
+                            initialState: Welcome.State(requiredInfo: viewStore.requiredInfo)) {
+                                Welcome()
+                            }
+                    )
+                }
             case false:
-                WelcomeView(
-                    store: Store(
-                        initialState: Welcome.State()) {
-                            Welcome()
-                        }
-                )
+                // TODO: - スプラッシュ画像？
+                Text("読み込み中です")
             }
         }
         .alert(store: self.store.scope(state: \.$alert, action: \.alert))
         .task {
             await store.send(.task).finish()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.changeToLogout)) { _ in
+            self.loginRouter.isLogin = true
         }
     }
 }

@@ -87,7 +87,9 @@ public struct MailAddressPassword: Sendable {
                 state.destination = .accountIdName(AccountIdName.State())
                 return .run { send in
                     await self.userDefaults.setSessionId(response.sessionId)
+                    await self.userDefaults.setUserId(response.userId)
                 }
+                
             case let .issueAccountResponse(.failure(error)):
                 print("check: issueAccount FAIL")
                 // エラーハンドリング

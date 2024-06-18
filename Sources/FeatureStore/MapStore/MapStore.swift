@@ -122,6 +122,10 @@ public struct MapStore {
                 return .none
             case .postDetail(.presented(.delegate(.move))):
                 return .none
+            case .postDetail(.presented(.delegate(.dismiss))):
+                state.isShownPostDetailSheet = false
+                state.postDetail = nil
+                return .none
             case .postDetail:
                 return .none
             case .postDetailSheetDismiss:

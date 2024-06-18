@@ -7,7 +7,6 @@
 
 import ComposableArchitecture
 import ProfileImageStore
-import User
 import API
 import UserDefaults
 
@@ -19,8 +18,6 @@ public struct AccountIdName {
         @BindingState public var accountId: String = ""
         @BindingState public var accountName: String = ""
         @BindingState public var isEnableNextButton: Bool = false
-        
-        public var userRegist: UserRegist = UserRegist()
         
         public init() {}
     }
@@ -60,7 +57,7 @@ public struct AccountIdName {
                 
             case let .registerAccountInfoResponse(.success(response)):
                 print("check: SUCCESS")
-                state.destination = .profileImage(ProfileImage.State(userRegist: state.userRegist))
+                state.destination = .profileImage(ProfileImage.State())
                 return .none
                 
             case let .registerAccountInfoResponse(.failure(error)):
@@ -77,15 +74,11 @@ public struct AccountIdName {
                 return .none
                 
             case .binding(\.$accountId):
-                print("Account ID 変更:", state.accountId)
                 state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
-                state.userRegist.accountId = state.accountId
                 return .none
                 
             case .binding(\.$accountName):
-                print("Account Name 変更:", state.accountName)
                 state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
-                state.userRegist.accountName = state.accountName
                 return .none
                 
             case .binding:

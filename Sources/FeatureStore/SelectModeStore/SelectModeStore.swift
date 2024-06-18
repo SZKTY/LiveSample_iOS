@@ -7,20 +7,15 @@
 
 import Foundation
 import ComposableArchitecture
-import User
-import UserDefaults
 import API
+import UserDefaults
 
 @Reducer
 public struct SelectMode {
     public struct State: Equatable {
         @PresentationState public var alert: AlertState<Action.Alert>?
         
-        public var userRegist: UserRegist
-        
-        public init(userRegist: UserRegist) {
-            self.userRegist = userRegist
-        }
+        public init() {}
     }
     
     public enum Action {
@@ -50,6 +45,7 @@ public struct SelectMode {
                 }
                 
                 return .run { send in
+                    await userDefaults.setAccountType("fan")
                     await send(.registerAccountTypeResponse(Result {
                         try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "fan")
                     }))
@@ -61,8 +57,8 @@ public struct SelectMode {
                     return .none
                 }
                 
-                state.userRegist.isMusician = true
                 return .run { send in
+                    await userDefaults.setAccountType("artist")
                     await send(.registerAccountTypeResponse(Result {
                         try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "artist")
                     }))

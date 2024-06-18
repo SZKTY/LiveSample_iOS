@@ -26,12 +26,30 @@ public struct UserDefaultsClient: Sendable {
     public var sessionId: String? {
         self.stringForKey(self.sessionIdKey)
     }
+    
+    public var userId: Int? {
+        self.integerForKey(self.userIdKey)
+    }
+    
+    public var accountType: String? {
+        self.stringForKey(self.accountType)
+    }
 
     public func setSessionId(_ string: String) async {
         await self.setString(string, sessionIdKey)
     }
     
+    public func setUserId(_ int: Int) async {
+        await self.setInteger(int, userIdKey)
+    }
+    
+    public func setAccountType(_ string: String) async {
+        await self.setString(string, accountTypeKey)
+    }
+    
     private let sessionIdKey = "SessionIdKey"
+    private let userIdKey = "UserIdKey"
+    private let accountTypeKey = "UserIdKey"
 }
 
 extension UserDefaultsClient: TestDependencyKey {

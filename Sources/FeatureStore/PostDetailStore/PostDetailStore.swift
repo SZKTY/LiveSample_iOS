@@ -7,6 +7,8 @@
 
 import ComposableArchitecture
 import MapKit
+import API
+import UserDefaults
 import PostAnnotation
 
 class DateUtils {
@@ -29,12 +31,10 @@ class DateUtils {
 @Reducer
 public struct PostDetail {
     public struct State: Equatable {
+        @BindingState public var isShownActionSheet: Bool = false
+        @BindingState public var isShownMailView: Bool = false
         public let annotation: PostAnnotation
-        @BindingState public var isShownActionSheet: Bool = false {
-            didSet {
-                print("check: isShownActionSheet = \(isShownActionSheet)")
-            }
-        }
+        public var isMine: Bool = true
         
         public var dateString: String {
             let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy/MM/dd HH:mm:ss Z")
@@ -57,26 +57,92 @@ public struct PostDetail {
     
     public enum Action: BindableAction {
         case initialize
+        case dismiss
         case ellipsisButtonTapped
+        case reportButtonTapped
+        case blockButtonTapped
+        case deletePostButtonTapped
+        case getBlockUserResponse(Result<BlockUserResponse, Error>)
+        case getDeletePostResponse(Result<DeletePostResponse, Error>)
         case delegate(Delegate)
         case binding(BindingAction<State>)
         
         public enum Delegate: Equatable {
+            case dismiss
             case move
         }
     }
+    
+    @Dependency(\.blockUserClient) var blockUser
+    @Dependency(\.deletePostClient) var deletePost
+    @Dependency(\.userDefaults) var userDefaults
     
     public init() {}
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .initialize:
+                guard let userId = userDefaults.userId else {
+                    print("check: No User ID ")
+                    return .none
+                }
+                
+                // 自分の投稿かどうか判断する
+                // TODO: Account ID => User ID に変更する
+                state.isMine = "\(userId)" == state.annotation.postUserAccountId
+                
+                // マップの位置を調整する
+                return .send(.delegate(.move))
+                
+            case .dismiss:
+                return .send(.delegate(.dismiss))
+                
             case .ellipsisButtonTapped:
-                state.isShownActionSheet.toggle()
+                state.isShownActionSheet = true
                 return .none
                 
-            case .initialize:
-                return .send(.delegate(.move))
+            case .deletePostButtonTapped:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.getDeletePostResponse( Result {
+                        // TODO: Post ID
+                        try await deletePost.send(sessionId: sessionId, deletePostId: 1)
+                    }))
+                }
+                
+            case let .getDeletePostResponse(.success(response)):
+                return .send(.delegate(.dismiss))
+                
+            case let .getDeletePostResponse(.failure(error)):
+                return .none
+                
+            case .reportButtonTapped:
+                state.isShownMailView = true
+                return .none
+                
+            case .blockButtonTapped:
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.getBlockUserResponse( Result {
+                        // TODO: User Id
+                        try await blockUser.send(sessionId: sessionId, blockUserId: 1)
+                    }))
+                }
+                
+            case let .getBlockUserResponse(.success(response)):
+                return .send(.delegate(.dismiss))
+                
+            case let .getBlockUserResponse(.failure(error)):
+                return .none
                 
             case .delegate:
                 return .none
@@ -85,5 +151,6 @@ public struct PostDetail {
                 return .none
             }
         }
+        BindingReducer()
     }
 }

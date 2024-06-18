@@ -39,7 +39,6 @@
 		DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E12BD7BE3E00C79F36 /* SampleCounter */; };
 		DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E32BD7BE3E00C79F36 /* SelectMode */; };
 		DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E52BD7BE3E00C79F36 /* SelectModeStore */; };
-		DF7620E82BD7BE3E00C79F36 /* User in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E72BD7BE3E00C79F36 /* User */; };
 		DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620E92BD7BE3E00C79F36 /* ViewComponents */; };
 		DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620EB2BD7BE3E00C79F36 /* Welcome */; };
 		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
@@ -99,7 +98,6 @@
 				DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */,
 				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
-				DF7620E82BD7BE3E00C79F36 /* User in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
@@ -255,7 +253,6 @@
 				DF7620E12BD7BE3E00C79F36 /* SampleCounter */,
 				DF7620E32BD7BE3E00C79F36 /* SelectMode */,
 				DF7620E52BD7BE3E00C79F36 /* SelectModeStore */,
-				DF7620E72BD7BE3E00C79F36 /* User */,
 				DF7620E92BD7BE3E00C79F36 /* ViewComponents */,
 				DF7620EB2BD7BE3E00C79F36 /* Welcome */,
 				DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */,
@@ -833,10 +830,6 @@
 		DF7620E52BD7BE3E00C79F36 /* SelectModeStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SelectModeStore;
-		};
-		DF7620E72BD7BE3E00C79F36 /* User */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = User;
 		};
 		DF7620E92BD7BE3E00C79F36 /* ViewComponents */ = {
 			isa = XCSwiftPackageProductDependency;

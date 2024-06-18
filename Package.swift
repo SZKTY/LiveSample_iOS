@@ -83,7 +83,6 @@ let coreTargets: [Target] = [
         "SelectModeStore",
         "MapStore",
         "MyPageStore",
-        "User",
         "PostStore",
         "PostDetailStore",
         "MapWithCrossStore",
@@ -109,7 +108,6 @@ let dataTargets: [Target] = [
 ]
 
 let entityTargets: [Target] = [
-    .entity(name: "User", dependencies: []),
     .entity(name: "Config", dependencies: []),
     .entity(name: "PostEntity", dependencies: []),
     .entity(name: "PostAnnotation", dependencies: [])
@@ -197,7 +195,6 @@ let featureStoreTargets: [Target] = [
     .featureStore(name: "AccountIdNameStore", dependencies: [
         "API",
         "UserDefaults",
-        "User",
         "ProfileImageStore",
         composableArchitecture
     ]),
@@ -211,7 +208,6 @@ let featureStoreTargets: [Target] = [
     .featureStore(name: "ProfileImageStore", dependencies: [
         "API",
         "UserDefaults",
-        "User",
         "SelectModeStore",
         composableArchitecture,
     ]),
@@ -223,11 +219,14 @@ let featureStoreTargets: [Target] = [
     .featureStore(name: "SelectModeStore", dependencies: [
         "API",
         "UserDefaults",
-        "User",
         composableArchitecture
     ]),
     .featureStore(name: "WelcomeStore", dependencies: [
+        "API",
+        "UserDefaults",
         "MailAddressPasswordStore",
+        "AccountIdNameStore",
+        "SelectModeStore",
         composableArchitecture
     ]),
     .featureStore(name: "MapStore", dependencies: [

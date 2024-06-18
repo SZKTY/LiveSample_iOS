@@ -8,13 +8,13 @@
 import SwiftUI
 import ComposableArchitecture
 import PostDetailStore
+import ViewComponents
 
 public struct PostDetailView: View {
     let store: StoreOf<PostDetail>
     
     public nonisolated init(store: StoreOf<PostDetail>) {
         self.store = store
-        
         self.store.send(.initialize)
     }
     
@@ -106,12 +106,36 @@ public struct PostDetailView: View {
                 }
             }
             .confirmationDialog("その他", isPresented: viewStore.$isShownActionSheet) {
-                Button("選択肢1") {
-                    // 選択肢1ボタンが押された時の処理
+                if viewStore.isMine {
+                    Button("投稿の削除") {
+                        viewStore.send(.deletePostButtonTapped)
+                    }
+                } else {
+                    Button("通報") {
+                    #if DEBUG
+                        // シュミレータでは表示できない
+                    #else
+                        if MailView.canSendMail() {
+                            viewStore.send(.reportButtonTapped)
+                        } else {
+                            // TODO: MailViewを表示できない場合（メールアプリが使用できない場合）
+                        }
+                    #endif
+                    }
+                    Button("ブロック") {
+                        // ブロック処理
+                        viewStore.send(.blockButtonTapped)
+                    }
                 }
-                Button("選択肢2") {
-                    // 選択肢2ボタンが押された時の処理
-                }
+            }
+            .sheet(isPresented: viewStore.$isShownMailView) {
+                // TODO: メールの中身
+                MailView(
+                    address: ["support@sample.com"],
+                    subject: "サンプルアプリ",
+                    body: "サンプルアプリです"
+                )
+                .edgesIgnoringSafeArea(.all)
             }
         }
     }

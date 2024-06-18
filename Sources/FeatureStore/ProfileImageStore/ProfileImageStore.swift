@@ -7,10 +7,9 @@
 
 import Foundation
 import ComposableArchitecture
-import SelectModeStore
-import User
-import UserDefaults
 import API
+import UserDefaults
+import SelectModeStore
 
 @Reducer
 public struct ProfileImage {
@@ -22,11 +21,8 @@ public struct ProfileImage {
         @BindingState public var isShownSelfImagePicker: Bool = false
         @BindingState public var imageData: Data = Data()
         @BindingState public var isEnableNextButton: Bool = false
-        public var userRegist: UserRegist
         
-        public init(userRegist: UserRegist) {
-            self.userRegist = userRegist
-        }
+        public init() {}
     }
     
     public enum Action: BindableAction {
@@ -67,7 +63,7 @@ public struct ProfileImage {
                 }
                 
                 if state.imageData == Data() {
-                    state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
+                    state.destination = .selectMode(SelectMode.State())
                     return .none
                 }
                 
@@ -94,7 +90,7 @@ public struct ProfileImage {
                 return .none
                 
             case let .registerProfilePictureResponse(.success(response)):
-                state.destination = .selectMode(SelectMode.State(userRegist: state.userRegist))
+                state.destination = .selectMode(SelectMode.State())
                 return .none
                 
             case let .registerProfilePictureResponse(.failure(error)):

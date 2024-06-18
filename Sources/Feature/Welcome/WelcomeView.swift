@@ -14,11 +14,14 @@ import WelcomeStore
 @MainActor
 public struct WelcomeView: View {
     @Dependency(\.viewBuildingClient.mailAddressPasswordView) var mailAddressPasswordView
+    @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
+    @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
     
     let store: StoreOf<Welcome>
     
     public nonisolated init(store: StoreOf<Welcome>) {
         self.store = store
+        self.store.send(.initialize)
     }
     
     public var body: some View {
@@ -86,6 +89,18 @@ public struct WelcomeView: View {
                                    action: \.destination.mailAddressPassword)
             ) { store in
                 mailAddressPasswordView(store)
+            }
+            .navigationDestination(
+                store: store.scope(state: \.$destination.accountIdName,
+                                   action: \.destination.accountIdName)
+            ) { store in
+                accountIdNameView(store)
+            }
+            .navigationDestination(
+                store: store.scope(state: \.$destination.selectMode,
+                                   action: \.destination.selectMode)
+            ) { store in
+                selectModeView(store)
             }
         }
     }
