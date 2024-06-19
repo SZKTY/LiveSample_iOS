@@ -25,7 +25,7 @@ public struct GetUserInfoRequest: GetRequest {
 public struct GetUserInfoResponse: Decodable {
     public var accountName: String
     public var accountId: String
-    public var userId: String
-    public var accounType: String
-    public var accounImagePath: String
+    public var userId: Int
+    public var accountType: String
+    public var accountImagePath: String
 }

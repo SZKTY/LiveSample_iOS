@@ -14,15 +14,18 @@ import UserDefaults
 public struct SelectMode {
     public struct State: Equatable {
         @PresentationState public var alert: AlertState<Action.Alert>?
+        @BindingState public var isCheckedYes: Bool = false
+        @BindingState public var isCheckedNo: Bool = false
+        public var isEnableStartButton: Bool = false
         
         public init() {}
     }
     
-    public enum Action {
-        case didTapFan
-        case didTapMusician
+    public enum Action: BindableAction {
+        case didTapStartButton
         case registerAccountTypeResponse(Result<RegisterAccountTypeResponse, Error>)
         case alert(PresentationAction<Alert>)
+        case binding(BindingAction<State>)
         
         public enum Alert: Equatable {
             case failToRegisterAccountType
@@ -38,29 +41,18 @@ public struct SelectMode {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .didTapFan:
+            case .didTapStartButton:
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
                     return .none
                 }
                 
-                return .run { send in
-                    await userDefaults.setAccountType("fan")
-                    await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "fan")
-                    }))
-                }
-                
-            case .didTapMusician:
-                guard let sessionId = userDefaults.sessionId else {
-                    print("check: No Session ID ")
-                    return .none
-                }
+                let type = state.isCheckedYes ? "artist" : "fan"
                 
                 return .run { send in
-                    await userDefaults.setAccountType("artist")
+                    await userDefaults.setAccountType(type)
                     await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "artist")
+                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: type)
                     }))
                 }
                 
@@ -77,8 +69,23 @@ public struct SelectMode {
                 
             case .alert:
                 return .none
+                
+            case .binding(\.$isCheckedYes):
+                state.isCheckedNo = state.isCheckedYes
+                state.isEnableStartButton = true
+                return .none
+                
+            case .binding(\.$isCheckedNo):
+                state.isCheckedYes = state.isCheckedNo
+                state.isEnableStartButton = true
+                return .none
+                
+            case .binding:
+                return .none
             }
         }
+        
+        BindingReducer()
     }
 }
 

@@ -68,6 +68,7 @@ extension Target {
 }
 
 let coreTargets: [Target] = [
+    .core(name: "Assets",dependencies: []),
     .core(name: "Location", dependencies: []),
     .core(name: "ViewComponents", dependencies: [
         "Location",
@@ -116,18 +117,23 @@ let entityTargets: [Target] = [
 let featureTargets: [Target] = [
     .feature(name: "AccountIdName", dependencies: [
         "AccountIdNameStore",
+        "Assets",
+        "ViewComponents",
         "Routing",
         composableArchitecture,
         dependencies
     ]),
     .feature(name: "MailAddressPassword", dependencies: [
         "MailAddressPasswordStore",
+        "Assets",
+        "ViewComponents",
         "Routing",
         composableArchitecture,
         dependencies
     ]),
     .feature(name: "ProfileImage", dependencies: [
         "ProfileImageStore",
+        "Assets",
         "ViewComponents",
         "Routing",
         composableArchitecture,
@@ -140,22 +146,29 @@ let featureTargets: [Target] = [
         "WelcomeStore",
         "Map",
         "MapStore",
+        "Assets",
         "Routing",
         composableArchitecture,
         dependencies
     ]),
     .feature(name: "SelectMode", dependencies: [
         "SelectModeStore",
+        "ViewComponents",
         "Routing",
+        "Assets",
         composableArchitecture,
         dependencies
     ]),
-    .feature(name: "Welcome", dependencies: [
-        "WelcomeStore",
-        "Routing",
-        composableArchitecture,
-        dependencies
-    ]),
+    .feature(
+        name: "Welcome",
+        dependencies: [
+            "WelcomeStore",
+            "Routing",
+            "Assets",
+            composableArchitecture,
+            dependencies
+        ]
+    ),
     .feature(name: "Map", dependencies: [
         "Location",
         "MapStore",
@@ -203,6 +216,7 @@ let featureStoreTargets: [Target] = [
         "UserDefaults",
         "Validator",
         "AccountIdNameStore",
+        "SelectModeStore",
         composableArchitecture
     ]),
     .featureStore(name: "ProfileImageStore", dependencies: [

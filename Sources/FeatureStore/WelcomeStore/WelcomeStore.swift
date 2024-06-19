@@ -41,7 +41,7 @@ public struct Welcome {
             switch action {
             case .initialize:
                 // SessionID がローカルに存在しない場合は、何もしない
-                guard userDefaults.sessionId == nil else {
+                if userDefaults.sessionId == nil {
                     print("check: No Session ID")
                     return .none
                 }

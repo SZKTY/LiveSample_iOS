@@ -8,12 +8,22 @@
 import SwiftUI
 import ComposableArchitecture
 import AccountIdNameStore
+import Assets
+import ViewComponents
 import Routing
 
 @MainActor
 public struct AccountIdNameView: View {
+    enum FocusStates {
+        case accountId, accountName
+    }
+    
+    @Environment(\.dismiss) var dismiss
+    @FocusState private var focusState : FocusStates?
+    
     @Dependency(\.viewBuildingClient.profileImageView) var profileImageView
-    let store: StoreOf<AccountIdName>
+    
+    private let store: StoreOf<AccountIdName>
     
     public nonisolated init(store: StoreOf<AccountIdName>) {
         self.store = store
@@ -21,55 +31,104 @@ public struct AccountIdNameView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 30){
-                Text("アカウントIDを入力してください。")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .black))
-                
-                TextField("Your Account ID", text: viewStore.$accountId)
-                    .padding()
-                    .padding(.leading, 15)
-                    .font(.system(size: 27, weight: .medium))
-                    .foregroundColor(.black)
-                    .background(.white)
-                    .cornerRadius(5)
-                
-                Text("アカウント名を入力してください。")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .black))
-                    .padding(.top, 20)
-                
-                TextField("Your Account Name", text: viewStore.$accountName)
-                    .padding()
-                    .padding(.leading, 15)
-                    .font(.system(size: 27, weight: .medium))
-                    .foregroundColor(.black)
-                    .background(.white)
-                    .cornerRadius(5)
-                
-                Spacer()
-                
-                Button(action: {
-                    viewStore.send(.nextButtonTapped)
-                }) {
-                    Text("次へ")
-                        .frame(maxWidth: .infinity, minHeight: 70)
-                        .font(.system(size: 20, weight: .medium))
-                }
-                .accentColor(Color.white)
-                .background(Color.black)
-                .cornerRadius(.infinity)
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 40)
-            .padding(.bottom, 80)
-            .background(
-                Image("mainBackground")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+            ZStack {
+                Color.subSubColor
                     .edgesIgnoringSafeArea(.all)
-            )
-            .navigationBarBackButtonHidden(true)
+                    .gesture(
+                        TapGesture()
+                            .onEnded { _ in
+                                focusState = nil
+                            }
+                    )
+                
+                VStack(alignment: .leading, spacing: 36) {
+                    Spacer()
+                    
+                    Text("アカウント名とアカウントIDを\n入力してください")
+                        .font(.system(size: 20, weight: .black))
+                        .frame(height: 48)
+                    
+                    VStack {
+                        TextField("Your Name", text: viewStore.$accountName)
+                            .modifier(TextFieldModifier())
+                            .autocorrectionDisabled(true)
+                            .focused($focusState, equals: .accountName)
+                        
+                        HStack() {
+                            Spacer()
+                            
+                            Button {
+                                print("check: Tapped")
+                            } label: {
+                                Text("アカウント名について")
+                                    .font(.system(size: 14))
+                            }
+                        }
+                        
+                    }
+                    
+                    
+                    VStack {
+                        HStack {
+                            Text("@")
+                                .font(.system(size: 40))
+                                .frame(height: 48)
+                            
+                            TextField("Account ID", text: viewStore.$accountId)
+                                .modifier(TextFieldModifier())
+                                .keyboardType(.emailAddress)
+                                .autocorrectionDisabled(true)
+                                .focused($focusState, equals: .accountId)
+                        }
+                        
+                        
+                        HStack() {
+                            Spacer()
+                            
+                            Button {
+                                print("check: Tapped")
+                            } label: {
+                                Text("アカウントIDについて")
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
+                    
+                    Button(action: {
+                        viewStore.send(.nextButtonTapped)
+                    }) {
+                        Text("次へ")
+                            .frame(maxWidth: .infinity, minHeight: 70)
+                            .font(.system(size: 20, weight: .medium))
+                            .bold()
+                            .foregroundStyle(viewStore.isEnableNextButton ? .white : .white.opacity(0.3))
+                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : .gray.opacity(0.5))
+                            .cornerRadius(.infinity)
+                    }
+                    .disabled(!viewStore.isEnableNextButton)
+                    
+                    Spacer()
+                    
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 40)
+                .padding(.bottom, 80)
+                
+            }
+            .navigationTitle("2 / 4")
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(
+                        action: {
+                            dismiss()
+                        }, label: {
+                            Image(systemName: "chevron.backward")
+                                .font(.system(size: 17, weight: .medium))
+                        }
+                    ).tint(.black)
+                }
+            }
             .navigationDestination(
                 store: self.store.scope(state: \.$destination.profileImage,
                                         action: \.destination.profileImage)

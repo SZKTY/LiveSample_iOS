@@ -10,9 +10,10 @@ import ComposableArchitecture
 import RootStore
 import Welcome
 import WelcomeStore
-import Routing
 import Map
 import MapStore
+import Assets
+import Routing
 
 public struct RootView: View {
     @EnvironmentObject var loginRouter: LoginRouter
@@ -46,8 +47,11 @@ public struct RootView: View {
                     )
                 }
             case false:
-                // TODO: - スプラッシュ画像？
-                Text("読み込み中です")
+                // TODO: - スプラッシュが決まった後、スプラッシュと合わせる
+                ZStack {
+                    Color.subSubColor
+                        .edgesIgnoringSafeArea(.all)
+                }
             }
         }
         .alert(store: self.store.scope(state: \.$alert, action: \.alert))

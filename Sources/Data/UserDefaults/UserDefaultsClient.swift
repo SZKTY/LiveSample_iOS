@@ -32,7 +32,7 @@ public struct UserDefaultsClient: Sendable {
     }
     
     public var accountType: String? {
-        self.stringForKey(self.accountType)
+        self.stringForKey(self.accountTypeKey)
     }
 
     public func setSessionId(_ string: String) async {

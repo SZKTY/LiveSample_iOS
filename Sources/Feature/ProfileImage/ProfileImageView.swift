@@ -7,13 +7,17 @@
 
 import SwiftUI
 import ComposableArchitecture
-import ViewComponents
 import ProfileImageStore
+import Assets
+import ViewComponents
 import Routing
 
 @MainActor
 public struct ProfileImageView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
+    
     let store: StoreOf<ProfileImage>
     
     public nonisolated init(store: StoreOf<ProfileImage>) {
@@ -22,83 +26,102 @@ public struct ProfileImageView: View {
     
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 60) {
+                Spacer()
+                
                 Text("プロフィール写真を選択してください")
                     .font(.system(size: 20, weight: .black))
                 
                 HStack {
-                    Image(uiImage: UIImage(data: viewStore.imageData) ?? UIImage(named: "noImage")!)
-                        .resizable()
-                        .aspectRatio(1,contentMode: .fit)
-                        .clipShape(Circle())
-                        .frame(
-                            width: UIScreen.main.bounds.width*0.5,
-                            height: UIScreen.main.bounds.width*0.5
-                        )
+                    RemovableCircleImageButton(tapAction: {
+                        store.send(.didTapShowImagePicker)
+                    }, removeAction: {
+                        viewStore.send(.imageRemoveButtonTapped)
+                    }, image: viewStore.imageData)
                 }
                 .frame(maxWidth: .infinity)
                 
-                Spacer()
-                
-                HStack(spacing: 10) {
-                    Button(action: {
-                        store.send(.didTapShowImagePicker)
-                    }) {
-                        Text("ライブラリから\n選択")
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 17, weight: .medium))
+                VStack(spacing: 36) {
+                    HStack(spacing: 10) {
+                        Button(action: {
+                            store.send(.didTapShowImagePicker)
+                        }) {
+                            Text("ライブラリから\n選択")
+                                .frame(maxWidth: .infinity, minHeight: 70)
+                                .font(.system(size: 17))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .stroke(.black, lineWidth: 1)
+                                )
+                        }
+                        
+                        Button(action: {
+                            store.send(.didTapShowSelfImagePicker)
+                        }) {
+                            Text("写真を撮る")
+                                .frame(maxWidth: .infinity, minHeight: 70)
+                                .font(.system(size: 17))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .stroke(.black, lineWidth: 1)
+                                )
+                        }
                     }
-                    .accentColor(Color.white)
-                    .background(Color.black)
-                    .cornerRadius(.infinity)
                     
                     Button(action: {
-                        store.send(.didTapShowSelfImagePicker)
+                        store.send(.nextButtonTapped)
                     }) {
-                        Text("写真を撮る")
+                        Text("次へ")
                             .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 17, weight: .medium))
+                            .font(.system(size: 20, weight: .medium))
+                            .bold()
+                            .foregroundStyle(.white)
+                            .background(Color.mainBaseColor)
+                            .cornerRadius(.infinity)
                     }
-                    .accentColor(Color.white)
-                    .background(Color.black)
-                    .cornerRadius(.infinity)
                 }
-                .padding(.bottom, 10)
                 
-                Button(action: {
-                    store.send(.nextButtonTapped)
-                }) {
-                    Text("次へ")
-                        .frame(maxWidth: .infinity, minHeight: 70)
-                        .font(.system(size: 20, weight: .medium))
-                }
-                .accentColor(Color.white)
-                .background(Color.black)
-                .cornerRadius(.infinity)
+                Spacer()
             }
             .padding(.horizontal, 20)
-            .padding(.top, 40)
-            .padding(.bottom, 80)
+            .background(Color.subSubColor)
+            .navigationTitle("3 / 4")
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(
+                        action: {
+                            dismiss()
+                        }, label: {
+                            Image(systemName: "chevron.backward")
+                                .font(.system(size: 17, weight: .medium))
+                        }
+                    ).tint(.black)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(
+                        action: {
+                            store.send(.skipButtonTapped)
+                        }, label: {
+                            Text("Skip")
+                        }
+                    ).tint(.black)
+                }
+            }
             .sheet(isPresented: viewStore.$isShownImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$imageData)
             }
             .sheet(isPresented: viewStore.$isShownSelfImagePicker) {
                 ImagePicker(sourceType: .camera, selectedImage: viewStore.$imageData)
             }
-            .background(
-                Image("mainBackground")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-            )
-            .navigationBarBackButtonHidden(true)
+            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
             .navigationDestination(
                 store: store.scope(state: \.$destination.selectMode,
                                    action: \.destination.selectMode)
             ) { store in
                 self.selectModeView(store)
             }
-            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
         }
     }
 }

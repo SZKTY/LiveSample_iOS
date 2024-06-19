@@ -74,10 +74,12 @@ public struct AccountIdName {
                 return .none
                 
             case .binding(\.$accountId):
+                // TODO: バリデーション
                 state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
                 return .none
                 
             case .binding(\.$accountName):
+                // TODO: バリデーション
                 state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
                 return .none
                 

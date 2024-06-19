@@ -26,6 +26,8 @@ public struct ProfileImage {
     }
     
     public enum Action: BindableAction {
+        case skipButtonTapped
+        case imageRemoveButtonTapped
         case didTapShowImagePicker
         case didTapShowSelfImagePicker
         case nextButtonTapped
@@ -50,12 +52,22 @@ public struct ProfileImage {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .skipButtonTapped:
+                state.destination = .selectMode(SelectMode.State())
+                return .none
+                
+            case .imageRemoveButtonTapped:
+                state.imageData = Data()
+                return .none
+                
             case .didTapShowImagePicker:
                 state.isShownImagePicker.toggle()
                 return .none
+                
             case .didTapShowSelfImagePicker:
                 state.isShownSelfImagePicker.toggle()
                 return .none
+                
             case .nextButtonTapped:
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
@@ -99,6 +111,7 @@ public struct ProfileImage {
                 
             case .binding:
                 return .none
+                
             case .destination(_):
                 return .none
                 
