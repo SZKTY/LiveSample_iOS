@@ -47,8 +47,9 @@ public struct Root {
         Reduce { state, action in
             switch action {
             case .initialize:
-                // SessionID がローカルに存在しない場合は、以降の処理を止めて初期化完了とする
-                guard let sessionId = userDefaults.sessionId else {
+                // SessionID / UserID がローカルに存在しない場合は、以降の処理を止めて初期化完了とする
+                guard let sessionId = userDefaults.sessionId,
+                      userDefaults.userId != nil else {
                     print("check: No Session ID")
                     
                     return .run { send in

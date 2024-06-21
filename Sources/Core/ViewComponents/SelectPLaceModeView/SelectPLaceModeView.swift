@@ -7,12 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Assets
 
 public struct SelectPLaceModeView: View {
     /// safeArea上部のみ無視しており、その分中心がズレるのを補正するPadding
-    public let scopeTopPadding: CGFloat
-    public let action: () -> ()
-    public let cancelAction: () -> ()
+    private let scopeTopPadding: CGFloat
+    private let action: () -> ()
+    private let cancelAction: () -> ()
     
     public init(scopeTopPadding: CGFloat,
                 action: @escaping () -> Void,
@@ -67,7 +68,7 @@ public struct SelectPLaceModeView: View {
                 Spacer()
                 
                 Image(systemName: "scope")
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.mainBaseColor)
                     .font(.system(size: 36))
                     .padding(.top, self.scopeTopPadding)
                 
@@ -78,7 +79,7 @@ public struct SelectPLaceModeView: View {
                 }, label: {
                     Text("確定")
                         .frame(width: 120.0, height: 60.0)
-                        .background(.black)
+                        .background(Color.mainBaseColor)
                         .foregroundColor(.white)
                         .font(.system(size: 16))
                         .bold()

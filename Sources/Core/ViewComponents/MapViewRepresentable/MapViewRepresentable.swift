@@ -42,17 +42,9 @@ public struct MapViewRepresentable: UIViewRepresentable {
         
         if let region = self.region {
             mapView.setRegion(region, animated: false)
-            
-            // pin生成
             let pin = MKPointAnnotation()
-                    
-            // 位置情報
-            let coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(region.center.latitude, region.center.longitude)
-                    
-            // pinに位置情報を渡す
+            let coordinate: CLLocationCoordinate2D = .init(latitude: region.center.latitude, longitude: region.center.longitude)
             pin.coordinate = coordinate
-                    
-            //pinを立てる
             mapView.addAnnotation(pin)
         }
         
@@ -80,6 +72,9 @@ public struct MapViewRepresentable: UIViewRepresentable {
             guard let annotation = context.coordinator.selectedAnnotation else { return }
             setCenter(from: annotation, mapView: uiView)
         }
+        
+        // ピンの更新を行う
+        context.coordinator.updateAnnotations(uiView, postAnnotations: postAnnotations)
     }
     
     public func makeCoordinator() -> Coordinator {
@@ -131,7 +126,7 @@ public struct MapViewRepresentable: UIViewRepresentable {
         private var parent: MapViewRepresentable
         var isFirst: Bool = true
         
-        private func updateAnnotations(_ mapView: MKMapView) {
+        public func updateAnnotations(_ mapView: MKMapView, postAnnotations: [PostAnnotation]) {
             // TODO: PinにユニークのIDを持たせ、既にマップへ追加済み or 既に投稿が削除済みか比較できるようにする
             // TODO: マップ中央から半径何キロ以内みたいなバリデーションを追加する
             
@@ -141,7 +136,7 @@ public struct MapViewRepresentable: UIViewRepresentable {
             }
             
             // postが存在する時はピンを追加する
-            parent.postAnnotations.forEach { annotation in
+            postAnnotations.forEach { annotation in
                 guard let lat = Double(annotation.coordinateX),
                       let long = Double(annotation.coordinateY) else { return }
                 annotation.coordinate = CLLocationCoordinate2DMake(lat, long)
@@ -170,8 +165,6 @@ public struct MapViewRepresentable: UIViewRepresentable {
         
         public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
             print("check: Map did finish loading")
-            // マップの読み込みが完了したタイミングでピンを追加する
-            self.updateAnnotations(mapView)
         }
         
         public func mapViewWillStartLocatingUser(_ mapView: MKMapView) {

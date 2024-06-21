@@ -19,7 +19,7 @@ public struct MailAddressPasswordView: View {
     }
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var loginRouter: LoginRouter
+    @EnvironmentObject var loginChecker: LoginChecker
     @FocusState private var focusState : FocusStates?
     
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
@@ -34,7 +34,7 @@ public struct MailAddressPasswordView: View {
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ZStack {
-                Color.subSubColor
+                Color.mainSubColor
                     .edgesIgnoringSafeArea(.all)
                     .gesture(
                         TapGesture()
@@ -46,23 +46,35 @@ public struct MailAddressPasswordView: View {
                 VStack(alignment: .leading, spacing: 36) {
                     Spacer()
                     
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("メールアドレスとパスワードを\n入力してください")
-                            .font(.system(size: 20, weight: .black))
-                            .frame(height: 48)
-                        
-                        Text("メールアドレスは会員登録のみに利用され、\n外部に公開されることは一切ございません。")
-                            .font(.system(size: 16))
-                            .frame(height: 40)
+                    if !viewStore.isLogin {
+                        VStack(alignment: .leading, spacing: 24) {
+                            Text("メールアドレスとパスワードを\n入力してください")
+                                .font(.system(size: 20, weight: .heavy))
+                                .frame(height: 48)
+                            
+                            Text("メールアドレスは会員登録のみに利用され、\n外部に公開されることは一切ございません。")
+                                .font(.system(size: 16, weight: .light))
+                                .underline()
+                                .frame(height: 40)
+                        }
                     }
                     
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 24) {
+                        if viewStore.isLogin {
+                            Text("メールアドレスを入力してください")
+                                .font(.system(size: 17, weight: .light))
+                        }
+                        
                         TextField("Email", text: viewStore.$email)
                             .keyboardType(.emailAddress)
                             .autocorrectionDisabled(true)
                             .focused($focusState, equals: .mail)
                             .modifier(TextFieldModifier())
                         
+                        if viewStore.isLogin {
+                            Text("パスワードを入力してください")
+                                .font(.system(size: 17, weight: .light))
+                        }
                         
                         PasswordTextField("Password", text: viewStore.$password)
                             .focused($focusState, equals: .password)
@@ -74,7 +86,7 @@ public struct MailAddressPasswordView: View {
                     }) {
                         Text(viewStore.isLogin ? "ログイン" : "次へ")
                             .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 20, weight: .medium))
+                            .font(.system(size: 20, weight: .heavy))
                             .bold()
                             .foregroundStyle(viewStore.isEnableNextButton ? .white : .white.opacity(0.3))
                             .background(viewStore.isEnableNextButton ? Color.mainBaseColor : .gray.opacity(0.5))
@@ -86,7 +98,7 @@ public struct MailAddressPasswordView: View {
                 }
                 .padding(.horizontal, 20)
             }
-            .navigationTitle("1 / 4")
+            .navigationTitle(viewStore.isLogin ? "ログイン" : "1 / 4")
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -101,7 +113,7 @@ public struct MailAddressPasswordView: View {
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishLogin)) { _ in
-                loginRouter.isLogin = true
+                loginChecker.isLogin = true
             }
             .alert(store: self.store.scope(state: \.$alert, action: \.alert))
             .navigationDestination(

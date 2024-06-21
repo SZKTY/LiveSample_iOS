@@ -25,23 +25,23 @@ public struct ProfileImageView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 60) {
                 Spacer()
                 
                 Text("プロフィール写真を選択してください")
-                    .font(.system(size: 20, weight: .black))
-                
-                HStack {
-                    RemovableCircleImageButton(tapAction: {
-                        store.send(.didTapShowImagePicker)
-                    }, removeAction: {
-                        viewStore.send(.imageRemoveButtonTapped)
-                    }, image: viewStore.imageData)
-                }
-                .frame(maxWidth: .infinity)
+                    .font(.system(size: 20, weight: .heavy))
                 
                 VStack(spacing: 36) {
+                    HStack {
+                        RemovableCircleImageButton(tapAction: {
+                            store.send(.didTapShowImagePicker)
+                        }, removeAction: {
+                            viewStore.send(.imageRemoveButtonTapped)
+                        }, image: viewStore.imageData)
+                    }
+                    .frame(maxWidth: .infinity)
+                    
                     HStack(spacing: 10) {
                         Button(action: {
                             store.send(.didTapShowImagePicker)
@@ -50,8 +50,9 @@ public struct ProfileImageView: View {
                                 .frame(maxWidth: .infinity, minHeight: 70)
                                 .font(.system(size: 17))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: .infinity)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .stroke(.black, lineWidth: 1)
+                                        .shadow(color: .gray, radius: 2, x: 0, y: 2)
                                 )
                         }
                         
@@ -62,29 +63,30 @@ public struct ProfileImageView: View {
                                 .frame(maxWidth: .infinity, minHeight: 70)
                                 .font(.system(size: 17))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: .infinity)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .stroke(.black, lineWidth: 1)
+                                        .shadow(color: .gray, radius: 2, x: 0, y: 2)
                                 )
                         }
                     }
-                    
-                    Button(action: {
-                        store.send(.nextButtonTapped)
-                    }) {
-                        Text("次へ")
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 20, weight: .medium))
-                            .bold()
-                            .foregroundStyle(.white)
-                            .background(Color.mainBaseColor)
-                            .cornerRadius(.infinity)
-                    }
+                }
+                
+                Button(action: {
+                    store.send(.nextButtonTapped)
+                }) {
+                    Text("次へ")
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .font(.system(size: 20, weight: .medium))
+                        .bold()
+                        .foregroundStyle(.white)
+                        .background(Color.mainBaseColor)
+                        .cornerRadius(.infinity)
                 }
                 
                 Spacer()
             }
             .padding(.horizontal, 20)
-            .background(Color.subSubColor)
+            .background(Color.mainSubColor)
             .navigationTitle("3 / 4")
             .navigationBarBackButtonHidden()
             .toolbar {
@@ -115,12 +117,12 @@ public struct ProfileImageView: View {
             .sheet(isPresented: viewStore.$isShownSelfImagePicker) {
                 ImagePicker(sourceType: .camera, selectedImage: viewStore.$imageData)
             }
-            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+            .alert(store: store.scope(state: \.$alert, action: \.alert))
             .navigationDestination(
                 store: store.scope(state: \.$destination.selectMode,
                                    action: \.destination.selectMode)
             ) { store in
-                self.selectModeView(store)
+                selectModeView(store)
             }
         }
     }

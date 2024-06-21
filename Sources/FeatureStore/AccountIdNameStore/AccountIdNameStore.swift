@@ -24,6 +24,8 @@ public struct AccountIdName {
     
     public enum Action: BindableAction {
         case nextButtonTapped
+        case whatIsAccountNameButtonTapped
+        case whatIsAccountIdButtonTapped
         case registerAccountInfoResponse(Result<RegisterAccountInfoResponse, Error>)
         case destination(PresentationAction<Path.Action>)
         case alert(PresentationAction<Alert>)
@@ -55,6 +57,20 @@ public struct AccountIdName {
                     }))
                 }
                 
+            case .whatIsAccountNameButtonTapped:
+                state.alert = AlertState(
+                    title: TextState("アカウント名について"),
+                    message: TextState("あなたのプロフィールに\n表示されるハンドルネームです。\nアーティスト名など任意の名前を\n設定できます。")
+                )
+                return .none
+                
+            case .whatIsAccountIdButtonTapped:
+                state.alert = AlertState(
+                    title: TextState("アカウントIDについて"),
+                    message: TextState("（サービス名）上であなたを一意に\n識別するIDです。\n他のユーザーと重複しないように\n設定いただきます。\n（アカウントIDもプロフィールに表示されます）")
+                )
+                return .none
+                
             case let .registerAccountInfoResponse(.success(response)):
                 print("check: SUCCESS")
                 state.destination = .profileImage(ProfileImage.State())
@@ -62,6 +78,7 @@ public struct AccountIdName {
                 
             case let .registerAccountInfoResponse(.failure(error)):
                 print("check: FAIL")
+                state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
                 
             case .destination:
@@ -88,6 +105,7 @@ public struct AccountIdName {
             }
         }
         .ifLet(\.$destination, action: \.destination)
+        .ifLet(\.$alert, action: \.alert)
         
         BindingReducer()
     }

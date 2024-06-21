@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import Assets
 
 public struct FloatingButton: View {
-    private let action: () -> ()
-    private let imageName: String
     private let position: FloatingButtonPosition
+    private let imageName: String
+    private let isBaseColor: Bool
+    private let action: () -> ()
     
-    public init(position: FloatingButtonPosition, imageName: String, action: @escaping () -> Void) {
+    public init(position: FloatingButtonPosition,
+                imageName: String,
+                isBaseColor: Bool = true,
+                action: @escaping () -> Void) {
         self.position = position
         self.imageName = imageName
+        self.isBaseColor = isBaseColor
         self.action = action
     }
     
@@ -33,12 +39,12 @@ public struct FloatingButton: View {
                     self.action()
                 }, label: {
                     Image(systemName: imageName)
-                        .foregroundColor(.white)
+                        .foregroundColor(isBaseColor ? .white : Color.mainBaseColor)
                         .font(.system(size: 24))
                         .bold()
                 })
                 .frame(width: 60, height: 60)
-                .background(.black)
+                .background(isBaseColor ? Color.mainBaseColor : Color.mainSubColor)
                 .cornerRadius(30.0)
                 .shadow(color: .gray, radius: 3, x: 3, y: 3)
                 .padding(makeEdgeInsets())
@@ -61,9 +67,9 @@ public struct FloatingButton: View {
         case .topTailing:
             return EdgeInsets(top: 80.0, leading: 0, bottom: 0, trailing: 16.0)
         case .bottomLeading:
-            return EdgeInsets(top: 0, leading: 16.0, bottom: 16.0, trailing: 0)
+            return EdgeInsets(top: 0, leading: 16.0, bottom: 80.0, trailing: 0)
         case .bottomTailing:
-            return EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0)
+            return EdgeInsets(top: 0, leading: 0, bottom: 80.0, trailing: 16.0)
         }
         
     }

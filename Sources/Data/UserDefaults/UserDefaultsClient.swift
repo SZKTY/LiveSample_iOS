@@ -49,7 +49,7 @@ public struct UserDefaultsClient: Sendable {
     
     private let sessionIdKey = "SessionIdKey"
     private let userIdKey = "UserIdKey"
-    private let accountTypeKey = "UserIdKey"
+    private let accountTypeKey = "AccountTypeKey"
 }
 
 extension UserDefaultsClient: TestDependencyKey {

@@ -8,10 +8,19 @@
 import SwiftUI
 import ComposableArchitecture
 import PostDetailStore
+import Assets
 import ViewComponents
 
 public struct PostDetailView: View {
-    let store: StoreOf<PostDetail>
+    @Environment(\.openURL) var openURL
+    
+    private let store: StoreOf<PostDetail>
+    private let gradient = Gradient(
+        stops: [
+            .init(color: Color(uiColor: UIColor(red: 53/255, green: 60/255, blue: 63/255, alpha: 1)), location: 0.0),
+            .init(color: Color(uiColor: UIColor(red: 122/255, green: 151/255, blue: 163/255, alpha: 1)), location: 1.0)
+        ]
+    )
     
     public nonisolated init(store: StoreOf<PostDetail>) {
         self.store = store
@@ -19,19 +28,32 @@ public struct PostDetailView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ZStack(alignment: .topTrailing) {
-                  Color.black
-                    .edgesIgnoringSafeArea(.all)
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            ZStack {
+                LinearGradient(
+                    gradient: gradient,
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    Text("ライブ")
-                        .foregroundColor(.white)
-                        .bold()
-                        .font(.system(size: 28))
-                        .padding(.top, 20)
-                    
                     Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        // 三点リーダ
+                        Button {
+                            viewStore.send(.ellipsisButtonTapped)
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 20))
+                                .bold()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.white)
+                        }
+                    }
                     
                     HStack {
                         Text(viewStore.dateString)
@@ -53,29 +75,38 @@ public struct PostDetailView: View {
                     
                     Spacer()
                     
-                    AsyncImage(url: URL(string: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTmqAJRd4sTUbjFb9ViRzDcc2znBcYMTSZmBeXcqnZesbU3B3njNfx8WSeDAeyMoVzNQLqjsSg4FwdBbJ3vdT7Hq1S1X7_3hFYUov8VdgiftoJtWYckaDb9CqotWECCmLeFd9RiFDHnXyR/s180-c/buranko_boy_sad.png")) { image in
+                    AsyncImage(
+                        url: URL(string: viewStore.annotation.postImagePath)
+                    ) { image in
                         image
                             .resizable()
                             .frame(width: 200, height: 200)
                     } placeholder: {
+                        // TODO: デフォルト画像？
                         ProgressView()
+                            .tint(.white)
                             .frame(width: 200, height: 200)
                     }
                     
                     Spacer()
                     
                     HStack {
-                        AsyncImage(url: URL(string: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTmqAJRd4sTUbjFb9ViRzDcc2znBcYMTSZmBeXcqnZesbU3B3njNfx8WSeDAeyMoVzNQLqjsSg4FwdBbJ3vdT7Hq1S1X7_3hFYUov8VdgiftoJtWYckaDb9CqotWECCmLeFd9RiFDHnXyR/s180-c/buranko_boy_sad.png")) { image in
+                        AsyncImage(
+                            url: URL(string: viewStore.annotation.postUserProfileImagePath)
+                        ) { image in
                             image
                                 .resizable()
                                 .aspectRatio(1,contentMode: .fit)
                                 .clipShape(Circle())
                                 .frame(
                                     width: UIScreen.main.bounds.width*0.15,
-                                    height: UIScreen.main.bounds.width*0.2
+                                    height: UIScreen.main.bounds.width*0.15
                                 )
                         } placeholder: {
-                            ProgressView()
+                            Image(uiImage: UIImage(named: "noImage")!)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .clipShape(Circle())
                                 .frame(
                                     width: UIScreen.main.bounds.width*0.15,
                                     height: UIScreen.main.bounds.width*0.15
@@ -83,8 +114,8 @@ public struct PostDetailView: View {
                         }
                         
                         VStack {
-                            Text("account_name")
-                            Text("account_id")
+                            Text(viewStore.annotation.postUserAccountName)
+                            Text(viewStore.annotation.postUserAccountId)
                         }
                         .foregroundColor(.white)
                         .bold()
@@ -92,18 +123,7 @@ public struct PostDetailView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                
-                // 三点リーダ
-                Button {
-                    viewStore.send(.ellipsisButtonTapped)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .frame(width: 20, height: 20)
-                        .font(.system(size: 20))
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding(EdgeInsets(top: 28.0, leading: 0, bottom: 0, trailing: 28.0))
-                }
+                .padding(.horizontal, 20)
             }
             .confirmationDialog("その他", isPresented: viewStore.$isShownActionSheet) {
                 if viewStore.isMine {
@@ -118,7 +138,8 @@ public struct PostDetailView: View {
                         if MailView.canSendMail() {
                             viewStore.send(.reportButtonTapped)
                         } else {
-                            // TODO: MailViewを表示できない場合（メールアプリが使用できない場合）
+                            // TODO: MailViewを表示できない場合に開く先
+                            openURL(URL(string: "https://qiita.com/SNQ-2001")!)
                         }
                     #endif
                     }
@@ -131,12 +152,16 @@ public struct PostDetailView: View {
             .sheet(isPresented: viewStore.$isShownMailView) {
                 // TODO: メールの中身
                 MailView(
-                    address: ["support@sample.com"],
+                    address: ["inemuri.app@gmail.com"],
                     subject: "サンプルアプリ",
                     body: "サンプルアプリです"
                 )
                 .edgesIgnoringSafeArea(.all)
             }
+            .alert(
+                store: store.scope(state: \.$alert,
+                                   action: \.alert)
+            )
         }
     }
 }

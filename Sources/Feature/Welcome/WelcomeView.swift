@@ -30,29 +30,40 @@ public struct WelcomeView: View {
             WithViewStore(self.store, observe: { $0 }) { viewStore in
                 NavigationView {
                     VStack(spacing: 20) {
-                        Spacer()
-                        
-                        Text("Live Sample")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 30, weight: .heavy))
-                        
-                        Spacer()
-                        
-                        // サインアップボタン
-                        LoginSignupButton(isLogin: false) {
-                            viewStore.send(.signInButtonTapped)
+                        VStack {
+                            Spacer ()
+                            
+                            Text("Live Sample")
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity)
+                                .font(.system(size: 30, weight: .heavy))
+                            
+                            Spacer ()
                         }
+                        .background(Color.mainBaseColor)
                         
-                        // 利用規約とプライバシーポリシー
-                        TermsOfServiceAndPrivacyPolicyView()
-                        
-                        // ログインボタン
-                        LoginSignupButton(isLogin: true) {
-                            viewStore.send(.loginButtonTapped)
+                        VStack(spacing: 20) {
+                            // サインアップボタン
+                            LoginSignupButton(isLogin: false) {
+                                viewStore.send(.signInButtonTapped)
+                            }
+                            
+                            // ログインボタン
+                            LoginSignupButton(isLogin: true) {
+                                viewStore.send(.loginButtonTapped)
+                            }
+                            
+                            Button {
+                                print("check: Tapped")
+                            } label: {
+                                Text("お困りの方はこちら")
+                                    .font(.system(size: 14))
+                                    .bold()
+                                    .foregroundStyle(Color.mainBaseColor)
+                            }
                         }
-                        
+                        .background(Color.mainSubColor)
                     }
-                    .background(Color.subBaseColor)
                 }
             }
             .navigationDestination(
@@ -77,33 +88,6 @@ public struct WelcomeView: View {
     }
 }
 
-struct TermsOfServiceAndPrivacyPolicyView: View {
-    var body: some View {
-        VStack {
-            Text("本アプリでは「Get started」を押した時点で")
-                .foregroundStyle(.white)
-            
-            HStack(spacing: 0) {
-                if let url = URL(string: "https://www.apple.com/") {
-                    Link("利用規約", destination: url)
-                }
-                
-                Text("と")
-                    .foregroundStyle(.white)
-                
-                if let url = URL(string: "https://www.apple.com/") {
-                    Link("プライバシーポリシー", destination: url)
-                }
-                
-                Text("に同意いただいたことになります。")
-                    .foregroundStyle(.white)
-            }
-        }
-        .font(.system(size: 12, weight: .medium))
-        .padding(.horizontal, 5)
-    }
-}
-
 struct LoginSignupButton: View {
     private let isLogin: Bool
     private let action: () -> Void
@@ -117,13 +101,17 @@ struct LoginSignupButton: View {
         Button(action: {
             action()
         }, label: {
-            Text(isLogin ? "ログイン" : "サインアップ")
+            Text(isLogin ? "ログイン" : "会員登録")
                 .font(.system(size: 20, weight: .heavy))
+                .bold()
+                .frame(maxWidth: .infinity, minHeight: 60)
+                .foregroundStyle(isLogin ? .black : .white)
+                .background(
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .fill(isLogin ? Color.mainSubColor : Color.mainBaseColor)
+                        .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                )
+                .padding(.horizontal, 30)
         })
-        .frame(maxWidth: .infinity, minHeight: 70)
-        .foregroundStyle(isLogin ? .white : .black)
-        .background(isLogin ? Color.mainBaseColor : Color.subSubColor)
-        .cornerRadius(.infinity)
-        .padding(.horizontal, 30)
     }
 }

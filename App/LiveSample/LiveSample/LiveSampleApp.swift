@@ -24,7 +24,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct LiveSampleApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var loginRouter = LoginRouter()
+    @StateObject var loginChecker = LoginChecker()
+    @StateObject var accountTypeChecker = AccountTypeChecker()
     
     var body: some Scene {
         WindowGroup {
@@ -34,7 +35,8 @@ struct LiveSampleApp: App {
                         Root()
                     }
             )
-            .environmentObject(self.loginRouter)
+            .environmentObject(loginChecker)
+            .environmentObject(accountTypeChecker)
         }
     }
 }

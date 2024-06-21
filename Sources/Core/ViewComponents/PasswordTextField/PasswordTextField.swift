@@ -51,7 +51,7 @@ public struct PasswordTextField: View {
             } label: {
                 Image(systemName: isShowSecure ? "eye" : "eye.slash")
                     .font(.system(size: 16))
-                    .accentColor(.gray)
+                    .accentColor(.gray.opacity(0.8))
             }
             .buttonStyle(.plain)
         }

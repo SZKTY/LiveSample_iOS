@@ -8,40 +8,123 @@
 import SwiftUI
 import ComposableArchitecture
 import MyPageStore
+import ViewComponents
 
 public struct MyPageView: View {
-    let store: StoreOf<MyPage>
+    @Environment(\.openURL) var openURL
+    
+    private let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    private let store: StoreOf<MyPage>
     
     public nonisolated init(store: StoreOf<MyPage>) {
         self.store = store
     }
     
     public var body: some View {
-        List {
-            Text("プロフィール編集")
-                .onTapGesture {
-                    // プロフィール編集遷移処理
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            List {
+                // MARK: - プロフィール編集
+                HStack {
+                    Image(systemName: "person.circle")
+                        .font(.system(size: 22))
+                    
+                    Text("プロフィール編集")
                 }
-            
-            Text("利用規約")
+                .padding([.top, .horizontal])
+                .listRowSeparator(.hidden)
+                .contentShape(Rectangle())
                 .onTapGesture {
-                    // 利用規約遷移処理
+                    viewStore.send(.editProfileTapped)
                 }
-            
-            Text("プライバシーポリシー")
+                
+                // MARK: - アカウント削除
+                HStack {
+                    Image(systemName: "xmark.circle")
+                        .font(.system(size: 22))
+                    
+                    Text("アカウントの削除")
+                }
+                .padding([.bottom, .horizontal])
+                .alignmentGuide(.listRowSeparatorLeading) { _ in  0 }
+                .listRowSeparator(.visible)
+                .contentShape(Rectangle())
                 .onTapGesture {
-                    // プライバシーポリシー遷移処理
+                #if DEBUG
+                    // シュミレータでは表示できない
+                #else
+                    if MailView.canSendMail() {
+                        viewStore.send(.deleteAccountTapped)
+                    } else {
+                        // TODO: MailViewを表示できない場合に開く先
+                        openURL(URL(string: "https://qiita.com/SNQ-2001")!)
+                    }
+                #endif
+                    
                 }
-            
-            Text("アカウントの削除")
+                
+                // MARK: - 利用規約
+                HStack {
+                    Image(systemName: "doc.text")
+                        .font(.system(size: 22))
+                    
+                    Text("利用規約")
+                }
+                .padding([.top, .horizontal])
+                .listRowSeparator(.hidden)
+                .contentShape(Rectangle())
                 .onTapGesture {
-                    // メーラー？
+                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
                 }
-            
-            Text("お問い合わせ")
+                
+                // MARK: - プライバシーポリシー
+                HStack {
+                    Image(systemName: "lock.doc")
+                        .font(.system(size: 22))
+                    
+                    Text("プライバシーポリシー")
+                }
+                .padding([.bottom, .horizontal])
+                .alignmentGuide(.listRowSeparatorLeading) { _ in  0 }
+                .listRowSeparator(.visible)
+                .contentShape(Rectangle())
                 .onTapGesture {
-                    // お問い合わせ遷移処理
+                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
                 }
+                
+                // MARK: - お問い合わせ
+                HStack {
+                    Image(systemName: "mail")
+                        .font(.system(size: 22))
+                    
+                    Text("お問い合わせ")
+                }
+                .padding()
+                .alignmentGuide(.listRowSeparatorLeading) { _ in  0 }
+                .listRowSeparator(.visible)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
+                }
+                
+                // MARK: - バージョン
+                HStack {
+                    Text("バージョン：\(version)")
+                }
+                .padding()
+                .alignmentGuide(.listRowSeparatorLeading) { _ in  0 }
+                .listRowSeparator(.hidden)
+            }
+            .listStyle(.inset)
+            .sheet(isPresented: viewStore.$isShownMailView) {
+                // TODO: メールの中身
+                MailView(
+                    address: ["inemuri.app@gmail.com"],
+                    subject: "サンプルアプリ",
+                    body: "サンプルアプリです"
+                )
+                .edgesIgnoringSafeArea(.all)
+            }
         }
+        
     }
 }

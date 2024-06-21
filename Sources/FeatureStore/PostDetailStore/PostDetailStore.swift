@@ -7,33 +7,18 @@
 
 import ComposableArchitecture
 import MapKit
+import DateUtils
 import API
 import UserDefaults
 import PostAnnotation
 
-class DateUtils {
-    class func dateFromString(string: String, format: String) -> Date {
-        let formatter: DateFormatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.dateFormat = format
-        return formatter.date(from: string)!
-    }
-
-    class func stringFromDate(date: Date, format: String) -> String {
-        let formatter: DateFormatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.locale = Locale(identifier: "ja_JP")
-        formatter.dateFormat = format
-        return formatter.string(from: date)
-    }
-}
-
 @Reducer
 public struct PostDetail {
     public struct State: Equatable {
+        @PresentationState public var alert: AlertState<Action.Alert>?
         @BindingState public var isShownActionSheet: Bool = false
         @BindingState public var isShownMailView: Bool = false
-        public let annotation: PostAnnotation
+        public var annotation: PostAnnotation
         public var isMine: Bool = true
         
         public var dateString: String {
@@ -66,6 +51,12 @@ public struct PostDetail {
         case getDeletePostResponse(Result<DeletePostResponse, Error>)
         case delegate(Delegate)
         case binding(BindingAction<State>)
+        case alert(PresentationAction<Alert>)
+        
+        public enum Alert: Equatable {
+            case failToDeletePost
+            case failToBlockUser
+        }
         
         public enum Delegate: Equatable {
             case dismiss
@@ -119,6 +110,13 @@ public struct PostDetail {
                 return .send(.delegate(.dismiss))
                 
             case let .getDeletePostResponse(.failure(error)):
+                state.alert = .init(
+                    title: .init(error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.failToDeletePost)),
+                        .cancel(TextState("キャンセル"))
+                    ]
+                )
                 return .none
                 
             case .reportButtonTapped:
@@ -134,7 +132,7 @@ public struct PostDetail {
                 return .run { send in
                     await send(.getBlockUserResponse( Result {
                         // TODO: User Id
-                        try await blockUser.send(sessionId: sessionId, blockUserId: 1)
+                        try await blockUser.send(sessionId: "sessionId", blockUserId: 1)
                     }))
                 }
                 
@@ -142,12 +140,32 @@ public struct PostDetail {
                 return .send(.delegate(.dismiss))
                 
             case let .getBlockUserResponse(.failure(error)):
+                state.alert = .init(
+                    title: .init(error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.failToBlockUser)),
+                        .cancel(TextState("キャンセル"))
+                    ]
+                )
                 return .none
                 
             case .delegate:
                 return .none
                 
             case .binding:
+                return .none
+                
+            case .alert(.presented(.failToDeletePost)):
+                return .run { send in
+                    await send(.deletePostButtonTapped)
+                }
+                
+            case .alert(.presented(.failToBlockUser)):
+                return .run { send in
+                    await send(.blockButtonTapped)
+                }
+                
+            case .alert:
                 return .none
             }
         }

@@ -32,7 +32,7 @@ public struct AccountIdNameView: View {
     public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack {
-                Color.subSubColor
+                Color.mainSubColor
                     .edgesIgnoringSafeArea(.all)
                     .gesture(
                         TapGesture()
@@ -45,10 +45,10 @@ public struct AccountIdNameView: View {
                     Spacer()
                     
                     Text("アカウント名とアカウントIDを\n入力してください")
-                        .font(.system(size: 20, weight: .black))
+                        .font(.system(size: 20, weight: .heavy))
                         .frame(height: 48)
                     
-                    VStack {
+                    VStack(spacing: 8) {
                         TextField("Your Name", text: viewStore.$accountName)
                             .modifier(TextFieldModifier())
                             .autocorrectionDisabled(true)
@@ -58,20 +58,31 @@ public struct AccountIdNameView: View {
                             Spacer()
                             
                             Button {
-                                print("check: Tapped")
+                                viewStore.send(.whatIsAccountNameButtonTapped)
                             } label: {
-                                Text("アカウント名について")
-                                    .font(.system(size: 14))
+                                
+                                HStack {
+                                    Text("アカウント名について")
+                                        .font(.system(size: 14, weight: .light))
+                                    
+                                    Text("?")
+                                        .font(.system(size: 12))
+                                        .bold()
+                                        .frame(width: 16, height: 16)
+                                        .background(.black)
+                                        .foregroundStyle(.white)
+                                        .cornerRadius(4)
+                                }
                             }
                         }
                         
                     }
                     
                     
-                    VStack {
+                    VStack(spacing: 8) {
                         HStack {
                             Text("@")
-                                .font(.system(size: 40))
+                                .font(.system(size: 20))
                                 .frame(height: 48)
                             
                             TextField("Account ID", text: viewStore.$accountId)
@@ -86,10 +97,21 @@ public struct AccountIdNameView: View {
                             Spacer()
                             
                             Button {
-                                print("check: Tapped")
+                                viewStore.send(.whatIsAccountIdButtonTapped)
                             } label: {
-                                Text("アカウントIDについて")
-                                    .font(.system(size: 14))
+                                HStack {
+                                    Text("アカウントIDについて")
+                                        .font(.system(size: 14, weight: .light))
+                                    
+                                    Text("?")
+                                        .font(.system(size: 12))
+                                        .bold()
+                                        .frame(width: 16, height: 16)
+                                        .background(.black)
+                                        .foregroundStyle(.white)
+                                        .cornerRadius(4)
+                                }
+                                
                             }
                         }
                     }
@@ -108,7 +130,6 @@ public struct AccountIdNameView: View {
                     .disabled(!viewStore.isEnableNextButton)
                     
                     Spacer()
-                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 40)

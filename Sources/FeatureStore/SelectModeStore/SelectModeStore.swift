@@ -16,13 +16,15 @@ public struct SelectMode {
         @PresentationState public var alert: AlertState<Action.Alert>?
         @BindingState public var isCheckedYes: Bool = false
         @BindingState public var isCheckedNo: Bool = false
+        @BindingState public var isAgree: Bool = false
         public var isEnableStartButton: Bool = false
         
         public init() {}
     }
     
     public enum Action: BindableAction {
-        case didTapStartButton
+        case agreeButtonTapped
+        case startButtonTapped
         case registerAccountTypeResponse(Result<RegisterAccountTypeResponse, Error>)
         case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
@@ -41,7 +43,14 @@ public struct SelectMode {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .didTapStartButton:
+            case .agreeButtonTapped:
+                state.isAgree.toggle()
+                print("check: isAgree = \(state.isAgree)")
+                state.isEnableStartButton = state.isAgree && (state.isCheckedYes || state.isCheckedNo)
+                print("check: isEnableStartButton = \(state.isEnableStartButton)")
+                return .none
+                
+            case .startButtonTapped:
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
                     return .none
@@ -50,7 +59,10 @@ public struct SelectMode {
                 let type = state.isCheckedYes ? "artist" : "fan"
                 
                 return .run { send in
+                    // アカウント種別をローカルに保存する
                     await userDefaults.setAccountType(type)
+                    
+                    // アカウント種別をサーバーに登録する
                     await send(.registerAccountTypeResponse(Result {
                         try await registerAccountTypeClient.send(sessionId: sessionId, accountType: type)
                     }))
@@ -72,12 +84,16 @@ public struct SelectMode {
                 
             case .binding(\.$isCheckedYes):
                 state.isCheckedNo = state.isCheckedYes
-                state.isEnableStartButton = true
+                state.isEnableStartButton = state.isAgree
                 return .none
                 
             case .binding(\.$isCheckedNo):
                 state.isCheckedYes = state.isCheckedNo
-                state.isEnableStartButton = true
+                state.isEnableStartButton = state.isAgree
+                return .none
+                
+            case .binding(\.$isAgree):
+                state.isEnableStartButton = !state.isAgree && (state.isCheckedYes || state.isCheckedNo)
                 return .none
                 
             case .binding:

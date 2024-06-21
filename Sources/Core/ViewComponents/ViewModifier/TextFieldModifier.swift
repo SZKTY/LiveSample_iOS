@@ -12,11 +12,14 @@ public struct TextFieldModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
-            .padding()
-            .padding(.leading, 15)
             .font(.system(size: 27, weight: .medium))
-            .foregroundColor(.black)
+            .padding()
+            .foregroundColor(Color.mainBaseColor)
             .background(.white)
             .cornerRadius(8)
+            .overlay(
+                   RoundedRectangle(cornerRadius: 8)
+                   .stroke(Color.mainBaseColor, lineWidth: 1.0)
+           )
     }
 }

@@ -45,6 +45,7 @@
 		DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620ED2BD7BE3E00C79F36 /* WelcomeStore */; };
 		DF7620F32BD8898D00C79F36 /* Validator in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620F22BD8898D00C79F36 /* Validator */; };
 		DF8868532BD13F2400A427A2 /* ViewBuildingClient+Impl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */; };
+		DF8D59DE2C242EE2005071BB /* DateUtils in Frameworks */ = {isa = PBXBuildFile; productRef = DF8D59DD2C242EE2005071BB /* DateUtils */; };
 		DF9303612C1B04E700F770AE /* PostDetail in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303602C1B04E700F770AE /* PostDetail */; };
 		DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303622C1B04E700F770AE /* PostDetailStore */; };
 		DF9303662C1BED4F00F770AE /* PostAnnotation in Frameworks */ = {isa = PBXBuildFile; productRef = DF9303652C1BED4F00F770AE /* PostAnnotation */; };
@@ -94,6 +95,7 @@
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
 				DF9303612C1B04E700F770AE /* PostDetail in Frameworks */,
 				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
+				DF8D59DE2C242EE2005071BB /* DateUtils in Frameworks */,
 				DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */,
 				562CE1162BEF60CD00EDBD53 /* UserDefaults in Frameworks */,
 				DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */,
@@ -274,6 +276,7 @@
 				DF9303622C1B04E700F770AE /* PostDetailStore */,
 				DF9303652C1BED4F00F770AE /* PostAnnotation */,
 				DF1355BA2C22679300629260 /* Assets */,
+				DF8D59DD2C242EE2005071BB /* DateUtils */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -853,6 +856,10 @@
 		DF7620F22BD8898D00C79F36 /* Validator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Validator;
+		};
+		DF8D59DD2C242EE2005071BB /* DateUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DateUtils;
 		};
 		DF9303602C1B04E700F770AE /* PostDetail */ = {
 			isa = XCSwiftPackageProductDependency;

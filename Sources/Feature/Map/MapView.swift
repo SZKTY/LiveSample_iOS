@@ -9,14 +9,16 @@ import SwiftUI
 import ComposableArchitecture
 import MapStore
 import MapKit
-import Location
 import Routing
 import ViewComponents
 
 public struct MapView: View {
+    @EnvironmentObject var accountTypeChecker: AccountTypeChecker
+    
     @Dependency(\.viewBuildingClient.postView) private var postView
     @Dependency(\.viewBuildingClient.myPageView) private var myPageView
     @Dependency(\.viewBuildingClient.postDetailView) private var postDetailView
+    
     private let store: StoreOf<MapStore>
     
     public nonisolated init(store: StoreOf<MapStore>) {
@@ -35,13 +37,15 @@ public struct MapView: View {
                             // do nothing
                             print("check: didLongPress")
                         }, didChangeCenterRegion: { region in
-                            viewStore.send(.centerRegionChanged(region: region))
+                            DispatchQueue.main.async {
+                                viewStore.send(.centerRegionChanged(region: region))
+                            }
                         }, didTapPin: { annotation in
                             viewStore.send(.annotationTapped(annotation: annotation))
                         })
                         
                         // マイページボタン
-                        FloatingButton(position: .topLeading, imageName: "house") {
+                        FloatingButton(position: .topLeading, imageName: "line.3.horizontal", isBaseColor: false) {
                             viewStore.send(.floatingHomeButtonTapped)
                         }
                         .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
@@ -50,7 +54,7 @@ public struct MapView: View {
                         FloatingButton(position: .bottomTailing, imageName: "plus") {
                             viewStore.send(.floatingPlusButtonTapped)
                         }
-                        .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
+                        .opacity(accountTypeChecker.accountType == .artist && !viewStore.isSelectPlaceMode ? 1 : 0)
                         
                         // 場所選択モード
                         SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
@@ -66,7 +70,6 @@ public struct MapView: View {
                                 viewStore.send(.hideSuccessToast)
                             })
                         }
-
                     }
                 }
             }
@@ -77,17 +80,24 @@ public struct MapView: View {
             .task {
                 await store.send(.task).finish()
             }
+            .alert(
+                store: store.scope(state: \.$alert,
+                                   action: \.alert)
+            )
             .navigationDestination(
                 store: store.scope(state: \.$destination.post,
                                    action: \.destination.post)
             ) { store in
-                self.postView(store)
+                postView(store)
             }
-            .navigationDestination(
-                store: store.scope(state: \.$destination.myPage,
-                                   action: \.destination.myPage)
+            .sheet(
+                store: store.scope(state: \.$myPage,
+                                   action: \.myPage),
+                onDismiss: {
+                    store.send(.myPageSheetDismiss)
+                }
             ) { store in
-                self.myPageView(store)
+                myPageView(store)
             }
             .sheet(
                 store: store.scope(state: \.$postDetail,
@@ -96,7 +106,7 @@ public struct MapView: View {
                     store.send(.postDetailSheetDismiss)
                 }
             ) { store in
-                self.postDetailView(store)
+                postDetailView(store)
                     .presentationDetents([
                         .fraction(0.8)
                     ])

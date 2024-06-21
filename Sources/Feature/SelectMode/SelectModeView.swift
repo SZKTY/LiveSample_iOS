@@ -15,7 +15,7 @@ import Assets
 @MainActor
 public struct SelectModeView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var loginRouter: LoginRouter
+    @EnvironmentObject var loginChecker: LoginChecker
     
     let store: StoreOf<SelectMode>
     
@@ -29,21 +29,30 @@ public struct SelectModeView: View {
                 Spacer()
                 
                 Text("あなたはアーティストですか？")
-                    .font(.system(size: 20, weight: .black))
-                    .bold()
-                
-                Text("アーティストとファンで異なる機能を提供しています。\n正しくご選択いただきますようお願いいたします。\n（ご本人審査を行わせていただく場合があります。）")
-                    .font(.system(size: 14))
+                    .font(.system(size: 20, weight: .heavy))
                 
                 VStack(alignment: .leading, spacing: 12) {
+                    Text("活動状況によってご利用いただける機能が\n異なりますので、正しく選択してください。")
+                        .font(.system(size: 16, weight: .light))
+                        .underline()
+                    
+                    Text("アーティスト様が本人かどうかの確認をさせていただく場合があります。")
+                        .font(.system(size: 12, weight: .light))
+                        .underline()
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
                     Toggle(isOn: viewStore.$isCheckedYes) {
                         Text("はい")
+                            .font(.system(size: 24))
                             .bold()
+                            
                     }
                     .toggleStyle(.checkBox)
                     
                     Toggle(isOn: viewStore.$isCheckedNo) {
                         Text("いいえ")
+                            .font(.system(size: 24))
                             .bold()
                     }
                     .toggleStyle(.checkBox)
@@ -53,24 +62,32 @@ public struct SelectModeView: View {
                 Spacer()
                     .frame(height: 60)
                 
-                Button(action: {
-                    self.store.send(.didTapStartButton)
-                }) {
-                    Text("始める")
-                        .frame(maxWidth: .infinity, minHeight: 70)
-                        .font(.system(size: 20, weight: .medium))
-                        .bold()
-                        .foregroundStyle(viewStore.isEnableStartButton ? .white : .white.opacity(0.3))
-                        .background(viewStore.isEnableStartButton ? Color.mainBaseColor : .gray.opacity(0.5))
-                        .cornerRadius(.infinity)
+                VStack(spacing: 8) {
+                    Toggle(isOn: viewStore.$isAgree) {
+                        TermsOfServiceAndPrivacyPolicyView()
+                    }
+                    .toggleStyle(.checkBox)
+                    
+                    Button(action: {
+                        self.store.send(.startButtonTapped)
+                    }) {
+                        Text("〇〇をはじめる")
+                            .frame(maxWidth: .infinity, minHeight: 70)
+                            .font(.system(size: 20, weight: .medium))
+                            .bold()
+                            .foregroundStyle(viewStore.isEnableStartButton ? .white : .white.opacity(0.3))
+                            .background(viewStore.isEnableStartButton ? Color.mainBaseColor : .gray.opacity(0.5))
+                            .cornerRadius(.infinity)
+                    }
+                    .disabled(!viewStore.isEnableStartButton)
                 }
-                .disabled(!viewStore.isEnableStartButton)
+                
                 
                 Spacer()
                 
             }
             .padding(.horizontal, 20)
-            .background(Color.subSubColor)
+            .background(Color.mainSubColor)
             .navigationTitle("4 / 4")
             .navigationBarBackButtonHidden()
             .toolbar {
@@ -87,9 +104,34 @@ public struct SelectModeView: View {
             }
             .alert(store: self.store.scope(state: \.$alert, action: \.alert))
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in
-                self.loginRouter.isLogin = true
+                self.loginChecker.isLogin = true
             }
         }
     }
 }
 
+struct TermsOfServiceAndPrivacyPolicyView: View {
+    var body: some View {
+        HStack(spacing: 0) {
+            if let url = URL(string: "https://www.apple.com/") {
+                Link("利用規約", destination: url)
+                    .foregroundStyle(.black)
+                    .underline()
+            }
+            
+            Text("および")
+                .foregroundStyle(.black)
+            
+            if let url = URL(string: "https://www.apple.com/") {
+                Link("プライバシーポリシー", destination: url)
+                    .foregroundStyle(.black)
+                    .underline()
+            }
+            
+            Text("に同意して")
+                .foregroundStyle(.black)
+        }
+        .font(.system(size: 12, weight: .light))
+        
+    }
+}

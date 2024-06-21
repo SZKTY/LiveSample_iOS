@@ -6,35 +6,42 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 import PostStore
 import MapKit
+import Assets
 import ViewComponents
 import Routing
 
-struct Location: Identifiable {
-    let id = UUID()
-    let coordinate: CLLocationCoordinate2D
-}
-
 public struct PostView: View {
+    struct Location: Identifiable {
+        let id = UUID()
+        let coordinate: CLLocationCoordinate2D
+    }
+    
+    enum FocusStates {
+        case freeText
+    }
+    
     @Dependency(\.viewBuildingClient.mapWithCrossView) var mapWithCrossView
-    let store: StoreOf<PostStore>
+    @FocusState private var focusState : FocusStates?
+    
+    private let store: StoreOf<PostStore>
+    private let topPadding: CGFloat = 8.0
+    private let bottomPadding: CGFloat = 16.0
     
     public init(store: StoreOf<PostStore>) {
         self.store = store
     }
     
-    private let topPadding: CGFloat = 8.0
-    private let bottomPadding: CGFloat = 16.0
-    
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: { $0 }) { viewStore in
             List {
                 // MARK: - Map
                 VStack {
                     Spacer()
-                        .frame(height: self.topPadding)
+                        .frame(height: topPadding)
                     
                     Map(coordinateRegion: .constant(viewStore.region),
                         interactionModes: [],
@@ -55,8 +62,9 @@ public struct PostView: View {
                         }
                     
                     Spacer()
-                        .frame(height: self.bottomPadding)
+                        .frame(height: bottomPadding)
                 }
+                .listRowBackground(Color.mainSubColor)
                 
                 // MARK: - Time
                 VStack(alignment: .center) {
@@ -72,7 +80,7 @@ public struct PostView: View {
                                 .font(.system(size: 13, weight: .medium))
                                 .foregroundColor(.white)
                         }
-                        .background(viewStore.selectedButton == .today ? .black : .gray)
+                        .background(viewStore.selectedButton == .today ? Color.mainBaseColor : .gray)
                         .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
@@ -84,7 +92,7 @@ public struct PostView: View {
                                 .font(.system(size: 13, weight: .medium))
                                 .foregroundColor(.white)
                         }
-                        .background(viewStore.selectedButton == .tomorrow ? .black : .gray)
+                        .background(viewStore.selectedButton == .tomorrow ? Color.mainBaseColor : .gray)
                         .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
@@ -96,7 +104,7 @@ public struct PostView: View {
                                 .font(.system(size: 13, weight: .medium))
                                 .foregroundColor(.white)
                         }
-                        .background(viewStore.selectedButton == .dayAfterDayTomorrow ? .black : .gray)
+                        .background(viewStore.selectedButton == .dayAfterDayTomorrow ? Color.mainBaseColor : .gray)
                         .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
@@ -107,15 +115,14 @@ public struct PostView: View {
                         Spacer()
                         
                         WheelTimePickerView(selection: viewStore.$startDateTime)
-                            .frame(width: 124, height: 100)
                         
                         Text("~")
                         
                         WheelTimePickerView(selection: viewStore.$endDateTime)
-                            .frame(width: 124, height: 100)
                         
                         Spacer()
                     }
+                    .frame(height: 100)
                     
                     VStack {
                         Text(viewStore.dateString)
@@ -123,18 +130,24 @@ public struct PostView: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: 40)
                     .padding(.horizontal, 8)
-                    .background(.gray)
-                    .foregroundColor(.white)
                     .cornerRadius(10)
+                    .background(.white)
+                    .foregroundColor(Color.mainBaseColor)
+                    .overlay(
+                           RoundedRectangle(cornerRadius: 10)
+                           .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                   )
                     
                     Spacer()
-                        .frame(height: self.bottomPadding)
-                }.alignmentGuide(.listRowSeparatorLeading) { _ in  0 }
+                        .frame(height: bottomPadding)
+                }
+                .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
+                .listRowBackground(Color.mainSubColor)
                 
                 // MARK: - Image
                 VStack(alignment: .leading) {
                     Spacer()
-                        .frame(height: self.topPadding)
+                        .frame(height: topPadding)
                     
                     HStack {
                         Spacer()
@@ -155,20 +168,33 @@ public struct PostView: View {
                     }
                     
                     Spacer()
-                        .frame(height: self.bottomPadding)
+                        .frame(height: bottomPadding)
                 }
+                .listRowBackground(Color.mainSubColor)
                 
                 // MARK: - Message
                 VStack(alignment: .leading) {
                     Spacer()
-                        .frame(height: self.topPadding)
+                        .frame(height: topPadding)
                     
-                    TextField("一言メッセージ", text: viewStore.$freeText)
-                        .padding(.horizontal, self.bottomPadding)
+                    TextField("一言メッセージ", text: viewStore.$freeText, axis: .vertical)
+                        .padding()
+                        .foregroundColor(Color.mainBaseColor)
+                        .background(.white)
+                        .cornerRadius(8)
+                        .overlay(
+                               RoundedRectangle(cornerRadius: 8)
+                               .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                       )
+                        .focused($focusState, equals: .freeText)
+                        .onReceive(Just(viewStore.freeText)) { _ in
+                            viewStore.send(.didChangeFreeText)
+                        }
                     
                     Spacer()
-                        .frame(height: self.bottomPadding)
+                        .frame(height: bottomPadding)
                 }
+                .listRowBackground(Color.mainSubColor)
                 
                 // MARK: - Post
                 VStack {
@@ -178,30 +204,49 @@ public struct PostView: View {
                         Text("投稿する")
                             .font(.system(size: 15, weight: .medium))
                             .frame(maxWidth: .infinity, minHeight: 40)
-                            .background(.black)
+                            .background(Color.mainBaseColor)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(viewStore.startDateTime >= viewStore.endDateTime)
                     
                 }
                 .listRowSeparator(.hidden)
+                .listRowBackground(Color.mainSubColor)
             }
             .listStyle(.inset)
+            .scrollContentBackground(.hidden)
+            .background(Color.mainSubColor)
             .navigationTitle("投稿作成")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        
+                        Button("閉じる") {
+                            focusState = nil
+                        }
+                    }
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.didDetermineCenter)) { notification in
+                guard let center = notification.userInfo?["center"] as? CLLocationCoordinate2D else { return }
+                viewStore.send(.centerDidChange(center: center))
+            }
+            .sheet(isPresented: viewStore.$isShownImagePicker) {
+                ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$image)
+            }
+            .alert(
+                store: store.scope(state: \.$alert,
+                                   action: \.alert)
+            )
             .navigationDestination(
                 store: store.scope(state: \.$destination.mapWithCross,
                                    action: \.destination.mapWithCross)
             ) { store in
                 mapWithCrossView(store)
-            }
-            .sheet(isPresented: viewStore.$isShownImagePicker) {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$image)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: NSNotification.didDetermineCenter)) { notification in
-                guard let center = notification.userInfo?["center"] as? CLLocationCoordinate2D else { return }
-                viewStore.send(.centerDidChange(center: center))
             }
         }
     }

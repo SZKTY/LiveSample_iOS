@@ -16,7 +16,7 @@ import Assets
 import Routing
 
 public struct RootView: View {
-    @EnvironmentObject var loginRouter: LoginRouter
+    @EnvironmentObject var loginChecker: LoginChecker
     let store: StoreOf<Root>
     
     public init(store: StoreOf<Root>) {
@@ -25,12 +25,12 @@ public struct RootView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: { $0 }) { viewStore in
             // 初期化済みか
             switch viewStore.isInitialized {
             case true:
                 // ログイン済みか
-                switch self.loginRouter.isLogin {
+                switch loginChecker.isLogin {
                 case true:
                     MapView(
                         store: Store(
@@ -39,27 +39,33 @@ public struct RootView: View {
                             }
                     )
                 case false:
-                    WelcomeView(
+//                    WelcomeView(
+//                        store: Store(
+//                            initialState: Welcome.State(requiredInfo: viewStore.requiredInfo)) {
+//                                Welcome()
+//                            }
+//                    )
+                    MapView(
                         store: Store(
-                            initialState: Welcome.State(requiredInfo: viewStore.requiredInfo)) {
-                                Welcome()
+                            initialState: MapStore.State()) {
+                                MapStore()
                             }
                     )
                 }
             case false:
                 // TODO: - スプラッシュが決まった後、スプラッシュと合わせる
                 ZStack {
-                    Color.subSubColor
+                    Color.mainSubColor
                         .edgesIgnoringSafeArea(.all)
                 }
             }
         }
-        .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+        .alert(store: store.scope(state: \.$alert, action: \.alert))
         .task {
             await store.send(.task).finish()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.changeToLogout)) { _ in
-            self.loginRouter.isLogin = true
+            loginChecker.isLogin = true
         }
     }
 }

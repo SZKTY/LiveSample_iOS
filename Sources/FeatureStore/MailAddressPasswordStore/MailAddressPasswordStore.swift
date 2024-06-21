@@ -42,6 +42,7 @@ public struct MailAddressPassword: Sendable {
         
         public enum Alert: Equatable {
             case failToIssueAccount
+            case failToLogin
         }
     }
     
@@ -80,8 +81,6 @@ public struct MailAddressPassword: Sendable {
                     await send(.getRequiredInfoResponse(Result {
                         try await getRequiredInfoClient.send(sessionId: response.sessionId)
                     }))
-                    
-                    // TODO: ログインAPIは問題なく叩けたが、必須情報取得・ユーザー情報取得で通信エラー等が発生し、アプリを終了した際（= 必須情報入力済みだがローカルにセッションIDしか入ってない際）の考慮が必要。起動時にもユーザー情報取得叩いてローカルを更新する？
                     
                 }
             case let .loginResponse(.failure(error)):
@@ -164,6 +163,9 @@ public struct MailAddressPassword: Sendable {
                 return .none
                 
             case .alert(.presented(.failToIssueAccount)):
+                return .none
+                
+            case .alert(.presented(.failToLogin)):
                 return .none
                 
             case .alert:

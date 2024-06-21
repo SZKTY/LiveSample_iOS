@@ -11,12 +11,10 @@ import CoreLocation
 import MapKit
 import MapWithCrossStore
 import PostEntity
+import DateUtils
 import API
 import UserDefaults
 
-struct SharedData: Equatable {
-    var center: CLLocationCoordinate2D?
-}
 
 public enum SelectedButton {
     case today
@@ -32,7 +30,7 @@ public struct PostStore {
         
         public var region: MKCoordinateRegion
         public var dateString: String {
-            return self.dateFormatter.string(from: self.date) + "   |   " + self.timeFormatter.string(from: self.startDateTime) + "  ~  " + self.timeFormatter.string(from: self.endDateTime)
+            return DateUtils.stringFromDate(date: date, format: "M/d (EEE)") + "   |   " + DateUtils.stringFromDate(date: startDateTime, format: "HH:mm") + "  ~  " + DateUtils.stringFromDate(date: endDateTime, format: "HH:mm")
         }
         
         @BindingState public var center: CLLocationCoordinate2D
@@ -43,24 +41,9 @@ public struct PostStore {
         @BindingState public var freeText: String = ""
         
         @BindingState public var isShownImagePicker: Bool = false
-        @BindingState public var isEnableCreatePostButton: Bool = false
         @BindingState public var selectedButton: SelectedButton = .today
         
-        public var dateFormatter: DateFormatter {
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = TimeZone(abbreviation: "JST")
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "M/d (EEE)"
-            return dateFormatter
-        }
-        
-        public var timeFormatter: DateFormatter {
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = TimeZone(abbreviation: "JST")
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "HH:mm"
-            return dateFormatter
-        }
+        public var postEntity: PostEntity?
         
         public init(center: CLLocationCoordinate2D) {
             self.center = center
@@ -80,15 +63,18 @@ public struct PostStore {
         case dayAfterDayTomorrowButtonTapped
         case imageButtonTapped
         case imageRemoveButtonTapped
+        case didChangeFreeText
         case createPostButtonTapped
         case uploadPictureResponse(Result<UploadPictureResponse, Error>)
         case createPostResponse(Result<CreatePostResponse, Error>)
         case centerDidChange(center: CLLocationCoordinate2D)
+        case retryCreatePost
         case alert(PresentationAction<Alert>)
         case destination(PresentationAction<Path.Action>)
         case binding(BindingAction<State>)
         
         public enum Alert: Equatable {
+            case failToUploadImage
             case failToCreatePost
         }
     }
@@ -107,24 +93,39 @@ public struct PostStore {
             case .mapTapped:
                 state.destination = .mapWithCross(MapWithCrossStore.State(center: state.center))
                 return .none
+                
             case .todayButtonTapped:
                 state.selectedButton = .today
                 state.date = Date()
                 return .none
+                
             case .tomorrowButtonTapped:
                 state.date = Date().addingTimeInterval(60*60*24)
                 state.selectedButton = .tomorrow
                 return .none
+                
             case .dayAfterDayTomorrowButtonTapped:
                 state.date = Date().addingTimeInterval(60*60*24*2)
                 state.selectedButton = .dayAfterDayTomorrow
                 return .none
+                
             case .imageButtonTapped:
                 state.isShownImagePicker = true
                 return .none
+                
             case .imageRemoveButtonTapped:
                 state.image = Data()
                 return .none
+                
+            case .didChangeFreeText:
+                if state.freeText.count > 50 {
+                    // 最大文字数超えた場合は切り捨て
+                    state.freeText = String(state.freeText.prefix(50))
+                }
+                // 文字列から全角半角スペースを取り除く
+                state.freeText = state.freeText.removingWhiteSpace()
+                return .none
+                
             case .createPostButtonTapped:
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
@@ -149,22 +150,31 @@ public struct PostStore {
                     return .none
                 }
                 
-                let entity: PostEntity = .init(imagePath: response.imagePath,
-                                               freeText: state.freeText,
-                                               coordinateX: "\(state.center.latitude)",
-                                               coordinateY: "\(state.center.longitude)",
-                                               startDateTime: "\(state.startDateTime)",
-                                               endDateTime: "\(state.endDateTime)")
+                let postEntity: PostEntity = .init(imagePath: response.imagePath,
+                                                   freeText: state.freeText,
+                                                   coordinateX: "\(state.center.latitude)",
+                                                   coordinateY: "\(state.center.longitude)",
+                                                   startDateTime: "\(state.startDateTime)",
+                                                   endDateTime: "\(state.endDateTime)")
+                state.postEntity = postEntity
                 
                 return .run { send in
                     await send(.createPostResponse(Result {
-                        try await createPostClient.send(sessionId: sessionId, entity: entity)
+                        try await createPostClient.send(sessionId: "sessionId", entity: postEntity)
                     }))
                 }
                 
             case let .uploadPictureResponse(.failure(error)):
                 print("check: FAIL uploadPicture")
-                state.alert = AlertState(title: TextState("登録失敗"))
+                
+                state.alert = .init(
+                    title: .init(error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.failToCreatePost)),
+                        .cancel(TextState("キャンセル"))
+                    ]
+                )
+                
                 return .none
                 
             case .createPostResponse(.success(_)):
@@ -179,17 +189,51 @@ public struct PostStore {
                 
             case let .createPostResponse(.failure(error)):
                 print("check: FAIL createPost")
-                state.alert = AlertState(title: TextState("登録失敗"))
+                
+                state.alert = .init(
+                    title: .init(error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.failToCreatePost)),
+                        .cancel(TextState("キャンセル"))
+                    ]
+                )
+                
                 return .none
                 
             case let .centerDidChange(center):
                 state.center = center
                 state.region.center = center
                 return .none
+                
+            case .retryCreatePost:
+                guard let sessionId = userDefaults.sessionId,
+                      let entity = state.postEntity else {
+                    // 通ってはいけない
+                    fatalError()
+                }
+                
+                return .run { send in
+                    await send(.createPostResponse(Result {
+                        try await createPostClient.send(sessionId: sessionId, entity: entity)
+                    }))
+                }
+                
+            case .alert(.presented(.failToUploadImage)):
+                return .run { send in
+                    await send(.createPostButtonTapped)
+                }
+                
+            case .alert(.presented(.failToCreatePost)):
+                return .run { send in
+                    await send(.retryCreatePost)
+                }
+                
             case .alert:
                 return .none
+                
             case .destination:
                 return .none
+                
             case .binding:
                 return .none
             }
@@ -211,5 +255,12 @@ extension PostStore {
     @Reducer(state: .equatable)
     public enum Path {
         case mapWithCross(MapWithCrossStore)
+    }
+}
+
+extension String {
+    func removingWhiteSpace() -> String {
+        let whiteSpaces: CharacterSet = [" ", "　"]
+        return self.trimmingCharacters(in: whiteSpaces)
     }
 }
