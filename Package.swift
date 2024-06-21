@@ -11,14 +11,13 @@ typealias Target = PackageDescription.Target
 typealias Product = PackageDescription.Product
 
 let packageDependencies: [PackageDependency] = [
-    .package(url: "https://github.com/firebase/firebase-ios-sdk", from: .init(10, 11, 0)),
-    .package(url: "https://github.com/yazio/ReadabilityModifier", from: .init(1, 0, 0)),
-    .package(url: "https://github.com/exyte/PopupView", from: .init(2, 5, 7)),
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: .init(1, 2, 0)),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: .init(1, 1, 0)),
+    .package(url: "https://github.com/firebase/firebase-ios-sdk", from: .init(10, 11, 0)),
+    .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1")),
+    .package(url: "https://github.com/exyte/PopupView", from: .init(2, 5, 7)),
     .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: .init(2, 6, 1)),
-    .package(url: "https://github.com/kean/Nuke.git", from: .init(12, 1, 5)),
-    .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1"))
+    .package(url: "https://github.com/yazio/ReadabilityModifier", from: .init(1, 0, 0))
 ]
 
 let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
@@ -29,7 +28,6 @@ let composableArchitecture: TargetDependency = .product(name: "ComposableArchite
 let dependencies: TargetDependency = .product(name: "Dependencies", package: "swift-dependencies")
 let dependenciesMacros: TargetDependency = .product(name: "DependenciesMacros", package: "swift-dependencies")
 let cropViewController: TargetDependency = .product(name: "CropViewController", package: "TOCropViewController")
-let nuke: TargetDependency = .product(name: "Nuke", package: "Nuke")
 let alamofire: TargetDependency = .product(name: "Alamofire", package: "Alamofire")
 
 extension Target {
