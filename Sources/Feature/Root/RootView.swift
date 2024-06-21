@@ -39,17 +39,14 @@ public struct RootView: View {
                             }
                     )
                 case false:
-//                    WelcomeView(
-//                        store: Store(
-//                            initialState: Welcome.State(requiredInfo: viewStore.requiredInfo)) {
-//                                Welcome()
-//                            }
-//                    )
-                    MapView(
+                    WelcomeView(
                         store: Store(
-                            initialState: MapStore.State()) {
-                                MapStore()
-                            }
+                            initialState: Welcome.State(
+                                requiredInfo: viewStore.requiredInfo
+                            )
+                        ) {
+                            Welcome()
+                        }
                     )
                 }
             case false:

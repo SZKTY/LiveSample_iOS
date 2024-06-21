@@ -20,15 +20,15 @@ let packageDependencies: [PackageDependency] = [
     .package(url: "https://github.com/yazio/ReadabilityModifier", from: .init(1, 0, 0))
 ]
 
-let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
-let analytics: TargetDependency = .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
-let remoteConfig: TargetDependency = .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk")
-let popupView: TargetDependency = .product(name: "PopupView", package: "PopupView")
 let composableArchitecture: TargetDependency = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
 let dependencies: TargetDependency = .product(name: "Dependencies", package: "swift-dependencies")
 let dependenciesMacros: TargetDependency = .product(name: "DependenciesMacros", package: "swift-dependencies")
-let cropViewController: TargetDependency = .product(name: "CropViewController", package: "TOCropViewController")
+let analytics: TargetDependency = .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
+let remoteConfig: TargetDependency = .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk")
 let alamofire: TargetDependency = .product(name: "Alamofire", package: "Alamofire")
+let popupView: TargetDependency = .product(name: "PopupView", package: "PopupView")
+let cropViewController: TargetDependency = .product(name: "CropViewController", package: "TOCropViewController")
+let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
 
 extension Target {
     static func core(name: String, dependencies: [TargetDependency], resources: [Resource]? = nil, plugins: [Target.PluginUsage]? = nil) -> Target {
@@ -174,7 +174,8 @@ let featureTargets: [Target] = [
         "Routing",
         "ViewComponents",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "MyPage", dependencies: [
         "MyPageStore",

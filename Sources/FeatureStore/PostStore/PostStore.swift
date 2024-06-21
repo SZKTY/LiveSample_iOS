@@ -36,7 +36,7 @@ public struct PostStore {
         @BindingState public var center: CLLocationCoordinate2D
         @BindingState public var date: Date = Date()
         @BindingState public var startDateTime: Date = Date()
-        @BindingState public var endDateTime: Date = Date()
+        @BindingState public var endDateTime: Date = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
         @BindingState public var image: Data = Data()
         @BindingState public var freeText: String = ""
         
@@ -160,7 +160,7 @@ public struct PostStore {
                 
                 return .run { send in
                     await send(.createPostResponse(Result {
-                        try await createPostClient.send(sessionId: "sessionId", entity: postEntity)
+                        try await createPostClient.send(sessionId: sessionId, entity: postEntity)
                     }))
                 }
                 

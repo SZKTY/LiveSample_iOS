@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import PopupView
 import MapStore
 import MapKit
 import Routing
@@ -63,13 +64,17 @@ public struct MapView: View {
                             viewStore.send(.cancelButtonTappedInSelectPlaceMode)
                         })
                         .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
-                        
+                    }
+                    .popup(isPresented: viewStore.$isShowSuccessToast) {
                         // 投稿作成完了のトーストバナー
-                        if viewStore.isShowSuccessToast {
-                            SuccessToastBanner(onAppear: {
-                                viewStore.send(.hideSuccessToast)
-                            })
-                        }
+                        SuccessToastBanner()
+                    } customize: {
+                        $0
+                            .type(.floater())
+                            .position(.top)
+                            .animation(.spring)
+                            .autohideIn(3)
+                        
                     }
                 }
             }

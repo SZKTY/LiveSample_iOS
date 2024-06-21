@@ -209,7 +209,7 @@ public struct PostView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(viewStore.startDateTime >= viewStore.endDateTime)
+                    .disabled(viewStore.startDateTime > viewStore.endDateTime)
                     
                 }
                 .listRowSeparator(.hidden)

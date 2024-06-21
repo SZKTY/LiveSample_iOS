@@ -6,14 +6,10 @@
 //
 
 import SwiftUI
+import Assets
 
 public struct SuccessToastBanner: View {
-    
-    private let onAppear: () -> Void
-    
-    public init(onAppear: @escaping () -> Void) {
-        self.onAppear = onAppear
-    }
+    public init() {}
     
     public var body: some View {
         ZStack {
@@ -23,27 +19,21 @@ public struct SuccessToastBanner: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 30)
-                        .foregroundColor(Color.green)
+                        .foregroundColor(Color.mainBaseColor)
+                    
                     VStack(alignment: .leading) {
                         Text("投稿完了")
-                            .font(.custom("RoundedMplus1c-Bold", size: 16))
-                            .foregroundColor(Color.black)
+                            .font(.system(size: 16, weight: .heavy))
+                            .foregroundColor(Color.mainBaseColor)
                     }
                 }
                 .padding(.all, 10)
-                // PaleGreenっぽいやつ #D0E2BE
-                .background(Color(red: 232/255, green: 242/255, blue: 228/255))
+                .background(Color.mainSubColor)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                
                 Spacer()
             }
         }
         .padding(.top, 50)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation {
-                    onAppear()
-                }
-            }
-        }
     }
 }
