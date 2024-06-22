@@ -78,10 +78,14 @@ public struct PostView: View {
                             Text("今日")
                                 .frame(width: 80, height: 36)
                                 .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(.white)
+                                .foregroundColor(viewStore.selectedButton == .today ? .white : Color.mainBaseColor)
+                                .background(viewStore.selectedButton == .today ? Color.mainBaseColor : .white)
+                                .cornerRadius(.infinity)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                       .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                               )
                         }
-                        .background(viewStore.selectedButton == .today ? Color.mainBaseColor : .gray)
-                        .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
                         Button(action: {
@@ -90,10 +94,14 @@ public struct PostView: View {
                             Text("明日")
                                 .frame(width: 80, height: 36)
                                 .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(.white)
+                                .foregroundColor(viewStore.selectedButton == .tomorrow ? .white : Color.mainBaseColor)
+                                .background(viewStore.selectedButton == .tomorrow ? Color.mainBaseColor : .white)
+                                .cornerRadius(.infinity)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                       .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                               )
                         }
-                        .background(viewStore.selectedButton == .tomorrow ? Color.mainBaseColor : .gray)
-                        .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
                         Button(action: {
@@ -102,10 +110,14 @@ public struct PostView: View {
                             Text("明後日")
                                 .frame(width: 80, height: 36)
                                 .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(.white)
+                                .foregroundColor(viewStore.selectedButton == .dayAfterDayTomorrow ? .white : Color.mainBaseColor)
+                                .background(viewStore.selectedButton == .dayAfterDayTomorrow ? Color.mainBaseColor : .white)
+                                .cornerRadius(.infinity)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                       .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                               )
                         }
-                        .background(viewStore.selectedButton == .dayAfterDayTomorrow ? Color.mainBaseColor : .gray)
-                        .cornerRadius(.infinity)
                         .buttonStyle(PlainButtonStyle())
                         
                         Spacer()
@@ -204,8 +216,8 @@ public struct PostView: View {
                         Text("投稿する")
                             .font(.system(size: 15, weight: .medium))
                             .frame(maxWidth: .infinity, minHeight: 40)
-                            .background(Color.mainBaseColor)
-                            .foregroundColor(.white)
+                            .background(viewStore.startDateTime < viewStore.endDateTime ? Color.mainBaseColor : Color.inactiveColor)
+                            .foregroundStyle(.white)
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())

@@ -22,7 +22,7 @@ public struct NoImageButton: View {
                 .padding()
                 .font(.system(size: 20))
                 .frame(width: 80, height: 80)
-                .overlay(RoundedRectangle(cornerRadius: 2)
+                .overlay(RoundedRectangle(cornerRadius: 4)
                     .stroke(style: StrokeStyle(dash: [8,7])))
                 .foregroundColor(Color.gray)
                 .background(Color.white)

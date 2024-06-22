@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Assets
 
 public struct RemovableImageButton: View {
     public let tapAction: () -> Void
@@ -26,6 +27,7 @@ public struct RemovableImageButton: View {
                 Image(uiImage: UIImage(data: image) ?? UIImage(named: "noImage")!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .cornerRadius(4)
             }
             .frame(width: 80, height: 80)
             
@@ -38,7 +40,7 @@ public struct RemovableImageButton: View {
                     self.removeAction()
                 }) {
                     Image(systemName: "minus.circle.fill")
-                        .foregroundColor(.red)
+                        .foregroundColor(Color.mainBaseColor)
                 }
                 .buttonStyle(PlainButtonStyle())
             }

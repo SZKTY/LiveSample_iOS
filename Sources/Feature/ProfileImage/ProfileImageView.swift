@@ -79,9 +79,10 @@ public struct ProfileImageView: View {
                         .font(.system(size: 20, weight: .medium))
                         .bold()
                         .foregroundStyle(.white)
-                        .background(Color.mainBaseColor)
+                        .background(viewStore.imageData != Data() ? Color.mainBaseColor : Color.inactiveColor)
                         .cornerRadius(.infinity)
                 }
+                .disabled(viewStore.imageData == Data())
                 
                 Spacer()
             }

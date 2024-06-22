@@ -55,7 +55,7 @@ public struct MapView: View {
                         FloatingButton(position: .bottomTailing, imageName: "plus") {
                             viewStore.send(.floatingPlusButtonTapped)
                         }
-                        .opacity(accountTypeChecker.accountType == .artist && !viewStore.isSelectPlaceMode ? 1 : 0)
+                        .opacity(/*accountTypeChecker.accountType == .artist && */!viewStore.isSelectPlaceMode ? 1 : 0)
                         
                         // 場所選択モード
                         SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {

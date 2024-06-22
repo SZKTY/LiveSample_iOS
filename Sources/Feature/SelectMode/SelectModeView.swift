@@ -75,8 +75,8 @@ public struct SelectModeView: View {
                             .frame(maxWidth: .infinity, minHeight: 70)
                             .font(.system(size: 20, weight: .medium))
                             .bold()
-                            .foregroundStyle(viewStore.isEnableStartButton ? .white : .white.opacity(0.3))
-                            .background(viewStore.isEnableStartButton ? Color.mainBaseColor : .gray.opacity(0.5))
+                            .foregroundStyle(.white)
+                            .background(viewStore.isEnableStartButton ? Color.mainBaseColor : Color.inactiveColor)
                             .cornerRadius(.infinity)
                     }
                     .disabled(!viewStore.isEnableStartButton)
@@ -115,18 +115,20 @@ struct TermsOfServiceAndPrivacyPolicyView: View {
     var body: some View {
         HStack(spacing: 0) {
             if let url = URL(string: "https://www.apple.com/") {
-                Link("利用規約", destination: url)
-                    .foregroundStyle(.black)
-                    .underline()
+                Link(destination: url, label: {
+                    Text("利用規約")
+                        .underline()
+                })
             }
             
             Text("および")
                 .foregroundStyle(.black)
             
             if let url = URL(string: "https://www.apple.com/") {
-                Link("プライバシーポリシー", destination: url)
-                    .foregroundStyle(.black)
-                    .underline()
+                Link(destination: url, label: {
+                    Text("プライバシーポリシー")
+                        .underline()
+                })
             }
             
             Text("に同意して")

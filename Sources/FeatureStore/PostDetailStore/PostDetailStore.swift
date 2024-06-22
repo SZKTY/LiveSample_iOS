@@ -22,16 +22,16 @@ public struct PostDetail {
         public var isMine: Bool = true
         
         public var dateString: String {
-            let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy/MM/dd HH:mm:ss Z")
+            let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
             let dateString = DateUtils.stringFromDate(date: date, format: "MM/dd（EEE）")
             return dateString
         }
         
         public var startToFinishTimeString: String {
-            let startDate = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy/MM/dd HH:mm:ss Z")
-            let endDate = DateUtils.dateFromString(string: annotation.endDatetime, format: "yyyy/MM/dd HH:mm:ss Z")
-            let startTimeString = DateUtils.stringFromDate(date: startDate, format: "HH:mm")
-            let endTimeString = DateUtils.stringFromDate(date: endDate, format: "HH:mm")
+            let startDate = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
+            let endDate = DateUtils.dateFromString(string: annotation.endDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
+            let startTimeString = DateUtils.stringFromDate(date: startDate, format: "HH:mm", isConvertToJa: false)
+            let endTimeString = DateUtils.stringFromDate(date: endDate, format: "HH:mm", isConvertToJa: false)
             return startTimeString + " ~ " + endTimeString
         }
         

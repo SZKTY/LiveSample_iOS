@@ -123,8 +123,8 @@ public struct AccountIdNameView: View {
                             .frame(maxWidth: .infinity, minHeight: 70)
                             .font(.system(size: 20, weight: .medium))
                             .bold()
-                            .foregroundStyle(viewStore.isEnableNextButton ? .white : .white.opacity(0.3))
-                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : .gray.opacity(0.5))
+                            .foregroundStyle(.white)
+                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : Color.inactiveColor)
                             .cornerRadius(.infinity)
                     }
                     .disabled(!viewStore.isEnableNextButton)
