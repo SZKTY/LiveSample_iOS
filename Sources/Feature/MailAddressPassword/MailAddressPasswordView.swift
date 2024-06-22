@@ -89,7 +89,7 @@ public struct MailAddressPasswordView: View {
                             .font(.system(size: 20, weight: .heavy))
                             .bold()
                             .foregroundStyle(viewStore.isEnableNextButton ? .white : .white.opacity(0.3))
-                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : .gray.opacity(0.5))
+                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : Color.inactiveColor)
                             .cornerRadius(.infinity)
                     }
                     .disabled(!viewStore.isEnableNextButton)

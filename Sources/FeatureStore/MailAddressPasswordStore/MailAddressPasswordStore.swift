@@ -119,7 +119,7 @@ public struct MailAddressPassword: Sendable {
                 /*
                  アカウントID・アカウント名は取得できているが、アカウント種別が取得できない場合は、アカウント種別登録画面に遷移する
                  */
-                if response.accounType.isEmpty {
+                if response.accountType.isEmpty {
                     state.destination = .selectMode(SelectMode.State())
                     return .none
                 }
@@ -156,7 +156,7 @@ public struct MailAddressPassword: Sendable {
                 print("check: getUserInfo FAIL")
                 
                 // TODO: エラーハンドリング
-                
+                state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
                 
             case .destination:

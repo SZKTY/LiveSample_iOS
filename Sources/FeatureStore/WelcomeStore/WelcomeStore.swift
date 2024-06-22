@@ -59,7 +59,7 @@ public struct Welcome {
                  セッションIDはローカルに存在しアカウントID・アカウント名も取得できているが、アカウント種別が取得できない場合は、
                  アカウント種別登録画面に遷移する
                  */
-                if state.requiredInfo.accounType.isEmpty {
+                if state.requiredInfo.accountType.isEmpty {
                     state.destination = .selectMode(SelectMode.State())
                     return .none
                 }

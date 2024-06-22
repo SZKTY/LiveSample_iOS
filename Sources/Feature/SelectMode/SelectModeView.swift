@@ -110,6 +110,7 @@ public struct SelectModeView: View {
     }
 }
 
+// TODO: 下線が出てない
 struct TermsOfServiceAndPrivacyPolicyView: View {
     var body: some View {
         HStack(spacing: 0) {

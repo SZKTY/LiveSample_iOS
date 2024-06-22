@@ -25,17 +25,17 @@ public struct GetRequiredInfoRequest: GetRequest {
 public struct GetRequiredInfoResponse: Decodable, Equatable {
     public var accountName: String
     public var accountId: String
-    public var accounType: String
+    public var accountType: String
     
-    public init(accountName: String, accountId: String, accounType: String) {
+    public init(accountName: String, accountId: String, accountType: String) {
         self.accountName = accountName
         self.accountId = accountId
-        self.accounType = accounType
+        self.accountType = accountType
     }
 }
 
 extension GetRequiredInfoResponse {
     public static func stub() -> Self {
-        .init(accountName: "", accountId: "", accounType: "")
+        .init(accountName: "", accountId: "", accountType: "")
     }
 }

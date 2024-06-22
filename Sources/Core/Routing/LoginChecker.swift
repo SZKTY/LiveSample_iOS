@@ -12,6 +12,9 @@ public class LoginChecker: ObservableObject {
     private let ud = UserDefaults(suiteName: "group.inemuri")
     
     public init() {
-        self.isLogin = ud?.string(forKey: "SessionIdKey") != nil && ud?.string(forKey: "UserIdKey") != nil
+        guard let sessionId = ud?.string(forKey: "SessionIdKey"),
+              let userId = ud?.string(forKey: "UserIdKey") else { return }
+        
+        isLogin = !sessionId.isEmpty && !userId.isEmpty
     }
 }

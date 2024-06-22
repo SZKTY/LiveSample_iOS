@@ -62,7 +62,9 @@ public struct RootView: View {
             await store.send(.task).finish()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.changeToLogout)) { _ in
-            loginChecker.isLogin = true
+            if loginChecker.isLogin {
+                loginChecker.isLogin = false
+            }
         }
     }
 }

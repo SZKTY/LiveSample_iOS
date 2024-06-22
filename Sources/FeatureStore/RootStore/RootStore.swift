@@ -64,23 +64,21 @@ public struct Root {
                 }
                 
             case let .getRequiredInfoResponse(.success(response)):
+                print("check: getRequiredInfoResponse success")
                 state.requiredInfo = response
-                let isFill = !response.accountId.isEmpty && !response.accountName.isEmpty && !response.accounType.isEmpty
+                
+                // 必須情報が足りなければ、ログアウト状態に戻す
+                if response.accountId.isEmpty || response.accountName.isEmpty || response.accountType.isEmpty {
+                    NotificationCenter.default.post(name: NSNotification.changeToLogout, object: nil, userInfo: nil)
+                }
                 
                 return .run { send in
-                    // 必須情報が足りなければ、ログアウト状態に戻す
-                    if !isFill {
-                        // 画面遷移に繋がるためメインスレッドに流す
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: NSNotification.changeToLogout, object: nil, userInfo: nil)
-                        }
-                        return
-                    }
-
                     await send(.beInitialized)
                 }
                 
             case let .getRequiredInfoResponse(.failure(error)):
+                print("check: getRequiredInfoResponse failure")
+                
                 state.alert = .init(
                     title: .init(error.localizedDescription),
                     buttons: [

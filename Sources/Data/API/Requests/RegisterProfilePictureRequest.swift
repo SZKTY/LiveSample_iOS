@@ -21,7 +21,7 @@ public struct RegisterProfilePictureRequest: PostRequest {
     
     public init(path: String) {
         parameters = [
-            "profile_image_path": path
+            "image_path": path
         ]
     }
 }

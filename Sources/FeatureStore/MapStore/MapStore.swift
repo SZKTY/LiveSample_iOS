@@ -65,14 +65,14 @@ public struct MapStore {
         Reduce { state, action in
             switch action {
             case .task:
-//                guard let sessionId = userDefaults.sessionId else {
-//                    print("check: No Session ID ")
-//                    return .none
-//                }
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
                 
                 return .run { send in
                     await send(.getPostsResponse(TaskResult {
-                        try await getPostsClient.send(sessionId: "sessionId")
+                        try await getPostsClient.send(sessionId: sessionId)
                     }))
                 }
                 
