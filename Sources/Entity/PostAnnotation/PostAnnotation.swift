@@ -9,6 +9,8 @@ import Foundation
 import MapKit
 
 public class PostAnnotation: MKPointAnnotation {
+    public var postId: Int
+    public var postUserId: Int
     public var postUserAccountName: String
     public var postUserAccountId: String
     public var postUserProfileImagePath: String
@@ -21,6 +23,8 @@ public class PostAnnotation: MKPointAnnotation {
     public var createdAt: String
     
     public init(
+        postId: Int,
+        postUserId: Int,
         postUserAccountName: String,
         postUserAccountId: String,
         postUserProfileImagePath: String,
@@ -32,6 +36,8 @@ public class PostAnnotation: MKPointAnnotation {
         endDatetime: String,
         createdAt: String
     ) {
+        self.postId = postId
+        self.postUserId = postUserId
         self.postUserAccountName = postUserAccountName
         self.postUserAccountId = postUserAccountId
         self.postUserProfileImagePath = postUserProfileImagePath
@@ -50,6 +56,8 @@ public class PostAnnotation: MKPointAnnotation {
 extension PostAnnotation {
     public static func stub() -> PostAnnotation {
         .init(
+            postId: 1,
+            postUserId: 12345,
             postUserAccountName: "",
             postUserAccountId: "",
             postUserProfileImagePath: "",

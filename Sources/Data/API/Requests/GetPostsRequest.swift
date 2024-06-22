@@ -28,6 +28,8 @@ public struct GetPostsResponse: Decodable {
 }
 
 public struct GetPostEntity: Equatable, Decodable {
+    public var postId: Int
+    public var postUserId: Int
     public var postUserAccountName: String
     public var postUserAccountId: String
     public var postUserProfileImagePath: String
@@ -40,6 +42,8 @@ public struct GetPostEntity: Equatable, Decodable {
     public var createdAt: String
     
     public init(
+        postId: Int,
+        postUserId: Int,
         postUserAccountName: String,
         postUserAccountId: String,
         postUserProfileImagePath: String,
@@ -51,6 +55,8 @@ public struct GetPostEntity: Equatable, Decodable {
         endDatetime: String,
         createdAt: String
     ) {
+        self.postId = postId
+        self.postUserId = postUserId
         self.postUserAccountName = postUserAccountName
         self.postUserAccountId = postUserAccountId
         self.postUserProfileImagePath = postUserProfileImagePath

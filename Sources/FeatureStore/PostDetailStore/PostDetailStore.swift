@@ -80,8 +80,7 @@ public struct PostDetail {
                 }
                 
                 // 自分の投稿かどうか判断する
-                // TODO: Account ID => User ID に変更する
-                state.isMine = "\(userId)" == state.annotation.postUserAccountId
+                state.isMine = userId == state.annotation.postUserId
                 
                 // マップの位置を調整する
                 return .send(.delegate(.move))
@@ -98,11 +97,11 @@ public struct PostDetail {
                     print("check: No Session ID ")
                     return .none
                 }
+                let deletePostId = state.annotation.postId
                 
                 return .run { send in
                     await send(.getDeletePostResponse( Result {
-                        // TODO: Post ID
-                        try await deletePost.send(sessionId: sessionId, deletePostId: 1)
+                        try await deletePost.send(sessionId: sessionId, deletePostId: deletePostId)
                     }))
                 }
                 
@@ -128,11 +127,11 @@ public struct PostDetail {
                     print("check: No Session ID ")
                     return .none
                 }
+                let blockUserId = state.annotation.postUserId
                 
                 return .run { send in
                     await send(.getBlockUserResponse( Result {
-                        // TODO: User Id
-                        try await blockUser.send(sessionId: "sessionId", blockUserId: 1)
+                        try await blockUser.send(sessionId: sessionId, blockUserId: blockUserId)
                     }))
                 }
                 

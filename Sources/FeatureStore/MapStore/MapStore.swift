@@ -89,6 +89,8 @@ public struct MapStore {
                 // 仮
                 state.postAnnotations.append(
                     GetPostEntity(
+                        postId: 1,
+                        postUserId: 123456,
                         postUserAccountName: "hoge",
                         postUserAccountId: "piyo",
                         postUserProfileImagePath: "hogehoge",
@@ -204,6 +206,8 @@ extension MapStore {
 extension GetPostEntity {
     func convert() -> PostAnnotation {
         return .init(
+            postId: self.postId,
+            postUserId: self.postUserId,
             postUserAccountName: self.postUserAccountName,
             postUserAccountId: self.postUserAccountId,
             postUserProfileImagePath: self.postUserProfileImagePath,
