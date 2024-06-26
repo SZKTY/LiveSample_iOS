@@ -78,7 +78,9 @@ public struct MapStore {
                 
             case let .getPostsResponse(.success(response)):
                 print("check: success getPostsResponse")
-                response.posts.forEach { post in
+                guard let posts = response.posts else { return .none }
+                
+                posts.forEach { post in
                     state.postAnnotations.append(post.convert())
                 }
                 
@@ -86,32 +88,12 @@ public struct MapStore {
                 
             case let .getPostsResponse(.failure(error)):
                 print("check: failure getPostsResponse")
-                // 仮
-                state.postAnnotations.append(
-                    GetPostEntity(
-                        postId: 1,
-                        postUserId: 123456,
-                        postUserAccountName: "hoge",
-                        postUserAccountId: "piyo",
-                        postUserProfileImagePath: "hogehoge",
-                        postImagePath: "piyopiyo",
-                        coordinateX: "37.78476810434068",
-                        coordinateY: "-122.40662076068551",
-                        freeText: "路上ライブ。路上ライブで成り上がる。あの場所からスタートし、熱い思いを持って音楽を届ける。一人でも多くの人たちに感動を与えたい。応援してくれる人たちの声援が力になる。なかなか大きなステージには立てないけど、一歩一歩進んでいく。苦労も多いけど、やりきるんや。可能性は無限大。路上ライブの舞台から、きっと夢は叶う。楽しさも苦しみも全部乗り越えて、輝かしい未来を掴むんや。",
-                        startDatetime: "2024-06-08 13:23:47 +0000",
-                        endDatetime: "2024-06-08 13:23:47 +0000",
-                        createdAt: "2024-06-08 13:23:47 +0000"
-                    )
-                    .convert()
+                state.alert = .init(
+                    title: .init(error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.failToGetPosts))
+                    ]
                 )
-                
-//                state.alert = .init(
-//                    title: .init(error.localizedDescription),
-//                    buttons: [
-//                        .default(.init("リトライ"), action: .send(.failToGetPosts))
-//                    ]
-//                )
-                
                 return .none
                 
             case .showSuccessToast:
