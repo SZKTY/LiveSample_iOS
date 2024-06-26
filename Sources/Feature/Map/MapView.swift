@@ -47,21 +47,29 @@ public struct MapView: View {
                         
                         // マイページボタン
                         FloatingButton(position: .topLeading, imageName: "line.3.horizontal", isBaseColor: false) {
-                            viewStore.send(.floatingHomeButtonTapped)
+                            DispatchQueue.main.async {
+                                viewStore.send(.floatingHomeButtonTapped)
+                            }
                         }
                         .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
                         
                         // 投稿作成ボタン
                         FloatingButton(position: .bottomTailing, imageName: "plus") {
-                            viewStore.send(.floatingPlusButtonTapped)
+                            DispatchQueue.main.async {
+                                viewStore.send(.floatingPlusButtonTapped)
+                            }
                         }
-                        .opacity(/*accountTypeChecker.accountType == .artist && */!viewStore.isSelectPlaceMode ? 1 : 0)
+                        .opacity(accountTypeChecker.accountType == .artist && !viewStore.isSelectPlaceMode ? 1 : 0)
                         
                         // 場所選択モード
                         SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
-                            viewStore.send(.confirmButtonTappedInSelectPlaceMode)
+                            DispatchQueue.main.async {
+                                viewStore.send(.confirmButtonTappedInSelectPlaceMode)
+                            }
                         }, cancelAction: {
-                            viewStore.send(.cancelButtonTappedInSelectPlaceMode)
+                            DispatchQueue.main.async {
+                                viewStore.send(.cancelButtonTappedInSelectPlaceMode)
+                            }
                         })
                         .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
                     }

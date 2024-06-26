@@ -24,7 +24,7 @@ public struct GetPostsRequest: GetRequest {
 }
 
 public struct GetPostsResponse: Decodable {
-    public var posts: [GetPostEntity]
+    public var posts: [GetPostEntity]?
 }
 
 public struct GetPostEntity: Equatable, Decodable {

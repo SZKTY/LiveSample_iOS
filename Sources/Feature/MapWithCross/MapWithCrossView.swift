@@ -42,12 +42,16 @@ public struct MapWithCrossView: View {
                     
                     // 場所選択モード
                     SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
-                        viewStore.send(.determineButtonTapped)
+                        DispatchQueue.main.async {
+                            viewStore.send(.determineButtonTapped)
+                        }
                     }, cancelAction: {
-                        viewStore.send(.cancelButtonTapped)
+                        DispatchQueue.main.async {
+                            viewStore.send(.cancelButtonTapped)
+                        }
                     })
                 }
-                .edgesIgnoringSafeArea(.top)
+                .edgesIgnoringSafeArea(.vertical)
                 .navigationBarBackButtonHidden()
             }
         }

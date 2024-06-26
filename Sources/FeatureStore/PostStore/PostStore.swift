@@ -180,7 +180,7 @@ public struct PostStore {
             case .createPostResponse(.success(_)):
                 print("check: SUCCESS")
                 return .run { send in
-                    await self.dismiss()
+                    await dismiss()
                     
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: NSNotification.didSuccessCreatePost, object: nil)
