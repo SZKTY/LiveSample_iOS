@@ -44,8 +44,10 @@ public struct MapWithCrossStore {
                 return .run { _ in await self.dismiss() }
             case .determineButtonTapped:
                 return .run { [center = state.center] send in
-                    NotificationCenter.default.post(name: NSNotification.didDetermineCenter, object: nil, userInfo: ["center": center])
-                    await self.dismiss()
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.didDetermineCenter, object: nil, userInfo: ["center": center])
+                    }
+                    await dismiss()
                 }
             case .delegate:
                 return .none
