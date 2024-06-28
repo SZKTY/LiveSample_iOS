@@ -72,7 +72,8 @@ let coreTargets: [Target] = [
     .core(name: "ViewComponents", dependencies: [
         "Assets",
         "Location",
-        "PostAnnotation"
+        "PostAnnotation",
+        "Share"
     ]),
     .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
@@ -90,6 +91,10 @@ let coreTargets: [Target] = [
         composableArchitecture,
         dependencies,
         dependenciesMacros,
+    ]),
+    .core(name: "Share", dependencies: [
+        dependencies,
+        dependenciesMacros
     ])
 ]
 
@@ -195,6 +200,7 @@ let featureTargets: [Target] = [
     .feature(name: "PostDetail", dependencies: [
         "PostDetailStore",
         "Assets",
+        "Share",
         "ViewComponents",
         composableArchitecture
     ]),
@@ -269,6 +275,7 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "PostDetailStore", dependencies: [
         "DateUtils",
+        "Share",
         "API",
         "UserDefaults",
         "PostAnnotation",

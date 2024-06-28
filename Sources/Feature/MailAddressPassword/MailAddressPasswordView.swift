@@ -20,6 +20,7 @@ public struct MailAddressPasswordView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var loginChecker: LoginChecker
+    @EnvironmentObject var accountTypeChecker: AccountTypeChecker
     @FocusState private var focusState : FocusStates?
     
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
@@ -114,6 +115,7 @@ public struct MailAddressPasswordView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishLogin)) { _ in
                 loginChecker.isLogin = true
+                accountTypeChecker.reload()
             }
             .alert(store: self.store.scope(state: \.$alert, action: \.alert))
             .navigationDestination(

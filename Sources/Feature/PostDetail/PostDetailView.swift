@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import PostDetailStore
 import Assets
+import Share
 import ViewComponents
 
 public struct PostDetailView: View {
@@ -38,22 +39,35 @@ public struct PostDetailView: View {
                 .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    Spacer()
-                    
-                    HStack {
+                    HStack(spacing: 16) {
                         Spacer()
+                        
+                        // 共有ボタン
+                        Button {
+                            let renderer = ImageRenderer(content: body)
+                            if let image = renderer.uiImage, let data = image.pngData() {
+                                viewStore.send(.squareAndArrowUpButtonTapped(data))
+                            }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 22))
+                                .bold()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.white)
+                        }
                         
                         // 三点リーダ
                         Button {
                             viewStore.send(.ellipsisButtonTapped)
                         } label: {
                             Image(systemName: "ellipsis")
-                                .font(.system(size: 20))
+                                .font(.system(size: 22))
                                 .bold()
-                                .frame(width: 20, height: 20)
+                                .frame(width: 24, height: 24)
                                 .foregroundColor(.white)
                         }
                     }
+                    .padding(.vertical)
                     
                     HStack {
                         Text(viewStore.dateString)
@@ -162,6 +176,13 @@ public struct PostDetailView: View {
                 store: store.scope(state: \.$alert,
                                    action: \.alert)
             )
+            .actionSheet(
+                store: store.scope(state: \.$actionSheet,
+                                   action: \.actionSheet)
+            )
+            .popover(isPresented: viewStore.$isShowSharePopover) {
+                ShareView(imageData: viewStore.shareRenderedImageData!, description: "")
+            }
         }
     }
 }
