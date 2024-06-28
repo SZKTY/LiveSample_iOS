@@ -24,20 +24,23 @@ public struct EditProfile {
     }
     
     public enum Action: BindableAction {
-        case dismiss
+        // Event
         case initialize
-        case getProfileImageData(Result<Data, Error>)
-        case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
-        
         case didTapShowImagePicker
         case newImageSelected
-        case uploadProfilePictureResponse(Result<UploadPictureResponse, Error>)
-        case editUserProfileImageResponse(Result<EditUserProfileImageResponse, Error>)
         case whatIsAccountNameButtonTapped
         case whatIsAccountIdButtonTapped
         case saveButtonTapped
+        
+        // Response
+        case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
+        case getProfileImageDataResponse(Result<Data, Error>)
+        case uploadProfilePictureResponse(Result<UploadPictureResponse, Error>)
+        case editUserProfileImageResponse(Result<EditUserProfileImageResponse, Error>)
         case editUserAccountInfoResponse(Result<EditUserAccountInfoResponse, Error>)
         
+        // Navigation
+        case dismiss
         case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
         
@@ -59,9 +62,7 @@ public struct EditProfile {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .dismiss:
-                return .run { _ in await dismiss() }
-                
+            // MARK: - Action
             case .initialize:
                 // ユーザー情報を取得する
                 guard let sessionId = userDefaults.sessionId else {
@@ -74,29 +75,6 @@ public struct EditProfile {
                         try await getUserInfoClient.send(sessionId: sessionId)
                     }))
                 }
-                
-            case let .getUserInfoResponse(.success(response)):
-                state.accountId = response.accountId
-                state.accountName = response.accountName
-                state.isEnableSaveButton = !state.accountId.isEmpty && !state.accountName.isEmpty
-                
-                return .run { send in
-                    await send(.getProfileImageData(Result {
-                        try Data(contentsOf: URL(string: response.accountImagePath)!)
-                    }))
-                }
-                
-            case let .getUserInfoResponse(.failure(error)):
-                print("check: Error getUserInfoResponse = \(error.localizedDescription)")
-                return .none
-                
-            case let .getProfileImageData(.success(response)):
-                state.imageData = response
-                return .none
-                
-            case let .getProfileImageData(.failure(error)):
-                print("check: Error getProfileImageData = \(error.localizedDescription)")
-                return .none
                 
             case .didTapShowImagePicker:
                 state.isShownImagePicker.toggle()
@@ -114,30 +92,6 @@ public struct EditProfile {
                         try await uploadPictureClient.upload(sessionId: sessionId, data: data)
                     }))
                 }
-                
-            case let .uploadProfilePictureResponse(.success(response)):
-                guard let sessionId = userDefaults.sessionId else {
-                    print("check: No Session ID ")
-                    return .none
-                }
-                
-                return .run { send in
-                    await send(.editUserProfileImageResponse(Result {
-                        try await editUserProfileImageClient.send(sessionId: sessionId, path: response.imagePath)
-                    }))
-                }
-                
-            case let .uploadProfilePictureResponse(.failure(error)):
-                print("check: Error uploadProfilePicture = \(error.localizedDescription)")
-                return .none
-                
-            case .editUserProfileImageResponse(.success(_)):
-                state.alert = AlertState(title: TextState("登録完了"))
-                return .none
-                
-            case let .editUserProfileImageResponse(.failure(error)):
-                print("check: Error editUserProfileImage = \(error.localizedDescription)")
-                return .none
                 
             case .whatIsAccountNameButtonTapped:
                 state.alert = AlertState(
@@ -168,6 +122,54 @@ public struct EditProfile {
                         )
                     }))
                 }
+            
+            // MARK: - Response
+            case let .getUserInfoResponse(.success(response)):
+                state.accountId = response.accountId
+                state.accountName = response.accountName
+                state.isEnableSaveButton = !state.accountId.isEmpty && !state.accountName.isEmpty
+                
+                return .run { send in
+                    await send(.getProfileImageDataResponse(Result {
+                        try Data(contentsOf: URL(string: response.accountImagePath)!)
+                    }))
+                }
+                
+            case let .getUserInfoResponse(.failure(error)):
+                print("check: Error getUserInfoResponse = \(error.localizedDescription)")
+                return .none
+                
+            case let .getProfileImageDataResponse(.success(response)):
+                state.imageData = response
+                return .none
+                
+            case let .getProfileImageDataResponse(.failure(error)):
+                print("check: Error getProfileImageData = \(error.localizedDescription)")
+                return .none
+                
+            case let .uploadProfilePictureResponse(.success(response)):
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.editUserProfileImageResponse(Result {
+                        try await editUserProfileImageClient.send(sessionId: sessionId, path: response.imagePath)
+                    }))
+                }
+                
+            case let .uploadProfilePictureResponse(.failure(error)):
+                print("check: Error uploadProfilePicture = \(error.localizedDescription)")
+                return .none
+                
+            case .editUserProfileImageResponse(.success(_)):
+                state.alert = AlertState(title: TextState("登録完了"))
+                return .none
+                
+            case let .editUserProfileImageResponse(.failure(error)):
+                print("check: Error editUserProfileImage = \(error.localizedDescription)")
+                return .none
                 
             case .editUserAccountInfoResponse(.success(_)):
                 print("check: SUCCESS editUserAccountInfoResponse")
@@ -178,6 +180,10 @@ public struct EditProfile {
                 print("check: Error editUserAccountInfoResponse = \(error.localizedDescription)")
                 state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
+                
+            // MARK: - Navigation
+            case .dismiss:
+                return .run { _ in await dismiss() }
                 
             case .alert(.presented(.failToRegisterAccountInfo)):
                 return .none
