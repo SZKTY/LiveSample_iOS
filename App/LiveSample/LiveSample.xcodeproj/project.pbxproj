@@ -28,6 +28,8 @@
 		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
 		DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */; };
 		DF38C9BC2C2E68590052F85C /* Share in Frameworks */ = {isa = PBXBuildFile; productRef = DF38C9BB2C2E68590052F85C /* Share */; };
+		DF38C9BE2C2E75D00052F85C /* EditProfile in Frameworks */ = {isa = PBXBuildFile; productRef = DF38C9BD2C2E75D00052F85C /* EditProfile */; };
+		DF38C9C02C2E75D00052F85C /* EditProfileStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF38C9BF2C2E75D00052F85C /* EditProfileStore */; };
 		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
 		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
 		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
@@ -92,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
+				DF38C9BE2C2E75D00052F85C /* EditProfile in Frameworks */,
 				562CE1122BE8974B00EDBD53 /* MapWithCrossStore in Frameworks */,
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
 				DF9303612C1B04E700F770AE /* PostDetail in Frameworks */,
@@ -110,6 +113,7 @@
 				DF38C9BC2C2E68590052F85C /* Share in Frameworks */,
 				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
 				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
+				DF38C9C02C2E75D00052F85C /* EditProfileStore in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
 				562CE1142BEEFBB300EDBD53 /* PostEntity in Frameworks */,
@@ -280,6 +284,8 @@
 				DF1355BA2C22679300629260 /* Assets */,
 				DF8D59DD2C242EE2005071BB /* DateUtils */,
 				DF38C9BB2C2E68590052F85C /* Share */,
+				DF38C9BD2C2E75D00052F85C /* EditProfile */,
+				DF38C9BF2C2E75D00052F85C /* EditProfileStore */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -795,6 +801,14 @@
 		DF38C9BB2C2E68590052F85C /* Share */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Share;
+		};
+		DF38C9BD2C2E75D00052F85C /* EditProfile */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EditProfile;
+		};
+		DF38C9BF2C2E75D00052F85C /* EditProfileStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EditProfileStore;
 		};
 		DF7620C92BD7BE3E00C79F36 /* AccountIdName */ = {
 			isa = XCSwiftPackageProductDependency;

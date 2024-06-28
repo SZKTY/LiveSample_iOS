@@ -210,19 +210,25 @@ public struct PostView: View {
                 
                 // MARK: - Post
                 VStack {
-                    Button(action: {
-                        viewStore.send(.createPostButtonTapped)
-                    }) {
-                        Text("投稿する")
-                            .font(.system(size: 15, weight: .medium))
-                            .frame(maxWidth: .infinity, minHeight: 40)
-                            .background(viewStore.startDateTime < viewStore.endDateTime ? Color.mainBaseColor : Color.inactiveColor)
-                            .foregroundStyle(.white)
-                            .cornerRadius(10)
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            viewStore.send(.createPostButtonTapped)
+                        }) {
+                            Text("投稿")
+                                .frame(width: 120.0, height: 60.0)
+                                .font(.system(size: 16, weight: .medium))
+                                .bold()
+                                .background(viewStore.startDateTime < viewStore.endDateTime ? Color.mainBaseColor : Color.inactiveColor)
+                                .foregroundStyle(.white)
+                                .cornerRadius(6)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .disabled(viewStore.startDateTime > viewStore.endDateTime)
+                        
+                        Spacer()
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(viewStore.startDateTime > viewStore.endDateTime)
-                    
                 }
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.mainSubColor)
