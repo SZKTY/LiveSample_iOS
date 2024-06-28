@@ -16,6 +16,7 @@ import Assets
 public struct SelectModeView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var loginChecker: LoginChecker
+    @EnvironmentObject var accountTypeChecker: AccountTypeChecker
     
     let store: StoreOf<SelectMode>
     
@@ -24,7 +25,7 @@ public struct SelectModeView: View {
     }
     
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 36) {
                 Spacer()
                 
@@ -69,7 +70,7 @@ public struct SelectModeView: View {
                     .toggleStyle(.checkBox)
                     
                     Button(action: {
-                        self.store.send(.startButtonTapped)
+                        store.send(.startButtonTapped)
                     }) {
                         Text("〇〇をはじめる")
                             .frame(maxWidth: .infinity, minHeight: 70)
@@ -102,15 +103,15 @@ public struct SelectModeView: View {
                     ).tint(.black)
                 }
             }
-            .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+            .alert(store: store.scope(state: \.$alert, action: \.alert))
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in
-                self.loginChecker.isLogin = true
+                loginChecker.isLogin = true
+                accountTypeChecker.reload()
             }
         }
     }
 }
 
-// TODO: 下線が出てない
 struct TermsOfServiceAndPrivacyPolicyView: View {
     var body: some View {
         HStack(spacing: 0) {

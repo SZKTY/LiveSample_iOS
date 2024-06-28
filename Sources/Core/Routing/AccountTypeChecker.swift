@@ -16,6 +16,10 @@ public class AccountTypeChecker: ObservableObject {
     @Published public var accountType: AccountType = .fan
     
     public init() {
+        reload()
+    }
+    
+    public func reload() {
         guard let accountTypeString = UserDefaults(suiteName: "group.inemuri")?.string(forKey: "AccountTypeKey") else { return }
         self.accountType = getAccountType(from: accountTypeString)
     }
