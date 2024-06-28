@@ -11,37 +11,51 @@ import DependenciesMacros
 import UIKit
 
 @DependencyClient
-public struct InstagramClient: Sendable {
-    public var shareStorie: @Sendable (_ stickerImage: Data,
-                                       _ backgroundTopColor: String,
-                                       _ backgroundBottomColor: String,
-                                       _ contentURL: URL) async throws -> Void
+public struct SNSClient: Sendable {
+    public var shareInstagramStorie: @Sendable (_ stickerImage: Data,
+                                                _ backgroundTopColor: String,
+                                                _ backgroundBottomColor: String,
+                                                _ contentURL: URL) async throws -> Void
+    
+    public var showShareView: (_ imageData: Data) -> Void
 }
 
-extension InstagramClient: TestDependencyKey {
+extension SNSClient: TestDependencyKey {
     public static let testValue = Self()
     public static let previewValue = Self()
 }
 
 public extension DependencyValues {
-    var instagramClient: InstagramClient {
-        get { self[InstagramClient.self] }
-        set { self[InstagramClient.self] = newValue }
+    var snsClient: SNSClient {
+        get { self[SNSClient.self] }
+        set { self[SNSClient.self] = newValue }
     }
 }
 
-extension InstagramClient: DependencyKey {
-    public static var liveValue: InstagramClient = .request()
+extension SNSClient: DependencyKey {
+    public static var liveValue: SNSClient = .request()
     
     static func request() -> Self {
         .init(
-            shareStorie: { stickerImage, backgroundTopColor, backgroundBottomColor, contentURL  in
+            shareInstagramStorie: { stickerImage, backgroundTopColor, backgroundBottomColor, contentURL  in
                 try await StoriesClient.share(
                     stickerImageData: stickerImage,
                     backgroundTopColor: backgroundTopColor,
                     backgroundBottomColor: backgroundBottomColor,
                     contentURL: contentURL
                 )
+            },
+            showShareView: { imageData in
+                // アプリ名？
+                let description = "setsumeibun ga hairimasu"
+                // ストアリンク？
+                let url = URL(string: "https://qiita.com/shiz/items/93a33446f289a8a9b65d")!
+                let item = ShareActivityItemSource(imageData, title: description, url: url)
+                let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+                let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                let viewController = scene?.keyWindow?.rootViewController
+                let topVC = viewController?.topViewController()
+                topVC?.present(activityViewController, animated: true, completion: nil)
             }
         )
     }
@@ -92,5 +106,23 @@ public struct StoriesClient {
         let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(60 * 5)]
         UIPasteboard.general.setItems([items], options: pasteboardOptions)
         await UIApplication.shared.open(urlScheme)
+    }
+}
+
+extension UIViewController {
+    func topViewController() -> UIViewController? {
+        if let splitViewController = self as? UISplitViewController {
+            return splitViewController.viewController(for: .secondary)?.topViewController()
+        }
+        
+        if let navigationController = self as? UINavigationController {
+            return navigationController.visibleViewController?.topViewController()
+        }
+        
+        if let presented = self.presentedViewController {
+            return presented.topViewController()
+        }
+        
+        return self
     }
 }

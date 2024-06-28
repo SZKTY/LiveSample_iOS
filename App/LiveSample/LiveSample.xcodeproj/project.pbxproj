@@ -27,6 +27,7 @@
 		DF191EA32BD8EA9100D92018 /* Post in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA22BD8EA9100D92018 /* Post */; };
 		DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191EA42BD8EA9100D92018 /* PostStore */; };
 		DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */; };
+		DF38C9BC2C2E68590052F85C /* Share in Frameworks */ = {isa = PBXBuildFile; productRef = DF38C9BB2C2E68590052F85C /* Share */; };
 		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
 		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
 		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
@@ -106,6 +107,7 @@
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
 				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
 				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
+				DF38C9BC2C2E68590052F85C /* Share in Frameworks */,
 				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
 				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
@@ -277,6 +279,7 @@
 				DF9303652C1BED4F00F770AE /* PostAnnotation */,
 				DF1355BA2C22679300629260 /* Assets */,
 				DF8D59DD2C242EE2005071BB /* DateUtils */,
+				DF38C9BB2C2E68590052F85C /* Share */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -788,6 +791,10 @@
 		DF191EA42BD8EA9100D92018 /* PostStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PostStore;
+		};
+		DF38C9BB2C2E68590052F85C /* Share */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Share;
 		};
 		DF7620C92BD7BE3E00C79F36 /* AccountIdName */ = {
 			isa = XCSwiftPackageProductDependency;
