@@ -19,6 +19,12 @@ public struct MyPage {
         case editProfileTapped
         case deleteAccountTapped
         case binding(BindingAction<State>)
+        case delegate(Delegate)
+        
+        public enum Delegate: Equatable {
+            case showEditProfile
+            case dismiss
+        }
     }
     
     public init() {}
@@ -27,13 +33,16 @@ public struct MyPage {
         Reduce { state, action in
             switch action {
             case .editProfileTapped:
-                return .none
+                return .send(.delegate(.showEditProfile))
                 
             case .deleteAccountTapped:
                 state.isShownMailView = true
                 return .none
                 
             case .binding:
+                return .none
+                
+            case .delegate:
                 return .none
             }
         }

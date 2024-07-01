@@ -125,6 +125,5 @@ public struct MyPageView: View {
                 .edgesIgnoringSafeArea(.all)
             }
         }
-        
     }
 }

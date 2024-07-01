@@ -12,7 +12,7 @@ public struct TextFieldModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
-            .font(.system(size: 27, weight: .medium))
+            .font(.system(size: 25, weight: .medium))
             .padding()
             .foregroundColor(Color.mainBaseColor)
             .background(.white)

@@ -14,6 +14,7 @@ import Welcome
 import Routing
 import Map
 import MyPage
+import EditProfile
 import Post
 import PostDetail
 import MapWithCross
@@ -43,6 +44,9 @@ extension ViewBuildingClient: DependencyKey {
             },
             myPageView: { store in
                 AnyView(MyPageView(store: store))
+            },
+            editProfileView: { store in
+                AnyView(EditProfileView(store: store))
             },
             postView: { store in
                 AnyView(PostView(store: store))

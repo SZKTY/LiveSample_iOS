@@ -19,6 +19,7 @@ public struct MapView: View {
     @Dependency(\.viewBuildingClient.postView) private var postView
     @Dependency(\.viewBuildingClient.myPageView) private var myPageView
     @Dependency(\.viewBuildingClient.postDetailView) private var postDetailView
+    @Dependency(\.viewBuildingClient.editProfileView) private var editProfileView
     
     private let store: StoreOf<MapStore>
     
@@ -102,6 +103,12 @@ public struct MapView: View {
                                    action: \.destination.post)
             ) { store in
                 postView(store)
+            }
+            .navigationDestination(
+                store: store.scope(state: \.$destination.editProfile,
+                                   action: \.destination.editProfile)
+            ) { store in
+                editProfileView(store)
             }
             .sheet(
                 store: store.scope(state: \.$myPage,

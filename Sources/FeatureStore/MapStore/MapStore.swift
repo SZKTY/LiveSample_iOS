@@ -10,6 +10,7 @@ import MapKit
 import PostStore
 import PostDetailStore
 import MyPageStore
+import EditProfileStore
 import PostAnnotation
 import API
 import UserDefaults
@@ -112,6 +113,7 @@ public struct MapStore {
             case .floatingHomeButtonTapped:
                 state.myPage = MyPage.State()
                 return .none
+                
             case let .annotationTapped(annotation):
                 state.isShownPostDetailSheet = true
                 state.postDetail = PostDetail.State(annotation: annotation)
@@ -127,12 +129,19 @@ public struct MapStore {
             case .postDetailSheetDismiss:
                 state.isShownPostDetailSheet = false
                 return .none
+                
+            case .myPage(.presented(.delegate(.showEditProfile))):
+                state.destination = .editProfile(EditProfile.State())
+                state.myPage = nil
+                return .none
+                
             case .myPage:
                 return .none
                 
             case .myPageSheetDismiss:
                 state.myPage = nil
                 return .none
+                
             case let .centerRegionChanged(region):
                 state.centerRegion = region
                 return .none
@@ -182,6 +191,7 @@ extension MapStore {
     @Reducer(state: .equatable)
     public enum Path {
         case post(PostStore)
+        case editProfile(EditProfile)
     }
 }
 

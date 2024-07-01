@@ -35,7 +35,7 @@ public struct ProfileImageView: View {
                 VStack(spacing: 36) {
                     HStack {
                         RemovableCircleImageButton(tapAction: {
-                            store.send(.didTapShowImagePicker)
+                            viewStore.send(.didTapShowImagePicker)
                         }, removeAction: {
                             viewStore.send(.imageRemoveButtonTapped)
                         }, image: viewStore.imageData)

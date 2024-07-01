@@ -85,6 +85,7 @@ let coreTargets: [Target] = [
         "SelectModeStore",
         "MapStore",
         "MyPageStore",
+        "EditProfileStore",
         "PostStore",
         "PostDetailStore",
         "MapWithCrossStore",
@@ -184,6 +185,13 @@ let featureTargets: [Target] = [
     ]),
     .feature(name: "MyPage", dependencies: [
         "MyPageStore",
+        "ViewComponents",
+        composableArchitecture,
+        dependencies
+    ]),
+    .feature(name: "EditProfile", dependencies: [
+        "EditProfileStore",
+        "Assets",
         "Routing",
         "ViewComponents",
         composableArchitecture,
@@ -258,11 +266,17 @@ let featureStoreTargets: [Target] = [
         "PostStore",
         "PostDetailStore",
         "MyPageStore",
+        "EditProfileStore",
         "PostAnnotation",
         composableArchitecture
     ]),
     .featureStore(name: "MyPageStore", dependencies: [
         "API",
+        composableArchitecture
+    ]),
+    .featureStore(name: "EditProfileStore", dependencies: [
+        "API",
+        "UserDefaults",
         composableArchitecture
     ]),
     .featureStore(name: "PostStore", dependencies: [
