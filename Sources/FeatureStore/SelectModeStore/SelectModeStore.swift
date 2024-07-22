@@ -26,6 +26,7 @@ public struct SelectMode {
         case agreeButtonTapped
         case startButtonTapped
         case registerAccountTypeResponse(Result<RegisterAccountTypeResponse, Error>)
+        case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
         case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
         
@@ -38,6 +39,7 @@ public struct SelectMode {
     
     // MARK: - Dependencies
     @Dependency(\.registerAccountTypeClient) var registerAccountTypeClient
+    @Dependency(\.getUserInfoClient) var getUserInfoClient
     @Dependency(\.userDefaults) var userDefaults
     
     public var body: some ReducerOf<Self> {
@@ -69,10 +71,35 @@ public struct SelectMode {
                 }
                 
             case let .registerAccountTypeResponse(.success(response)):
-                NotificationCenter.default.post(name: NSNotification.didFinishRegisterAccountInfo, object: nil, userInfo: nil)
-                return .none
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.getUserInfoResponse(Result {
+                        try await getUserInfoClient.send(sessionId: sessionId)
+                    }))
+                }
                 
             case let .registerAccountTypeResponse(.failure(error)):
+                state.alert = AlertState(title: TextState("登録失敗"))
+                return .none
+                
+            case let .getUserInfoResponse(.success(response)):
+                return .run { send in
+                    await self.userDefaults.setUserId(response.userId)
+                    await self.userDefaults.setAccountType(response.accountType)
+                    
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.didFinishRegisterAccountInfo, object: nil, userInfo: nil)
+                    }
+                }
+                
+            case let .getUserInfoResponse(.failure(error)):
+                print("check: getUserInfo FAIL")
+                
+                // TODO: エラーハンドリング
                 state.alert = AlertState(title: TextState("登録失敗"))
                 return .none
                 

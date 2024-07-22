@@ -29,9 +29,6 @@ public struct PostStore {
         @PresentationState public var destination: Path.State?
         
         public var region: MKCoordinateRegion
-        public var dateString: String {
-            return DateUtils.stringFromDate(date: date, format: "M/d (EEE)") + "   |   " + DateUtils.stringFromDate(date: startDateTime, format: "HH:mm") + "  ~  " + DateUtils.stringFromDate(date: endDateTime, format: "HH:mm")
-        }
         
         @BindingState public var center: CLLocationCoordinate2D
         @BindingState public var date: Date = Date()
@@ -95,17 +92,23 @@ public struct PostStore {
                 return .none
                 
             case .todayButtonTapped:
+                state.date = edit(date: state.date, from: state.selectedButton, to: .today)
+                state.startDateTime = edit(date: state.startDateTime, from: state.selectedButton, to: .today)
+                state.endDateTime = edit(date: state.endDateTime, from: state.selectedButton, to: .today)
                 state.selectedButton = .today
-                state.date = Date()
                 return .none
                 
             case .tomorrowButtonTapped:
-                state.date = Date().addingTimeInterval(60*60*24)
+                state.date = edit(date: state.date, from: state.selectedButton, to: .tomorrow)
+                state.startDateTime = edit(date: state.startDateTime, from: state.selectedButton, to: .tomorrow)
+                state.endDateTime = edit(date: state.endDateTime, from: state.selectedButton, to: .tomorrow)
                 state.selectedButton = .tomorrow
                 return .none
                 
             case .dayAfterDayTomorrowButtonTapped:
-                state.date = Date().addingTimeInterval(60*60*24*2)
+                state.date = edit(date: state.date, from: state.selectedButton, to: .dayAfterDayTomorrow)
+                state.startDateTime = edit(date: state.startDateTime, from: state.selectedButton, to: .dayAfterDayTomorrow)
+                state.endDateTime = edit(date: state.endDateTime, from: state.selectedButton, to: .dayAfterDayTomorrow)
                 state.selectedButton = .dayAfterDayTomorrow
                 return .none
                 
@@ -242,6 +245,42 @@ public struct PostStore {
         .ifLet(\.$destination, action: \.destination)
         
         BindingReducer()
+    }
+    
+    private func edit(date: Date, from oldValue: SelectedButton, to newValue: SelectedButton) -> Date {
+        var editableDate = date
+        let calendar = Calendar.current
+        
+        switch oldValue {
+        case .today:
+            switch newValue {
+            case .today:
+                break
+            case .tomorrow:
+                editableDate = calendar.date(byAdding: .day, value: 1, to: date) ?? date
+            case .dayAfterDayTomorrow:
+                editableDate = calendar.date(byAdding: .day, value: 2, to: date) ?? date
+            }
+        case .tomorrow:
+            switch newValue {
+            case .today:
+                editableDate = calendar.date(byAdding: .day, value: -1, to: date) ?? date
+            case .tomorrow:
+                break
+            case .dayAfterDayTomorrow:
+                editableDate = calendar.date(byAdding: .day, value: 1, to: date) ?? date
+            }
+        case .dayAfterDayTomorrow:
+            switch newValue {
+            case .today:
+                editableDate = calendar.date(byAdding: .day, value: -2, to: date) ?? date
+            case .tomorrow:
+                editableDate = calendar.date(byAdding: .day, value: -1, to: date) ?? date
+            case .dayAfterDayTomorrow:
+                break
+            }
+        }
+        return editableDate > Date() ? editableDate : Date()
     }
 }
 

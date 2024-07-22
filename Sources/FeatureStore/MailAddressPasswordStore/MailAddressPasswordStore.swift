@@ -97,7 +97,6 @@ public struct MailAddressPassword: Sendable {
                 
                 return .run { send in
                     await self.userDefaults.setSessionId(response.sessionId)
-                    await self.userDefaults.setUserId(response.userId)
                 }
                 
             case let .issueAccountResponse(.failure(error)):

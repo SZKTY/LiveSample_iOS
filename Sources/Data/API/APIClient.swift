@@ -98,7 +98,7 @@ extension DataRequest {
             self.response { response in
                 switch response.result {
                 case .success(let element): do {
-                    print("check: data = \(element?.base64EncodedString())")
+                    print("check: Success Data = \(element?.base64EncodedString())")
                     
                     let jsonDecoder = JSONDecoder()
                     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -109,6 +109,7 @@ extension DataRequest {
                     continuation.resume(throwing: error)
                 }
                 case .failure(let error):
+                    print("check: Failure Data = \(error.localizedDescription)")
                     continuation.resume(throwing: error)
                 }
             }
