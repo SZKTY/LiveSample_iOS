@@ -77,9 +77,15 @@ public struct MailAddressPasswordView: View {
                                 .font(.system(size: 17, weight: .light))
                         }
                         
-                        PasswordTextField("Password", text: viewStore.$password)
-                            .focused($focusState, equals: .password)
-                            .modifier(TextFieldModifier())
+                        VStack(alignment: .leading, spacing: 8) {
+                            PasswordTextField("Password", text: viewStore.$password)
+                                .focused($focusState, equals: .password)
+                                .modifier(TextFieldModifier())
+                            
+                            Text("大文字小文字アルファベット・数字を含む")
+                                .font(.system(size: 12, weight: .light))
+                        }
+                        
                     }
                     
                     Button(action: {
