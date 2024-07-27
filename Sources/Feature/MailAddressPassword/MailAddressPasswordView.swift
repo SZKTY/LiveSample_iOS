@@ -82,7 +82,7 @@ public struct MailAddressPasswordView: View {
                                 .focused($focusState, equals: .password)
                                 .modifier(TextFieldModifier())
                             
-                            Text("大文字小文字アルファベット・数字を含む")
+                            Text("大文字小文字アルファベット・数字を含む8文字以上")
                                 .font(.system(size: 12, weight: .light))
                         }
                         

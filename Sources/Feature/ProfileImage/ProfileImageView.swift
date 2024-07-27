@@ -91,17 +91,6 @@ public struct ProfileImageView: View {
             .navigationTitle("3 / 4")
             .navigationBarBackButtonHidden()
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(
-                        action: {
-                            dismiss()
-                        }, label: {
-                            Image(systemName: "chevron.backward")
-                                .font(.system(size: 17, weight: .medium))
-                        }
-                    ).tint(.black)
-                }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(
                         action: {

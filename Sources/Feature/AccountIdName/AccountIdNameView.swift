@@ -138,18 +138,6 @@ public struct AccountIdNameView: View {
             }
             .navigationTitle("2 / 4")
             .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(
-                        action: {
-                            dismiss()
-                        }, label: {
-                            Image(systemName: "chevron.backward")
-                                .font(.system(size: 17, weight: .medium))
-                        }
-                    ).tint(.black)
-                }
-            }
             .navigationDestination(
                 store: self.store.scope(state: \.$destination.profileImage,
                                         action: \.destination.profileImage)
