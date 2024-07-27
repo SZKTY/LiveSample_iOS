@@ -26,21 +26,25 @@ public struct PostDetail {
         public var shareRenderedImageData: Data?
         
         public var dateString: String {
-            let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
+            let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: true)
             let dateString = DateUtils.stringFromDate(date: date, format: "MM/dd（EEE）")
             return dateString
         }
         
         public var startToFinishTimeString: String {
-            let startDate = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
-            let endDate = DateUtils.dateFromString(string: annotation.endDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: false)
-            let startTimeString = DateUtils.stringFromDate(date: startDate, format: "HH:mm", isConvertToJa: false)
-            let endTimeString = DateUtils.stringFromDate(date: endDate, format: "HH:mm", isConvertToJa: false)
+            let startDate = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: true)
+            let endDate = DateUtils.dateFromString(string: annotation.endDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ", isConvertToJa: true)
+            let startTimeString = DateUtils.stringFromDate(date: startDate, format: "HH:mm", isConvertToJa: true)
+            let endTimeString = DateUtils.stringFromDate(date: endDate, format: "HH:mm", isConvertToJa: true)
             return startTimeString + " ~ " + endTimeString
         }
         
         public init(annotation: PostAnnotation) {
             self.annotation = annotation
+            
+            
+            print("check: profile Image \(annotation.postUserProfileImagePath)")
+            print("check: post Image \(annotation.postImagePath)")
         }
     }
     

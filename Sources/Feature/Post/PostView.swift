@@ -203,6 +203,16 @@ public struct PostView: View {
                         .onReceive(Just(viewStore.freeText)) { _ in
                             viewStore.send(.didChangeFreeText)
                         }
+                        .toolbar {
+                            ToolbarItem(placement: .keyboard) {
+                                HStack {
+                                    Spacer()
+                                    Button("閉じる") {
+                                        focusState = nil
+                                    }
+                                }
+                            }
+                        }
                     
                     Spacer()
                         .frame(height: bottomPadding)
@@ -239,17 +249,6 @@ public struct PostView: View {
             .background(Color.mainSubColor)
             .navigationTitle("投稿作成")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Spacer()
-                        
-                        Button("閉じる") {
-                            focusState = nil
-                        }
-                    }
-                }
-            }
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didDetermineCenter)) { notification in
                 guard let center = notification.userInfo?["center"] as? CLLocationCoordinate2D else { return }
                 viewStore.send(.centerDidChange(center: center))
