@@ -66,9 +66,10 @@ public struct MailAddressPasswordView: View {
                                 .font(.system(size: 17, weight: .light))
                         }
                         
-                        TextField("Email", text: viewStore.$email)
-                            .keyboardType(.emailAddress)
+                        DisablePasteTextField(placeHolder: "Email", text: viewStore.$email)
+                            .frame(height: 32)
                             .autocorrectionDisabled(true)
+                            .textInputAutocapitalization(.none)
                             .focused($focusState, equals: .mail)
                             .modifier(TextFieldModifier())
                         
@@ -79,6 +80,7 @@ public struct MailAddressPasswordView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             PasswordTextField("Password", text: viewStore.$password)
+                                .frame(height: 32)
                                 .focused($focusState, equals: .password)
                                 .modifier(TextFieldModifier())
                             

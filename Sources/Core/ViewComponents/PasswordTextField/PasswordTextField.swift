@@ -8,14 +8,14 @@
 import SwiftUI
 
 public struct PasswordTextField: View {
-    private let titleKey: LocalizedStringKey
+    private let titleKey: String
     @Binding private var text: String
     @State private var isShowSecure = false
     @FocusState private var isTextFieldFocused: Bool
     @FocusState private var isSecureFieldFocused: Bool
     @State var isFirstEntryAfterToggle = false
     
-    public init(_ titleKey: LocalizedStringKey, text: Binding<String>) {
+    public init(_ titleKey: String, text: Binding<String>) {
         self.titleKey = titleKey
         _text = text
     }
@@ -23,7 +23,7 @@ public struct PasswordTextField: View {
     public var body: some View {
         HStack {
             ZStack {
-                TextField(titleKey, text: $text)
+                DisablePasteTextField(placeHolder: titleKey, text: $text)
                     .focused($isTextFieldFocused)
                     .keyboardType(.asciiCapable)
                     .autocorrectionDisabled(true)

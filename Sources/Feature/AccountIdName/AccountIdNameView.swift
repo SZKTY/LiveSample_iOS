@@ -49,10 +49,12 @@ public struct AccountIdNameView: View {
                         .frame(height: 48)
                     
                     VStack(spacing: 8) {
-                        TextField("Your Name", text: viewStore.$accountName)
-                            .modifier(TextFieldModifier())
+                        DisablePasteTextField(placeHolder: "Your Name", text: viewStore.$accountName)
+                            .frame(height: 32)
                             .autocorrectionDisabled(true)
+                            .textInputAutocapitalization(.none)
                             .focused($focusState, equals: .accountName)
+                            .modifier(TextFieldModifier())
                         
                         HStack() {
                             Spacer()
@@ -85,11 +87,12 @@ public struct AccountIdNameView: View {
                                 .font(.system(size: 20))
                                 .frame(height: 48)
                             
-                            TextField("Account ID", text: viewStore.$accountId)
-                                .modifier(TextFieldModifier())
-                                .keyboardType(.emailAddress)
+                            DisablePasteTextField(placeHolder: "Account ID", text: viewStore.$accountId)
+                                .frame(height: 32)
                                 .autocorrectionDisabled(true)
+                                .textInputAutocapitalization(.none)
                                 .focused($focusState, equals: .accountId)
+                                .modifier(TextFieldModifier())
                         }
                         
                         
