@@ -168,7 +168,7 @@ public struct EditProfileView: View {
             .sheet(isPresented: viewStore.$isShownImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$imageData) {
                     store.send(.newImageSelected)
-                }
+                }.ignoresSafeArea(edges: [.bottom])
             }
             .alert(store: store.scope(state: \.$alert, action: \.alert))
         }

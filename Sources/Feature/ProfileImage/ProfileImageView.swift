@@ -103,9 +103,11 @@ public struct ProfileImageView: View {
             }
             .sheet(isPresented: viewStore.$isShownImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$imageData)
+                    .ignoresSafeArea(edges: [.bottom])
             }
             .sheet(isPresented: viewStore.$isShownSelfImagePicker) {
                 ImagePicker(sourceType: .camera, selectedImage: viewStore.$imageData)
+                    .ignoresSafeArea(edges: [.bottom])
             }
             .alert(store: store.scope(state: \.$alert, action: \.alert))
             .navigationDestination(
