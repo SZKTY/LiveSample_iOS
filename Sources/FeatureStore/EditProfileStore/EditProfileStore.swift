@@ -129,9 +129,13 @@ public struct EditProfile {
                 state.accountName = response.accountName
                 state.isEnableSaveButton = !state.accountId.isEmpty && !state.accountName.isEmpty
                 
+                guard let url = URL(string: response.accountImagePath) else {
+                    return .none
+                }
+                
                 return .run { send in
                     await send(.getProfileImageDataResponse(Result {
-                        try Data(contentsOf: URL(string: response.accountImagePath)!)
+                        try Data(contentsOf: url)
                     }))
                 }
                 
