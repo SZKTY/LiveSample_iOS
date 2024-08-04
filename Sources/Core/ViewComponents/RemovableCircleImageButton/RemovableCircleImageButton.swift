@@ -35,12 +35,12 @@ public struct RemovableCircleImageButton: View {
             }) {
                 Image(uiImage: UIImage(data: image) ?? UIImage(named: "noImage")!)
                     .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .clipShape(Circle())
+                    .scaledToFill()
                     .frame(
                         width: UIScreen.main.bounds.width * 0.5 * ration,
                         height: UIScreen.main.bounds.width * 0.5 * ration
                     )
+                    .clipShape(Circle())
             }
             
             if isShownDeleteButton {
