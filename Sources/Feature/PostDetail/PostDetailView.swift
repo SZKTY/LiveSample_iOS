@@ -89,17 +89,22 @@ public struct PostDetailView: View {
                     
                     Spacer()
                     
-                    AsyncImage(
-                        url: URL(string: viewStore.annotation.postImagePath)
-                    ) { image in
-                        image
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                    } placeholder: {
-                        // TODO: デフォルト画像？
-                        ProgressView()
+                    if viewStore.annotation.postImagePath.isEmpty {
+                        Image(uiImage: UIImage(named: "noImage")!)
                             .tint(.white)
                             .frame(width: 200, height: 200)
+                    } else {
+                        AsyncImage(
+                            url: URL(string: viewStore.annotation.postImagePath)
+                        ) { image in
+                            image
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                        } placeholder: {
+                            ProgressView()
+                                .tint(.white)
+                                .frame(width: 200, height: 200)
+                        }
                     }
                     
                     Spacer()

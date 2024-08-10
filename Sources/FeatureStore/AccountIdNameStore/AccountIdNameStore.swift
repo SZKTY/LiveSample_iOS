@@ -78,7 +78,7 @@ public struct AccountIdName {
                 
             case let .registerAccountInfoResponse(.failure(error)):
                 print("check: FAIL")
-                state.alert = AlertState(title: TextState("登録失敗"))
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
                 return .none
                 
             case .destination:

@@ -21,6 +21,7 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
+		56A42E792C5F70D00047415C /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56A42E782C5F70D00047415C /* FacebookCore */; };
 		DF1355BB2C22679300629260 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = DF1355BA2C22679300629260 /* Assets */; };
 		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
 		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
@@ -108,6 +109,7 @@
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
+				56A42E792C5F70D00047415C /* FacebookCore in Frameworks */,
 				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
 				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
 				DF38C9BC2C2E68590052F85C /* Share in Frameworks */,
@@ -286,6 +288,7 @@
 				DF38C9BB2C2E68590052F85C /* Share */,
 				DF38C9BD2C2E75D00052F85C /* EditProfile */,
 				DF38C9BF2C2E75D00052F85C /* EditProfileStore */,
+				56A42E782C5F70D00047415C /* FacebookCore */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -360,6 +363,7 @@
 			);
 			mainGroup = 56703F462B6FCA0B00939C0C;
 			packageReferences = (
+				56A42E772C5F70D00047415C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 56703F502B6FCA0B00939C0C /* Products */;
 			projectDirPath = "";
@@ -759,6 +763,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		56A42E772C5F70D00047415C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		562CE1092BE5DA0D00EDBD53 /* Location */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -787,6 +802,11 @@
 		562CE1152BEF60CD00EDBD53 /* UserDefaults */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserDefaults;
+		};
+		56A42E782C5F70D00047415C /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56A42E772C5F70D00047415C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
 		};
 		DF1355BA2C22679300629260 /* Assets */ = {
 			isa = XCSwiftPackageProductDependency;

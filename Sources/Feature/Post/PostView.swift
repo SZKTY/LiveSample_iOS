@@ -14,6 +14,7 @@ import Assets
 import DateUtils
 import ViewComponents
 import Routing
+import PopupView
 
 public struct PostView: View {
     struct Location: Identifiable {
@@ -244,6 +245,7 @@ public struct PostView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.mainSubColor)
             }
+            .disabled(viewStore.isShownProgressView)
             .listStyle(.inset)
             .scrollContentBackground(.hidden)
             .background(Color.mainSubColor)
@@ -265,6 +267,17 @@ public struct PostView: View {
                                    action: \.destination.mapWithCross)
             ) { store in
                 mapWithCrossView(store)
+            }
+            .popup(isPresented: viewStore.$isShownProgressView) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
             }
         }
     }

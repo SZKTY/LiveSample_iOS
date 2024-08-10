@@ -62,8 +62,7 @@ extension SNSClient: DependencyKey {
 }
 
 public struct StoriesClient {
-    // TODO: 正しい「アプリID」に置き換える
-    static private let appID = "123456789"
+    static private let appID = "8639096149452560"
     
     static private var urlScheme: URL? {
         URL(string: "instagram-stories://share?source_application=\(appID)")
@@ -97,7 +96,6 @@ public struct StoriesClient {
         items[OptionsKey.stickerImage.rawValue] = stickerImageData
         items[OptionsKey.backgroundTopColor.rawValue] = backgroundTopColor
         items[OptionsKey.backgroundBottomColor.rawValue] = backgroundBottomColor
-        items[OptionsKey.contentURL.rawValue] = contentURL.absoluteString
         
         guard await UIApplication.shared.canOpenURL(urlScheme) else {
             throw InstagramError.couldNotOpenInstagram
@@ -105,7 +103,10 @@ public struct StoriesClient {
         
         let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(60 * 5)]
         UIPasteboard.general.setItems([items], options: pasteboardOptions)
-        await UIApplication.shared.open(urlScheme)
+        
+        Task { @MainActor in
+            await UIApplication.shared.open(urlScheme)
+        }
     }
 }
 

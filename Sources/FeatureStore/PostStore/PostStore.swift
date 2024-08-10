@@ -38,6 +38,7 @@ public struct PostStore {
         @BindingState public var freeText: String = ""
         
         @BindingState public var isShownImagePicker: Bool = false
+        @BindingState public var isShownProgressView: Bool = false
         @BindingState public var selectedButton: SelectedButton = .today
         
         public var postEntity: PostEntity?
@@ -120,6 +121,7 @@ public struct PostStore {
                 state.image = Data()
                 return .none
                 
+                
             case .didChangeFreeText:
                 if state.freeText.count > 50 {
                     // 最大文字数超えた場合は切り捨て
@@ -127,6 +129,12 @@ public struct PostStore {
                 }
                 // 文字列から全角半角スペースを取り除く
                 state.freeText = state.freeText.removingWhiteSpace()
+                
+                if let newValueLastChar = state.freeText.last,
+                   newValueLastChar == "\n" {
+                    state.freeText.removeLast()
+                }
+                
                 return .none
                 
             case .createPostButtonTapped:
@@ -134,6 +142,8 @@ public struct PostStore {
                     print("check: No Session ID ")
                     return .none
                 }
+                
+                state.isShownProgressView = true
                 
                 if state.image == Data() {
                     return .run { send in
@@ -177,6 +187,7 @@ public struct PostStore {
                         .cancel(TextState("キャンセル"))
                     ]
                 )
+                state.isShownProgressView = false
                 
                 return .none
                 
@@ -200,6 +211,7 @@ public struct PostStore {
                         .cancel(TextState("キャンセル"))
                     ]
                 )
+                state.isShownProgressView = false
                 
                 return .none
                 

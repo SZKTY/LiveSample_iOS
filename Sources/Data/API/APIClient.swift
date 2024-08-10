@@ -98,14 +98,23 @@ extension DataRequest {
             self.response { response in
                 switch response.result {
                 case .success(let element): do {
-                    print("check: Success Data = \(element?.base64EncodedString())")
+                    guard response.response?.statusCode == 200 else {
+                        let apiError: APIError? = .init(statusCode: response.response?.statusCode, data: element)
+                        print("check: Error Messag = \(apiError?.message), statusCode = \(response.response?.statusCode), data = \(element?.base64EncodedString())")
+                        
+                        
+                        let error: Error = (apiError ?? response.error) ?? APIError.unknown
+                        throw error
+                    }
                     
+                    print("check: Success Data = \(element?.base64EncodedString())")
                     let jsonDecoder = JSONDecoder()
                     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                     
                     let decodedResponse = try jsonDecoder.decode(type, from: element!)
                     continuation.resume(returning: decodedResponse)
                 } catch {
+                    print("check: Failure Data = \(error.localizedDescription)")
                     continuation.resume(throwing: error)
                 }
                 case .failure(let error):

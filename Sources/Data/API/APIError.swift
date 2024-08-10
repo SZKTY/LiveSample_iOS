@@ -7,12 +7,11 @@
 
 import Foundation
 
-protocol MessageRepresentableError: Error {
+public protocol MessageRepresentableError: Error {
     var message: String { get }
 }
 
-
-enum APIError: MessageRepresentableError {
+public enum APIError: MessageRepresentableError {
     case badRequest(errors: ErrorResponse?)
     case unauthorized(errors: ErrorResponse?)
     case forbidden(errors: ErrorResponse?)
@@ -22,7 +21,7 @@ enum APIError: MessageRepresentableError {
     case parseError
     case unknown
 
-    var message: String {
+    public var message: String {
         switch self {
         case .badRequest(let errors):
             return errors?.message ?? "リクエストに失敗しました。"
@@ -42,10 +41,8 @@ enum APIError: MessageRepresentableError {
             return "不明なエラーが発生しました。"
         }
     }
-}
-
-extension APIError {
-    init?(statusCode: Int?, data: Data?) {
+    
+    public init?(statusCode: Int?, data: Data?) {
         switch (statusCode, data) {
         case (400?, let data?):
             do {
@@ -88,12 +85,56 @@ extension APIError {
     }
 }
 
+//extension APIError {
+//    public init?(statusCode: Int?, data: Data?) {
+//        switch (statusCode, data) {
+//        case (400?, let data?):
+//            do {
+//                let errors = try ErrorResponse.decode(data)
+//                self = .badRequest(errors: errors)
+//            } catch {
+//                self = .badRequest(errors: nil)
+//            }
+//        case (400?, .none):
+//            self = .badRequest(errors: nil)
+//        case (401?, let data?):
+//            let errors = try? ErrorResponse.decode(data)
+//            self = .unauthorized(errors: errors)
+//        case (403?, let data?):
+//            do {
+//                let errors = try ErrorResponse.decode(data)
+//                self = .forbidden(errors: errors)
+//            } catch {
+//                self = .forbidden(errors: nil)
+//            }
+//        case (403?, .none):
+//            self = .forbidden(errors: nil)
+//        case (404?, let data?):
+//            do {
+//                let errors = try ErrorResponse.decode(data)
+//                self = .notFound(errors: errors)
+//            } catch {
+//                self = .notFound(errors: nil)
+//            }
+//        case (404?, .none):
+//            self = .notFound(errors: nil)
+//        case (500?, let data?):
+//            let errors = try? ErrorResponse.decode(data)
+//            self = .internalServerError(errors: errors)
+//        case (503?, _):
+//            self = .serviceUnavailable
+//        default:
+//            return nil
+//        }
+//    }
+//}
+
 extension Error {
-    var asApiError: APIError? {
+    public var asApiError: APIError? {
         return self as? APIError
     }
 
-    var asMessageRepresentableError: MessageRepresentableError? {
+    public var asMessageRepresentableError: MessageRepresentableError? {
         return self as? MessageRepresentableError
     }
 }

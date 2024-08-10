@@ -7,29 +7,25 @@
 
 import Foundation
 
-enum PreRequestError: Error {
+public enum PreRequestError: Error {
     case tokenNotFound
     case unknownError
 }
 
-enum ResponseError: Error {
+public enum ResponseError: Error {
     case unexpectedResponse
 }
 
-class ErrorResponse: Decodable {
+public class ErrorResponse: Decodable {
     private enum CodingKeys: String, CodingKey {
-        case error
-    }
-    private enum ErrorCodingKeys: String, CodingKey {
         case message
     }
 
-    let message: String
+    public let message: String
 
-    required init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let errorContainer = try container.nestedContainer(keyedBy: ErrorCodingKeys.self, forKey: .error)
-        self.message = try errorContainer.decode(String.self, forKey: .message)
+        self.message = try container.decode(String.self, forKey: .message)
     }
 
     static func decode(_ data: Data) throws -> ErrorResponse {

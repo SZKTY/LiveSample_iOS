@@ -41,10 +41,6 @@ public struct PostDetail {
         
         public init(annotation: PostAnnotation) {
             self.annotation = annotation
-            
-            
-            print("check: profile Image \(annotation.postUserProfileImagePath)")
-            print("check: post Image \(annotation.postImagePath)")
         }
     }
     
