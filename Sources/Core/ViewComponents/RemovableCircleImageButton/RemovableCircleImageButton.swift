@@ -8,22 +8,23 @@
 import SwiftUI
 
 public struct RemovableCircleImageButton: View {
+    @Binding public var image: Data
+    
     public let tapAction: () -> Void
     public let removeAction: () -> Void
-    public let image: Data
     public let ration: Double
     public let isShownDeleteButton: Bool
     
     public init(
         tapAction: @escaping () -> Void,
         removeAction: @escaping () -> Void,
-        image: Data,
+        image: Binding<Data>,
         ration: Double = 1,
         isShownDeleteButton: Bool = true
     ) {
         self.tapAction = tapAction
         self.removeAction = removeAction
-        self.image = image
+        self._image = image
         self.ration = ration
         self.isShownDeleteButton = isShownDeleteButton
     }

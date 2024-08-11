@@ -21,7 +21,6 @@ public struct RootView: View {
     
     public init(store: StoreOf<Root>) {
         self.store = store
-        store.send(.initialize)
     }
     
     public var body: some View {

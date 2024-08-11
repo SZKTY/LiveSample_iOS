@@ -11,6 +11,7 @@ import EditProfileStore
 import Assets
 import ViewComponents
 import Routing
+import PopupView
 
 @MainActor
 public struct EditProfileView: View {
@@ -23,7 +24,6 @@ public struct EditProfileView: View {
     
     public nonisolated init(store: StoreOf<EditProfile>) {
         self.store = store
-        self.store.send(.initialize)
     }
     
     public var body: some View {
@@ -48,7 +48,7 @@ public struct EditProfileView: View {
                             viewStore.send(.didTapShowImagePicker)
                         }, removeAction: {
                             // Do Nothing
-                        }, image: viewStore.imageData, ration: 0.7, isShownDeleteButton: false)
+                        }, image: viewStore.$imageData, ration: 0.7, isShownDeleteButton: false)
                         
                         Spacer()
                     }
@@ -57,7 +57,7 @@ public struct EditProfileView: View {
                         .padding()
                     
                     VStack(spacing: 8) {
-                        TextField("Your Name", text: viewStore.$accountName)
+                        DisablePasteTextField(placeHolder: "Your Name", text: viewStore.$accountName)
                             .modifier(TextFieldModifier())
                             .autocorrectionDisabled(true)
                             .focused($focusState, equals: .accountName)
@@ -93,7 +93,7 @@ public struct EditProfileView: View {
                                 .font(.system(size: 20))
                                 .frame(height: 48)
                             
-                            TextField("Account ID", text: viewStore.$accountId)
+                            DisablePasteTextField(placeHolder: "Account ID", text: viewStore.$accountId)
                                 .modifier(TextFieldModifier())
                                 .keyboardType(.emailAddress)
                                 .autocorrectionDisabled(true)
@@ -151,6 +151,7 @@ public struct EditProfileView: View {
                 .padding(.bottom, 80)
                 
             }
+            .disabled(viewStore.isBusy)
             .navigationTitle("プロフィール変更")
             .navigationBarBackButtonHidden()
             .toolbar {
@@ -165,12 +166,26 @@ public struct EditProfileView: View {
                     ).tint(.black)
                 }
             }
+            .task {
+                store.send(.initialize)
+            }
+            .alert(store: store.scope(state: \.$alert, action: \.alert))
             .sheet(isPresented: viewStore.$isShownImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$imageData) {
                     store.send(.newImageSelected)
                 }.ignoresSafeArea(edges: [.bottom])
             }
-            .alert(store: store.scope(state: \.$alert, action: \.alert))
+            .popup(isPresented: viewStore.$isBusy) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
+            }
         }
     }
 }

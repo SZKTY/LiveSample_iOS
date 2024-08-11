@@ -28,4 +28,3 @@ public struct DeletePostRequest: DeleteRequest {
 
 public struct DeletePostResponse: Decodable {
 }
-

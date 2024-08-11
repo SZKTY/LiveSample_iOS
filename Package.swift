@@ -17,7 +17,8 @@ let packageDependencies: [PackageDependency] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1")),
     .package(url: "https://github.com/exyte/PopupView", from: .init(2, 5, 7)),
     .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: .init(2, 6, 1)),
-    .package(url: "https://github.com/yazio/ReadabilityModifier", from: .init(1, 0, 0))
+    .package(url: "https://github.com/yazio/ReadabilityModifier", from: .init(1, 0, 0)),
+    .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.0.0"))
 ]
 
 let composableArchitecture: TargetDependency = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -29,6 +30,7 @@ let alamofire: TargetDependency = .product(name: "Alamofire", package: "Alamofir
 let popupView: TargetDependency = .product(name: "PopupView", package: "PopupView")
 let cropViewController: TargetDependency = .product(name: "CropViewController", package: "TOCropViewController")
 let readabilityModifier: TargetDependency = .product(name: "ReadabilityModifier", package: "ReadabilityModifier")
+let Kingfisher: TargetDependency = .product(name: "Kingfisher", package: "Kingfisher")
 
 extension Target {
     static func core(name: String, dependencies: [TargetDependency], resources: [Resource]? = nil, plugins: [Target.PluginUsage]? = nil) -> Target {
@@ -127,7 +129,8 @@ let featureTargets: [Target] = [
         "ViewComponents",
         "Routing",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "MailAddressPassword", dependencies: [
         "MailAddressPasswordStore",
@@ -135,7 +138,8 @@ let featureTargets: [Target] = [
         "ViewComponents",
         "Routing",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "ProfileImage", dependencies: [
         "ProfileImageStore",
@@ -143,7 +147,8 @@ let featureTargets: [Target] = [
         "ViewComponents",
         "Routing",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "Root", dependencies: [
         analytics,
@@ -163,7 +168,8 @@ let featureTargets: [Target] = [
         "Routing",
         "Assets",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(
         name: "Welcome",
@@ -180,8 +186,7 @@ let featureTargets: [Target] = [
         "Routing",
         "ViewComponents",
         composableArchitecture,
-        dependencies,
-        popupView
+        dependencies
     ]),
     .feature(name: "MyPage", dependencies: [
         "MyPageStore",
@@ -195,7 +200,8 @@ let featureTargets: [Target] = [
         "Routing",
         "ViewComponents",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "Post", dependencies: [
         "PostStore",
@@ -203,14 +209,16 @@ let featureTargets: [Target] = [
         "Routing",
         "ViewComponents",
         composableArchitecture,
-        dependencies
+        dependencies,
+        popupView
     ]),
     .feature(name: "PostDetail", dependencies: [
         "PostDetailStore",
         "Assets",
         "Share",
         "ViewComponents",
-        composableArchitecture
+        composableArchitecture,
+        Kingfisher
     ]),
     .feature(name: "MapWithCross", dependencies: [
         "MapWithCrossStore",

@@ -21,6 +21,7 @@ public struct ProfileImage {
         @BindingState public var isShownSelfImagePicker: Bool = false
         @BindingState public var imageData: Data = Data()
         @BindingState public var isEnableNextButton: Bool = false
+        @BindingState public var isBusy: Bool = false
         
         public init() {}
     }
@@ -69,15 +70,17 @@ public struct ProfileImage {
                 return .none
                 
             case .nextButtonTapped:
-                guard let sessionId = userDefaults.sessionId else {
-                    print("check: No Session ID ")
-                    return .none
-                }
-                
                 if state.imageData == Data() {
                     state.destination = .selectMode(SelectMode.State())
                     return .none
                 }
+                
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                state.isBusy = true
                 
                 return .run { [data = state.imageData] send in
                     await send(.uploadProfilePictureResponse(Result {
@@ -88,6 +91,7 @@ public struct ProfileImage {
             case let .uploadProfilePictureResponse(.success(response)):
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
+                    state.isBusy = false
                     return .none
                 }
                 
@@ -98,15 +102,18 @@ public struct ProfileImage {
                 }
                 
             case let .uploadProfilePictureResponse(.failure(error)):
-                state.alert = AlertState(title: TextState("登録失敗"))
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
                 return .none
                 
-            case let .registerProfilePictureResponse(.success(response)):
+            case .registerProfilePictureResponse(.success(_)):
                 state.destination = .selectMode(SelectMode.State())
+                state.isBusy = false
                 return .none
                 
             case let .registerProfilePictureResponse(.failure(error)):
-                state.alert = AlertState(title: TextState("登録失敗"))
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
                 return .none
                 
             case .binding:

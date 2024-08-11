@@ -10,9 +10,7 @@ import SwiftUI
 public struct PasswordTextField: View {
     private let titleKey: String
     @Binding private var text: String
-    @State private var isShowSecure = false
-    @FocusState private var isTextFieldFocused: Bool
-    @FocusState private var isSecureFieldFocused: Bool
+    @State private var isSecure = true
     @State var isFirstEntryAfterToggle = false
     
     public init(_ titleKey: String, text: Binding<String>) {
@@ -22,44 +20,20 @@ public struct PasswordTextField: View {
     
     public var body: some View {
         HStack {
-            ZStack {
-                DisablePasteTextField(placeHolder: titleKey, text: $text)
-                    .focused($isTextFieldFocused)
-                    .keyboardType(.asciiCapable)
-                    .autocorrectionDisabled(true)
-                    .textInputAutocapitalization(.none)
-                    .opacity(isShowSecure ? 1 : 0)
-                
-                SecureField(titleKey, text: $text)
-                    .focused($isSecureFieldFocused)
-                    .opacity(isShowSecure ? 0 : 1)
-            }
+            DisablePasteTextField(
+                placeHolder: titleKey,
+                text: $text,
+                isSecureTextEntry: $isSecure
+            )
             
             Button {
-                if isShowSecure {
-                    isShowSecure = false
-                    isSecureFieldFocused = true
-                    
-                    if !text.isEmpty {
-                        isFirstEntryAfterToggle = true
-                    }
-                } else {
-                    isShowSecure = true
-                    isTextFieldFocused = true
-                    isFirstEntryAfterToggle = false
-                }
+                isSecure.toggle()
             } label: {
-                Image(systemName: isShowSecure ? "eye" : "eye.slash")
+                Image(systemName: isSecure ? "eye.slash" : "eye")
                     .font(.system(size: 16))
                     .accentColor(.gray.opacity(0.8))
             }
             .buttonStyle(.plain)
-        }
-        .onChange(of: text) { [text] newValue in
-            if newValue.count == 1 && isFirstEntryAfterToggle {
-                self.text = text + newValue
-            }
-            isFirstEntryAfterToggle = false
         }
     }
 }

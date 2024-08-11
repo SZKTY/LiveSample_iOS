@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 import MailAddressPasswordStore
 import Assets
 import ViewComponents
 import Routing
+import PopupView
 
 @MainActor
 public struct MailAddressPasswordView: View {
@@ -68,10 +70,11 @@ public struct MailAddressPasswordView: View {
                         
                         DisablePasteTextField(placeHolder: "Email", text: viewStore.$email)
                             .frame(height: 32)
-                            .autocorrectionDisabled(true)
-                            .textInputAutocapitalization(.none)
                             .focused($focusState, equals: .mail)
                             .modifier(TextFieldModifier())
+                            .onReceive(Just(viewStore.email)) { _ in
+                                    viewStore.send(.didChangeEmail)
+                            }
                         
                         if viewStore.isLogin {
                             Text("パスワードを入力してください")
@@ -83,6 +86,9 @@ public struct MailAddressPasswordView: View {
                                 .frame(height: 32)
                                 .focused($focusState, equals: .password)
                                 .modifier(TextFieldModifier())
+                                .onReceive(Just(viewStore.password)) { _ in
+                                        viewStore.send(.didChangePassword)
+                                }
                             
                             Text("大文字小文字アルファベット・数字を含む8文字以上")
                                 .font(.system(size: 12, weight: .light))
@@ -107,6 +113,7 @@ public struct MailAddressPasswordView: View {
                 }
                 .padding(.horizontal, 20)
             }
+            .disabled(viewStore.isBusy)
             .navigationTitle(viewStore.isLogin ? "ログイン" : "1 / 4")
             .navigationBarBackButtonHidden()
             .toolbar {
@@ -137,6 +144,17 @@ public struct MailAddressPasswordView: View {
                                    action: \.destination.selectMode)
             ) { store in
                 selectModeView(store)
+            }
+            .popup(isPresented: viewStore.$isBusy) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
             }
         }
     }

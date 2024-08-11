@@ -11,6 +11,7 @@ import SelectModeStore
 import ViewComponents
 import Routing
 import Assets
+import PopupView
 
 @MainActor
 public struct SelectModeView: View {
@@ -72,7 +73,7 @@ public struct SelectModeView: View {
                     Button(action: {
                         store.send(.startButtonTapped)
                     }) {
-                        Text("〇〇をはじめる")
+                        Text("SPREETをはじめる")
                             .frame(maxWidth: .infinity, minHeight: 70)
                             .font(.system(size: 20, weight: .medium))
                             .bold()
@@ -87,6 +88,7 @@ public struct SelectModeView: View {
                 Spacer()
                 
             }
+            .disabled(viewStore.isBusy)
             .padding(.horizontal, 20)
             .background(Color.mainSubColor)
             .navigationTitle("4 / 4")
@@ -107,6 +109,17 @@ public struct SelectModeView: View {
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in
                 loginChecker.isLogin = true
                 accountTypeChecker.reload()
+            }
+            .popup(isPresented: viewStore.$isBusy) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
             }
         }
     }

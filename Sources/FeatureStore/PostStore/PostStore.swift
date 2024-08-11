@@ -37,8 +37,8 @@ public struct PostStore {
         @BindingState public var image: Data = Data()
         @BindingState public var freeText: String = ""
         
+        @BindingState public var isBusy: Bool = false
         @BindingState public var isShownImagePicker: Bool = false
-        @BindingState public var isShownProgressView: Bool = false
         @BindingState public var selectedButton: SelectedButton = .today
         
         public var postEntity: PostEntity?
@@ -130,20 +130,20 @@ public struct PostStore {
                 // 文字列から全角半角スペースを取り除く
                 state.freeText = state.freeText.removingWhiteSpace()
                 
-                if let newValueLastChar = state.freeText.last,
-                   newValueLastChar == "\n" {
-                    state.freeText.removeLast()
+                // 改行は削除
+                if state.freeText.contains("\n") {
+                    state.freeText = state.freeText.replacingOccurrences(of: "\n", with: "")
                 }
                 
                 return .none
                 
             case .createPostButtonTapped:
-                guard let sessionId = userDefaults.sessionId else {
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
                     return .none
                 }
                 
-                state.isShownProgressView = true
+                state.isBusy = true
                 
                 if state.image == Data() {
                     return .run { send in
@@ -187,15 +187,16 @@ public struct PostStore {
                         .cancel(TextState("キャンセル"))
                     ]
                 )
-                state.isShownProgressView = false
+                state.isBusy = false
                 
                 return .none
                 
             case .createPostResponse(.success(_)):
                 print("check: SUCCESS")
+                state.isBusy = false
+                
                 return .run { send in
                     await dismiss()
-                    
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: NSNotification.didSuccessCreatePost, object: nil)
                     }
@@ -211,7 +212,7 @@ public struct PostStore {
                         .cancel(TextState("キャンセル"))
                     ]
                 )
-                state.isShownProgressView = false
+                state.isBusy = false
                 
                 return .none
                 

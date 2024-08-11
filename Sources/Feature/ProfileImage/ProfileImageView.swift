@@ -11,6 +11,7 @@ import ProfileImageStore
 import Assets
 import ViewComponents
 import Routing
+import PopupView
 
 @MainActor
 public struct ProfileImageView: View {
@@ -38,7 +39,7 @@ public struct ProfileImageView: View {
                             viewStore.send(.didTapShowImagePicker)
                         }, removeAction: {
                             viewStore.send(.imageRemoveButtonTapped)
-                        }, image: viewStore.imageData)
+                        }, image: viewStore.$imageData)
                     }
                     .frame(maxWidth: .infinity)
                     
@@ -101,6 +102,7 @@ public struct ProfileImageView: View {
                     ).tint(.black)
                 }
             }
+            .disabled(viewStore.isBusy)
             .sheet(isPresented: viewStore.$isShownImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: viewStore.$imageData)
                     .ignoresSafeArea(edges: [.bottom])
@@ -115,6 +117,17 @@ public struct ProfileImageView: View {
                                    action: \.destination.selectMode)
             ) { store in
                 selectModeView(store)
+            }
+            .popup(isPresented: viewStore.$isBusy) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
             }
         }
     }

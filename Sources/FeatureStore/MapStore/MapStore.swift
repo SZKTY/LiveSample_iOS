@@ -80,11 +80,7 @@ public struct MapStore {
             case let .getPostsResponse(.success(response)):
                 print("check: success getPostsResponse")
                 guard let posts = response.posts else { return .none }
-                
-                posts.forEach { post in
-                    state.postAnnotations.append(post.convert())
-                }
-                
+                state.postAnnotations = posts.map { $0.convert() }
                 return .none
                 
             case let .getPostsResponse(.failure(error)):
@@ -120,10 +116,42 @@ public struct MapStore {
                 return .none
             case .postDetail(.presented(.delegate(.move))):
                 return .none
+                
+            case let .postDetail(.presented(.delegate(.removePost(postAnnotation)))):
+                state.isShownPostDetailSheet = false
+                state.postDetail = nil
+                
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.getPostsResponse(TaskResult {
+                        try await getPostsClient.send(sessionId: sessionId)
+                    }))
+                }
+                
+            case let .postDetail(.presented(.delegate(.block(postAnnotation)))):
+                state.isShownPostDetailSheet = false
+                state.postDetail = nil
+                
+                guard let sessionId = userDefaults.sessionId else {
+                    print("check: No Session ID ")
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.getPostsResponse(TaskResult {
+                        try await getPostsClient.send(sessionId: sessionId)
+                    }))
+                }
+                
             case .postDetail(.presented(.delegate(.dismiss))):
                 state.isShownPostDetailSheet = false
                 state.postDetail = nil
                 return .none
+                
             case .postDetail:
                 return .none
             case .postDetailSheetDismiss:

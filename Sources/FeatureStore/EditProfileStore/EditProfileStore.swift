@@ -19,6 +19,7 @@ public struct EditProfile {
         @BindingState public var accountName: String = ""
         @BindingState public var isEnableSaveButton: Bool = false
         @BindingState public var isShownImagePicker: Bool = false
+        @BindingState public var isBusy: Bool = false
         
         public init() {}
     }
@@ -81,10 +82,12 @@ public struct EditProfile {
                 return .none
                 
             case .newImageSelected:
-                guard let sessionId = userDefaults.sessionId else {
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
                     return .none
                 }
+                
+                state.isBusy = true
                 
                 // プロフィール画像選択後、即保存のフローに乗せる
                 return .run { [data = state.imageData] send in
@@ -108,10 +111,12 @@ public struct EditProfile {
                 return .none
                 
             case .saveButtonTapped:
-                guard let sessionId = userDefaults.sessionId else {
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
                     return .none
                 }
+                
+                state.isBusy = true
                 
                 return .run { [accountId = state.accountId, accountName = state.accountName] send in
                     await send(.editUserAccountInfoResponse(Result {
@@ -144,6 +149,7 @@ public struct EditProfile {
                 return .none
                 
             case let .getProfileImageDataResponse(.success(response)):
+                print("check: Success getProfileImageData")
                 state.imageData = response
                 return .none
                 
@@ -154,6 +160,7 @@ public struct EditProfile {
             case let .uploadProfilePictureResponse(.success(response)):
                 guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
+                    state.isBusy = false
                     return .none
                 }
                 
@@ -165,24 +172,29 @@ public struct EditProfile {
                 
             case let .uploadProfilePictureResponse(.failure(error)):
                 print("check: Error uploadProfilePicture = \(error.localizedDescription)")
+                state.isBusy = false
                 return .none
                 
             case .editUserProfileImageResponse(.success(_)):
                 state.alert = AlertState(title: TextState("登録完了"))
+                state.isBusy = false
                 return .none
                 
             case let .editUserProfileImageResponse(.failure(error)):
                 print("check: Error editUserProfileImage = \(error.localizedDescription)")
+                state.isBusy = false
                 return .none
                 
             case .editUserAccountInfoResponse(.success(_)):
                 print("check: SUCCESS editUserAccountInfoResponse")
                 state.alert = AlertState(title: TextState("登録完了"))
+                state.isBusy = false
                 return .none
                 
             case let .editUserAccountInfoResponse(.failure(error)):
                 print("check: Error editUserAccountInfoResponse = \(error.localizedDescription)")
                 state.alert = AlertState(title: TextState("登録失敗"))
+                state.isBusy = false
                 return .none
                 
             // MARK: - Navigation

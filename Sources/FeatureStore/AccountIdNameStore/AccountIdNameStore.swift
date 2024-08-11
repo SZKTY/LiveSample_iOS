@@ -15,9 +15,11 @@ public struct AccountIdName {
     public struct State: Equatable {
         @PresentationState public var destination: Path.State?
         @PresentationState public var alert: AlertState<Action.Alert>?
+        
         @BindingState public var accountId: String = ""
         @BindingState public var accountName: String = ""
         @BindingState public var isEnableNextButton: Bool = false
+        @BindingState public var isBusy: Bool = false
         
         public init() {}
     }
@@ -30,6 +32,8 @@ public struct AccountIdName {
         case destination(PresentationAction<Path.Action>)
         case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
+        case didChangeAccountId
+        case didChangeAccountName
         
         public enum Alert: Equatable {
             case failToRegisterAccountInfo
@@ -46,10 +50,12 @@ public struct AccountIdName {
         Reduce { state, action in
             switch action {
             case .nextButtonTapped:
-                guard let sessionId = userDefaults.sessionId else {
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
                     return .none
                 }
+                
+                state.isBusy = true
                 
                 return .run { [accountId = state.accountId, accountName = state.accountName] send in
                     await send(.registerAccountInfoResponse(Result {
@@ -73,11 +79,13 @@ public struct AccountIdName {
                 
             case let .registerAccountInfoResponse(.success(response)):
                 print("check: SUCCESS")
+                state.isBusy = false
                 state.destination = .profileImage(ProfileImage.State())
                 return .none
                 
             case let .registerAccountInfoResponse(.failure(error)):
                 print("check: FAIL")
+                state.isBusy = false
                 state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
                 return .none
                 
@@ -90,17 +98,15 @@ public struct AccountIdName {
             case .alert:
                 return .none
                 
-            case .binding(\.$accountId):
-                // TODO: バリデーション
-                state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
-                return .none
-                
-            case .binding(\.$accountName):
-                // TODO: バリデーション
-                state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
-                return .none
-                
             case .binding:
+                return .none
+                
+            case .didChangeAccountId:
+                state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
+                return .none
+                
+            case .didChangeAccountName:
+                state.isEnableNextButton = !state.accountId.isEmpty && !state.accountName.isEmpty
                 return .none
             }
         }

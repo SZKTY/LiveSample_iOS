@@ -13,6 +13,7 @@ import ViewComponents
 public struct MyPageView: View {
     @Environment(\.openURL) var openURL
     
+    private let userId = UserDefaults(suiteName: "group.inemuri")?.integer(forKey: "UserIdKey")
     private let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private let store: StoreOf<MyPage>
     
@@ -54,12 +55,8 @@ public struct MyPageView: View {
                 #else
                     if MailView.canSendMail() {
                         viewStore.send(.deleteAccountTapped)
-                    } else {
-                        // TODO: MailViewを表示できない場合に開く先
-                        openURL(URL(string: "https://qiita.com/SNQ-2001")!)
                     }
                 #endif
-                    
                 }
                 
                 // MARK: - 利用規約
@@ -116,11 +113,10 @@ public struct MyPageView: View {
             }
             .listStyle(.inset)
             .sheet(isPresented: viewStore.$isShownMailView) {
-                // TODO: メールの中身
                 MailView(
                     address: ["inemuri.app@gmail.com"],
-                    subject: "サンプルアプリ",
-                    body: "サンプルアプリです"
+                    subject: "アカウント削除",
+                    body: "削除ID: \(userId ?? .zero) (書き換え厳禁) \n このままご送信ください。運営側でアカウントの削除を行います。\n削除完了まで今しばらくお待ちください。"
                 )
                 .edgesIgnoringSafeArea(.all)
             }

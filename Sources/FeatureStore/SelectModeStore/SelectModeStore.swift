@@ -14,9 +14,12 @@ import UserDefaults
 public struct SelectMode {
     public struct State: Equatable {
         @PresentationState public var alert: AlertState<Action.Alert>?
+        
         @BindingState public var isCheckedYes: Bool = false
         @BindingState public var isCheckedNo: Bool = false
         @BindingState public var isAgree: Bool = false
+        @BindingState public var isBusy: Bool = false
+        
         public var isEnableStartButton: Bool = false
         
         public init() {}
@@ -47,14 +50,29 @@ public struct SelectMode {
             switch action {
             case .agreeButtonTapped:
                 state.isAgree.toggle()
-                print("check: isAgree = \(state.isAgree)")
                 state.isEnableStartButton = state.isAgree && (state.isCheckedYes || state.isCheckedNo)
-                print("check: isEnableStartButton = \(state.isEnableStartButton)")
                 return .none
                 
             case .startButtonTapped:
-                guard let sessionId = userDefaults.sessionId else {
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
+                    return .none
+                }
+                
+                state.isBusy = true
+                let type = state.isCheckedYes ? "artist" : "fan"
+                
+                return .run { send in
+                    // アカウント種別をサーバーに登録する
+                    await send(.registerAccountTypeResponse(Result {
+                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: type)
+                    }))
+                }
+                
+            case .registerAccountTypeResponse(.success(_)):
+                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
+                    print("check: No Session ID ")
+                    state.isBusy = false
                     return .none
                 }
                 
@@ -64,29 +82,19 @@ public struct SelectMode {
                     // アカウント種別をローカルに保存する
                     await userDefaults.setAccountType(type)
                     
-                    // アカウント種別をサーバーに登録する
-                    await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: type)
-                    }))
-                }
-                
-            case let .registerAccountTypeResponse(.success(response)):
-                guard let sessionId = userDefaults.sessionId else {
-                    print("check: No Session ID ")
-                    return .none
-                }
-                
-                return .run { send in
                     await send(.getUserInfoResponse(Result {
                         try await getUserInfoClient.send(sessionId: sessionId)
                     }))
                 }
                 
             case let .registerAccountTypeResponse(.failure(error)):
-                state.alert = AlertState(title: TextState("登録失敗"))
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
                 return .none
                 
             case let .getUserInfoResponse(.success(response)):
+                state.isBusy = false
+                
                 return .run { send in
                     await self.userDefaults.setUserId(response.userId)
                     await self.userDefaults.setAccountType(response.accountType)
@@ -97,10 +105,11 @@ public struct SelectMode {
                 }
                 
             case let .getUserInfoResponse(.failure(error)):
-                print("check: getUserInfo FAIL")
-                
                 // TODO: エラーハンドリング
-                state.alert = AlertState(title: TextState("登録失敗"))
+                
+                print("check: getUserInfo FAIL")
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
                 return .none
                 
             case .alert(.presented(.failToRegisterAccountType)):

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 import ComposableArchitecture
 import PostDetailStore
 import Assets
@@ -44,9 +45,11 @@ public struct PostDetailView: View {
                         
                         // 共有ボタン
                         Button {
-                            let renderer = ImageRenderer(content: body)
-                            if let image = renderer.uiImage, let data = image.pngData() {
-                                viewStore.send(.squareAndArrowUpButtonTapped(data))
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                let renderer = ImageRenderer(content: body)
+                                if let image = renderer.uiImage, let data = image.pngData() {
+                                    viewStore.send(.squareAndArrowUpButtonTapped(data))
+                                }
                             }
                         } label: {
                             Image(systemName: "square.and.arrow.up")
@@ -89,22 +92,20 @@ public struct PostDetailView: View {
                     
                     Spacer()
                     
-                    if viewStore.annotation.postImagePath.isEmpty {
+                    if let url = URL(string: viewStore.annotation.postImagePath) {
+                        KFImage(url)
+                            .resizable()
+                            .placeholder {
+                                ProgressView()
+                                    .tint(.white)
+                                    .frame(width: 200, height: 200)
+                            }
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200, height: 200)
+                    } else {
                         Image(uiImage: UIImage(named: "noImage")!)
                             .tint(.white)
                             .frame(width: 200, height: 200)
-                    } else {
-                        AsyncImage(
-                            url: URL(string: viewStore.annotation.postImagePath)
-                        ) { image in
-                            image
-                                .resizable()
-                                .frame(width: 200, height: 200)
-                        } placeholder: {
-                            ProgressView()
-                                .tint(.white)
-                                .frame(width: 200, height: 200)
-                        }
                     }
                     
                     Spacer()
@@ -132,9 +133,12 @@ public struct PostDetailView: View {
                                 )
                         }
                         
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text(viewStore.annotation.postUserAccountName)
-                            Text(viewStore.annotation.postUserAccountId)
+                            HStack {
+                                Text("@")
+                                Text(viewStore.annotation.postUserAccountId)
+                            }
                         }
                         .foregroundColor(.white)
                         .bold()
@@ -156,9 +160,6 @@ public struct PostDetailView: View {
                     #else
                         if MailView.canSendMail() {
                             viewStore.send(.reportButtonTapped)
-                        } else {
-                            // TODO: MailViewを表示できない場合に開く先
-                            openURL(URL(string: "https://qiita.com/SNQ-2001")!)
                         }
                     #endif
                     }
@@ -169,11 +170,10 @@ public struct PostDetailView: View {
                 }
             }
             .sheet(isPresented: viewStore.$isShownMailView) {
-                // TODO: メールの中身
                 MailView(
                     address: ["inemuri.app@gmail.com"],
-                    subject: "サンプルアプリ",
-                    body: "サンプルアプリです"
+                    subject: "通報",
+                    body: "通報ID: \(viewStore.annotation.postId):\(viewStore.annotation.postUserId) (書き換え厳禁) \n 以下に通報内容をご記載の上、ご送信ください。"
                 )
                 .edgesIgnoringSafeArea(.all)
             }

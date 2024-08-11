@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 import AccountIdNameStore
 import Assets
 import ViewComponents
 import Routing
+import PopupView
 
 @MainActor
 public struct AccountIdNameView: View {
@@ -51,10 +53,11 @@ public struct AccountIdNameView: View {
                     VStack(spacing: 8) {
                         DisablePasteTextField(placeHolder: "Your Name", text: viewStore.$accountName)
                             .frame(height: 32)
-                            .autocorrectionDisabled(true)
-                            .textInputAutocapitalization(.none)
                             .focused($focusState, equals: .accountName)
                             .modifier(TextFieldModifier())
+                            .onReceive(Just(viewStore.accountName)) { _ in
+                                    viewStore.send(.didChangeAccountName)
+                            }
                         
                         HStack() {
                             Spacer()
@@ -89,10 +92,11 @@ public struct AccountIdNameView: View {
                             
                             DisablePasteTextField(placeHolder: "Account ID", text: viewStore.$accountId)
                                 .frame(height: 32)
-                                .autocorrectionDisabled(true)
-                                .textInputAutocapitalization(.none)
                                 .focused($focusState, equals: .accountId)
                                 .modifier(TextFieldModifier())
+                                .onReceive(Just(viewStore.accountId)) { _ in
+                                    viewStore.send(.didChangeAccountId)
+                                }
                         }
                         
                         
@@ -139,6 +143,7 @@ public struct AccountIdNameView: View {
                 .padding(.bottom, 80)
                 
             }
+            .disabled(viewStore.isBusy)
             .navigationTitle("2 / 4")
             .navigationBarBackButtonHidden()
             .navigationDestination(
@@ -148,6 +153,17 @@ public struct AccountIdNameView: View {
                 self.profileImageView(store)
             }
             .alert(store: self.store.scope(state: \.$alert, action: \.alert))
+            .popup(isPresented: viewStore.$isBusy) {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        .scaleEffect(1.2)
+                }
+            }
         }
     }
 }

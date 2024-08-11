@@ -22,6 +22,7 @@ public struct MailAddressPassword: Sendable {
         @BindingState public var email: String = ""
         @BindingState public var password: String = ""
         @BindingState public var isEnableNextButton: Bool = false
+        @BindingState public var isBusy: Bool = false
         
         public var isLogin: Bool
         
@@ -39,6 +40,8 @@ public struct MailAddressPassword: Sendable {
         case destination(PresentationAction<Path.Action>)
         case alert(PresentationAction<Alert>)
         case binding(BindingAction<State>)
+        case didChangeEmail
+        case didChangePassword
         
         public enum Alert: Equatable {
             case failToIssueAccount
@@ -59,6 +62,9 @@ public struct MailAddressPassword: Sendable {
         Reduce { state, action in
             switch action {
             case .nextButtonTapped:
+                guard !state.isBusy else { return .none }
+                state.isBusy = true
+                
                 return .run { [
                     isLogin = state.isLogin,
                     email = state.email,
@@ -84,26 +90,29 @@ public struct MailAddressPassword: Sendable {
                     
                 }
             case let .loginResponse(.failure(error)):
-                print("check: Login FAIL")
-                
-                
                 // TODO: エラーハンドリング
-                state.alert = AlertState(title: TextState("ログイン失敗"))
+                
+                print("check: Login FAIL")
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
+                
                 return .none
                 
             case let .issueAccountResponse(.success(response)):
                 print("check: issueAccount SUCCESS")
                 state.destination = .accountIdName(AccountIdName.State())
+                state.isBusy = false
                 
                 return .run { send in
                     await self.userDefaults.setSessionId(response.sessionId)
                 }
                 
             case let .issueAccountResponse(.failure(error)):
-                print("check: issueAccount FAIL")
-                
                 // TODO: エラーハンドリング
-                state.alert = AlertState(title: TextState("登録失敗"))
+                
+                print("check: issueAccount FAIL")
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
+                state.isBusy = false
                 return .none
                 
             case let .getRequiredInfoResponse(.success(response)):
@@ -112,6 +121,7 @@ public struct MailAddressPassword: Sendable {
                  */
                 if response.accountId.isEmpty || response.accountName.isEmpty {
                     state.destination = .accountIdName(AccountIdName.State())
+                    state.isBusy = false
                     return .none
                 }
                 
@@ -120,6 +130,7 @@ public struct MailAddressPassword: Sendable {
                  */
                 if response.accountType.isEmpty {
                     state.destination = .selectMode(SelectMode.State())
+                    state.isBusy = false
                     return .none
                 }
                 
@@ -136,12 +147,16 @@ public struct MailAddressPassword: Sendable {
                 }
                 
             case let .getRequiredInfoResponse(.failure(error)):
-                print("check: getRequiredInfo FAIL")
-                
                 // TODO: エラーハンドリング
+                
+                print("check: getRequiredInfo FAIL")
+                state.isBusy = false
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
                 return .none
                 
             case let .getUserInfoResponse(.success(response)):
+                state.isBusy = false
+                
                 return .run { send in
                     await self.userDefaults.setUserId(response.userId)
                     await self.userDefaults.setAccountType(response.accountType)
@@ -152,10 +167,11 @@ public struct MailAddressPassword: Sendable {
                 }
                 
             case let .getUserInfoResponse(.failure(error)):
-                print("check: getUserInfo FAIL")
-                
                 // TODO: エラーハンドリング
-                state.alert = AlertState(title: TextState("登録失敗"))
+                
+                print("check: getUserInfo FAIL")
+                state.isBusy = false
+                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
                 return .none
                 
             case .destination:
@@ -169,18 +185,17 @@ public struct MailAddressPassword: Sendable {
                 
             case .alert:
                 return .none
+            case .binding:
+                return .none
                 
-            case .binding(\.$email):
+            case .didChangeEmail:
                 state.isEnableNextButton = Validator.isEmail(state.email) && Validator.isPassword(state.password)
                 print("変更:", state.email, "Validator.isEmail(state.email):", Validator.isEmail(state.email))
                 return .none
                 
-            case .binding(\.$password):
+            case .didChangePassword:
                 state.isEnableNextButton = Validator.isEmail(state.email) && Validator.isPassword(state.password)
                 print("変更:", state.password, "Validator.isPassword(state.password):", Validator.isPassword(state.password))
-                return .none
-                
-            case .binding:
                 return .none
             }
         }

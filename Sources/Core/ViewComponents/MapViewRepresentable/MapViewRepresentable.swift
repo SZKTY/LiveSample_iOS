@@ -12,7 +12,12 @@ import PostAnnotation
 
 public struct MapViewRepresentable: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
-    @Binding private var postAnnotations: [PostAnnotation]
+    @Binding private var postAnnotations: [PostAnnotation] {
+        didSet {
+            print("check: coutn = \(postAnnotations.count)")
+        }
+    }
+    
     private var didLongPressCallback: (() -> Void)?
     private var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
     private var didTapPinCallback: ((PostAnnotation) -> Void)?
@@ -26,7 +31,7 @@ public struct MapViewRepresentable: UIViewRepresentable {
         isShownPostDetailSheet: Bool = false,
         region: MKCoordinateRegion? = nil
     ) {
-        _postAnnotations = postAnnotations ?? Binding.constant([])
+        _postAnnotations = postAnnotations ?? .constant([])
         self.isShownPostDetailSheet = isShownPostDetailSheet
         
         if region != nil {
@@ -73,7 +78,6 @@ public struct MapViewRepresentable: UIViewRepresentable {
             setCenter(from: annotation, mapView: uiView)
         }
         
-        // ピンの更新を行う
         context.coordinator.updateAnnotations(uiView, postAnnotations: postAnnotations)
     }
     

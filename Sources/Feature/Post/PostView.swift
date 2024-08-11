@@ -195,10 +195,9 @@ public struct PostView: View {
                         .padding()
                         .foregroundColor(Color.mainBaseColor)
                         .background(.white)
-                        .cornerRadius(8)
                         .overlay(
                                RoundedRectangle(cornerRadius: 8)
-                               .stroke(Color.mainBaseColor, lineWidth: 1.0)
+                                .stroke(Color.mainBaseColor, lineWidth: 1.0)
                        )
                         .focused($focusState, equals: .freeText)
                         .onReceive(Just(viewStore.freeText)) { _ in
@@ -245,7 +244,7 @@ public struct PostView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.mainSubColor)
             }
-            .disabled(viewStore.isShownProgressView)
+            .disabled(viewStore.isBusy)
             .listStyle(.inset)
             .scrollContentBackground(.hidden)
             .background(Color.mainSubColor)
@@ -268,7 +267,7 @@ public struct PostView: View {
             ) { store in
                 mapWithCrossView(store)
             }
-            .popup(isPresented: viewStore.$isShownProgressView) {
+            .popup(isPresented: viewStore.$isBusy) {
                 VStack {
                     ProgressView()
                         .progressViewStyle(.circular)

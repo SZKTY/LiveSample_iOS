@@ -71,6 +71,8 @@ public struct PostDetail {
         }
         
         public enum Delegate: Equatable {
+            case removePost(annotation: PostAnnotation)
+            case block(annotation: PostAnnotation)
             case dismiss
             case move
         }
@@ -131,8 +133,8 @@ public struct PostDetail {
                     }))
                 }
                 
-            case let .getDeletePostResponse(.success(response)):
-                return .send(.delegate(.dismiss))
+            case .getDeletePostResponse(.success(_)):
+                return .send(.delegate(.removePost(annotation: state.annotation)))
                 
             case let .getDeletePostResponse(.failure(error)):
                 state.alert = .init(
@@ -174,7 +176,7 @@ public struct PostDetail {
                 }
                 
             case .getBlockUserResponse(.success(_)):
-                return .send(.delegate(.dismiss))
+                return .send(.delegate(.block(annotation: state.annotation)))
                 
             case let .getBlockUserResponse(.failure(error)):
                 state.alert = .init(

@@ -67,7 +67,19 @@ extension RemoteConfigClient: DependencyKey {
     
     private static func makeConfig() -> Config {
         var config = Config()
-        config.requiredVersion = Self.remoteConfig.configValue(forKey: "required_version").numberValue
+        // 強制アップデート
+        config.forceUpdateRequiredVersion = Self.remoteConfig.configValue(forKey: "forceUpdate_requiredVersion").stringValue
+        config.forceUpdateStartDate = Self.remoteConfig.configValue(forKey: "forceUpdate_startDate").stringValue
+        config.forceUpdateEndDate = Self.remoteConfig.configValue(forKey: "forceUpdate_endDate").stringValue
+        config.forceUpdateMessage = Self.remoteConfig.configValue(forKey: "forceUpdate_message").stringValue
+        
+        // メンテナンス
+        config.maintenanceStartDate = Self.remoteConfig.configValue(forKey: "maintenance_startDate").stringValue
+        config.maintenanceEndDate = Self.remoteConfig.configValue(forKey: "maintenance_endDate").stringValue
+        config.maintenanceMessage = Self.remoteConfig.configValue(forKey: "maintenance_message").stringValue
+        
+        // ストアURL
+        config.storeUrl = Self.remoteConfig.configValue(forKey: "store_url").stringValue
         
         return config
     }

@@ -30,9 +30,10 @@ public struct Root {
         case alert(PresentationAction<Alert>)
         
         public enum Alert: Equatable {
+            case Task
             case RequiredInfo
-            case Maintanance
-            case ForceUpdate
+            case Maintanance(Config)
+            case ForceUpdate(Config)
         }
     }
     
@@ -80,7 +81,7 @@ public struct Root {
                 print("check: getRequiredInfoResponse failure")
                 
                 state.alert = .init(
-                    title: .init(error.localizedDescription),
+                    title: .init(error.asApiError?.message ?? error.localizedDescription),
                     buttons: [
                         .default(.init("リトライ"), action: .send(.RequiredInfo))
                     ]
@@ -101,22 +102,104 @@ public struct Root {
                 }
                 
             case let .listenRemoteConfigResponse(.success(config)):
-                // TODO: ハンドリング
-                return .none
+                guard let config else { return .none }
+                
+                if config.isInMaintenance {
+                    state.alert = .init(
+                        title: .init("メンテナンス中です"),
+                        message: .init(config.maintenanceMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.Maintanance(config)))
+                        ]
+                    )
+                    return .none
+                } else if config.isInForceUpdate {
+                    state.alert = .init(
+                        title: .init("アップデートが必要です"),
+                        message: .init(config.forceUpdateMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.ForceUpdate(config)))
+                        ]
+                    )
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.initialize)
+                }
                 
             case let .listenRemoteConfigResponse(.failure(error)):
+                state.alert = .init(
+                    title: .init(error.asApiError?.message ?? error.localizedDescription),
+                    buttons: [
+                        .default(.init("リトライ"), action: .send(.Task))
+                    ]
+                )
                 return .none
+                
+            case .alert(.presented(.Task)):
+                return .run { send in
+                    await send(.task)
+                }
                 
             case .alert(.presented(.RequiredInfo)):
                 return .run { send in
                     await send(.initialize)
                 }
                 
-            case .alert(.presented(.Maintanance)):
-                return .none
+            case let .alert(.presented(.Maintanance(config))):
+                if config.isInMaintenance {
+                    state.alert = .init(
+                        title: .init("メンテナンス中です"),
+                        message: .init(config.maintenanceMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.Maintanance(config)))
+                        ]
+                    )
+                    return .none
+                } else if config.isInForceUpdate {
+                    state.alert = .init(
+                        title: .init("アップデートが必要です"),
+                        message: .init(config.forceUpdateMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.ForceUpdate(config)))
+                        ]
+                    )
+                    return .none
+                }
                 
-            case .alert(.presented(.ForceUpdate)):
-                return .none
+                return .run { send in
+                    await send(.initialize)
+                }
+                
+            case let .alert(.presented(.ForceUpdate(config))):
+                if let url = config.storeUrl {
+                    config.openURL(to: url)
+                }
+                
+                if config.isInMaintenance {
+                    state.alert = .init(
+                        title: .init("メンテナンス中です"),
+                        message: .init(config.maintenanceMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.Maintanance(config)))
+                        ]
+                    )
+                    return .none
+                } else if config.isInForceUpdate {
+                    state.alert = .init(
+                        title: .init("アップデートが必要です"),
+                        message: .init(config.forceUpdateMessage ?? ""),
+                        buttons: [
+                            .default(.init("OK"), action: .send(.ForceUpdate(config)))
+                        ]
+                    )
+                    return .none
+                }
+                
+                return .run { send in
+                    await send(.initialize)
+                }
                 
             case .alert:
                 return .none
