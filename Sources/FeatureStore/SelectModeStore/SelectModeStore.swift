@@ -70,7 +70,7 @@ public struct SelectMode {
                 }
                 
             case .registerAccountTypeResponse(.success(_)):
-                guard let sessionId = userDefaults.sessionId, !state.isBusy else {
+                guard let sessionId = userDefaults.sessionId else {
                     print("check: No Session ID ")
                     state.isBusy = false
                     return .none

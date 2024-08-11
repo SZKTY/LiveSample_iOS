@@ -30,17 +30,24 @@ public struct WelcomeView: View {
             WithViewStore(self.store, observe: { $0 }) { viewStore in
                 NavigationView {
                     VStack(spacing: 20) {
-                        VStack {
-                            Spacer ()
+                        ZStack {
+                            Image(uiImage: UIImage(named: "welcome")!)
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Rectangle())
                             
-                            Text("Live Sample")
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity)
-                                .font(.system(size: 30, weight: .heavy))
-                            
-                            Spacer ()
+                            VStack {
+                                Spacer ()
+                                
+                                Text("Live Sample")
+                                    .foregroundStyle(Color.mainBaseColor)
+                                    .frame(maxWidth: .infinity)
+                                    .font(.system(size: 30, weight: .heavy))
+                                
+                                Spacer ()
+                            }
                         }
-                        .background(Color.mainBaseColor)
+                        .frame(width: UIScreen.main.bounds.width)
                         
                         VStack(spacing: 20) {
                             // サインアップボタン
@@ -62,9 +69,10 @@ public struct WelcomeView: View {
                                     .foregroundStyle(Color.mainBaseColor)
                             }
                         }
-                        .background(Color.mainSubColor)
                     }
+                    .ignoresSafeArea()
                 }
+                .background(Color.mainSubColor)
             }
             .navigationDestination(
                 store: store.scope(state: \.$destination.mailAddressPassword,

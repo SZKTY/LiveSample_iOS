@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "071.png",
+      "filename" : "spreet_icon_dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "071 1.png",
+      "filename" : "spreet_icon_dark 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "071 2.png",
+      "filename" : "spreet_icon_dark 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

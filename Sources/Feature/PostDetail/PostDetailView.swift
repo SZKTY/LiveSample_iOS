@@ -85,12 +85,14 @@ public struct PostDetailView: View {
                     
                     Spacer()
                     
-                    Text(viewStore.annotation.freeText)
-                        .foregroundColor(.white)
-                        .font(.system(size: 16))
-                        .bold()
-                    
-                    Spacer()
+                    if !viewStore.annotation.freeText.isEmpty {
+                        Text(viewStore.annotation.freeText)
+                            .foregroundColor(.white)
+                            .font(.system(size: 16))
+                            .bold()
+                        
+                        Spacer()
+                    }
                     
                     if let url = URL(string: viewStore.annotation.postImagePath) {
                         KFImage(url)
@@ -103,9 +105,9 @@ public struct PostDetailView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 200, height: 200)
                     } else {
-                        Image(uiImage: UIImage(named: "noImage")!)
+                        Image(uiImage: UIImage(named: "icon")!)
                             .tint(.white)
-                            .frame(width: 200, height: 200)
+                            .frame(width: 160, height: 160)
                     }
                     
                     Spacer()
@@ -116,21 +118,21 @@ public struct PostDetailView: View {
                         ) { image in
                             image
                                 .resizable()
-                                .aspectRatio(1,contentMode: .fit)
-                                .clipShape(Circle())
+                                .scaledToFill()
                                 .frame(
                                     width: UIScreen.main.bounds.width*0.15,
                                     height: UIScreen.main.bounds.width*0.15
                                 )
+                                .clipShape(Circle())
                         } placeholder: {
                             Image(uiImage: UIImage(named: "noImage")!)
                                 .resizable()
-                                .aspectRatio(1, contentMode: .fit)
-                                .clipShape(Circle())
+                                .scaledToFill()
                                 .frame(
                                     width: UIScreen.main.bounds.width*0.15,
                                     height: UIScreen.main.bounds.width*0.15
                                 )
+                                .clipShape(Circle())
                         }
                         
                         VStack(alignment: .leading) {

@@ -21,6 +21,7 @@ public struct RootView: View {
     
     public init(store: StoreOf<Root>) {
         self.store = store
+        store.send(.task)
     }
     
     public var body: some View {
@@ -49,7 +50,6 @@ public struct RootView: View {
                     )
                 }
             case false:
-                // TODO: - スプラッシュが決まった後、スプラッシュと合わせる
                 ZStack {
                     Color.mainSubColor
                         .edgesIgnoringSafeArea(.all)
@@ -57,9 +57,6 @@ public struct RootView: View {
             }
         }
         .alert(store: store.scope(state: \.$alert, action: \.alert))
-        .task {
-            await store.send(.task).finish()
-        }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.changeToLogout)) { _ in
             if loginChecker.isLogin {
                 loginChecker.isLogin = false
