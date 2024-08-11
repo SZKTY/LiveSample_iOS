@@ -51,13 +51,17 @@ public struct AccountIdNameView: View {
                         .frame(height: 48)
                     
                     VStack(spacing: 8) {
-                        DisablePasteTextField(placeHolder: "Your Name", text: viewStore.$accountName)
-                            .frame(height: 32)
-                            .focused($focusState, equals: .accountName)
-                            .modifier(TextFieldModifier())
-                            .onReceive(Just(viewStore.accountName)) { _ in
-                                    viewStore.send(.didChangeAccountName)
-                            }
+                        DisablePasteTextField(
+                            placeHolder: "Your Name",
+                            text: viewStore.$accountName,
+                            validJapanese: false
+                        )
+                        .frame(height: 32)
+                        .focused($focusState, equals: .accountName)
+                        .modifier(TextFieldModifier())
+                        .onReceive(Just(viewStore.accountName)) { _ in
+                            viewStore.send(.didChangeAccountName)
+                        }
                         
                         HStack() {
                             Spacer()
