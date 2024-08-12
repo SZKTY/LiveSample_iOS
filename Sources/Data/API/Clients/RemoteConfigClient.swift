@@ -80,6 +80,10 @@ extension RemoteConfigClient: DependencyKey {
         
         // ストアURL
         config.storeUrl = Self.remoteConfig.configValue(forKey: "store_url").stringValue
+        // ヘルプURL
+        config.helpUrl = Self.remoteConfig.configValue(forKey: "help_url").stringValue
+        // お問い合わせURL
+        config.contactUrl = Self.remoteConfig.configValue(forKey: "contact_url").stringValue
         
         return config
     }

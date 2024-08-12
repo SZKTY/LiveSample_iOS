@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import MyPageStore
 import ViewComponents
+import Constants
 
 public struct MyPageView: View {
     @Environment(\.openURL) var openURL
@@ -70,7 +71,7 @@ public struct MyPageView: View {
                 .listRowSeparator(.hidden)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
+                    openURL(Constants.shared.termOfServiceUrl)
                 }
                 
                 // MARK: - プライバシーポリシー
@@ -85,7 +86,7 @@ public struct MyPageView: View {
                 .listRowSeparator(.visible)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
+                    openURL(Constants.shared.privacyPolicyUrl)
                 }
                 
                 // MARK: - お問い合わせ
@@ -100,7 +101,9 @@ public struct MyPageView: View {
                 .listRowSeparator(.visible)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    openURL(URL(string: "https://qiita.com/SNQ-2001")!)
+                    if let url = Constants.shared.contactUrl {
+                        openURL(url)
+                    }
                 }
                 
                 // MARK: - バージョン

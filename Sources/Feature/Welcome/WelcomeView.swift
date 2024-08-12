@@ -11,9 +11,12 @@ import SwiftUI
 import Routing
 import Assets
 import WelcomeStore
+import Constants
 
 @MainActor
 public struct WelcomeView: View {
+    @Environment(\.openURL) var openURL
+    
     @Dependency(\.viewBuildingClient.mailAddressPasswordView) var mailAddressPasswordView
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
     @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
@@ -33,21 +36,14 @@ public struct WelcomeView: View {
                         ZStack {
                             Image(uiImage: UIImage(named: "welcome")!)
                                 .resizable()
-                                .scaledToFill()
+                                .scaledToFit()
                                 .clipShape(Rectangle())
                             
-                            VStack {
-                                Spacer ()
-                                
-                                Text("Live Sample")
-                                    .foregroundStyle(Color.mainBaseColor)
-                                    .frame(maxWidth: .infinity)
-                                    .font(.system(size: 30, weight: .heavy))
-                                
-                                Spacer ()
-                            }
+                            Image(uiImage: UIImage(named: "transparentIcon")!)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 400, height: 300)
                         }
-                        .frame(width: UIScreen.main.bounds.width)
                         
                         VStack(spacing: 20) {
                             // サインアップボタン
@@ -61,7 +57,9 @@ public struct WelcomeView: View {
                             }
                             
                             Button {
-                                print("check: Tapped")
+                                if let url = Constants.shared.heplUrl {
+                                    openURL(url)
+                                }
                             } label: {
                                 Text("お困りの方はこちら")
                                     .font(.system(size: 14))
@@ -69,6 +67,7 @@ public struct WelcomeView: View {
                                     .foregroundStyle(Color.mainBaseColor)
                             }
                         }
+                        .padding(.bottom)
                     }
                     .ignoresSafeArea()
                 }

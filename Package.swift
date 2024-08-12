@@ -69,6 +69,7 @@ extension Target {
 
 let coreTargets: [Target] = [
     .core(name: "Assets",dependencies: []),
+    .core(name: "Constants", dependencies: []),
     .core(name: "DateUtils", dependencies: []),
     .core(name: "Location", dependencies: []),
     .core(name: "ViewComponents", dependencies: [
@@ -167,6 +168,7 @@ let featureTargets: [Target] = [
         "ViewComponents",
         "Routing",
         "Assets",
+        "Constants",
         composableArchitecture,
         dependencies,
         popupView
@@ -177,6 +179,7 @@ let featureTargets: [Target] = [
             "WelcomeStore",
             "Routing",
             "Assets",
+            "Constants",
             composableArchitecture,
             dependencies
         ]
@@ -191,6 +194,7 @@ let featureTargets: [Target] = [
     .feature(name: "MyPage", dependencies: [
         "MyPageStore",
         "ViewComponents",
+        "Constants",
         composableArchitecture,
         dependencies
     ]),
@@ -253,6 +257,7 @@ let featureStoreTargets: [Target] = [
     .featureStore(name: "RootStore", dependencies: [
         "API",
         "Config",
+        "Constants",
         composableArchitecture
     ]),
     .featureStore(name: "SelectModeStore", dependencies: [

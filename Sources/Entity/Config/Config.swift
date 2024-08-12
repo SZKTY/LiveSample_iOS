@@ -23,6 +23,11 @@ public struct Config: Equatable {
     // AppleStoreのアプリURL
     public var storeUrl: String?
     
+    // ヘルプURL
+    public var helpUrl: String?
+    // お問い合わせURL
+    public var contactUrl: String?
+    
     public init() {}
 }
 

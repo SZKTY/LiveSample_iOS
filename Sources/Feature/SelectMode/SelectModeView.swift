@@ -12,9 +12,11 @@ import ViewComponents
 import Routing
 import Assets
 import PopupView
+import Constants
 
 @MainActor
 public struct SelectModeView: View {
+    @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var loginChecker: LoginChecker
     @EnvironmentObject var accountTypeChecker: AccountTypeChecker
@@ -128,22 +130,18 @@ public struct SelectModeView: View {
 struct TermsOfServiceAndPrivacyPolicyView: View {
     var body: some View {
         HStack(spacing: 0) {
-            if let url = URL(string: "https://www.apple.com/") {
-                Link(destination: url, label: {
-                    Text("利用規約")
-                        .underline()
-                })
-            }
+            Link(destination: Constants.shared.termOfServiceUrl, label: {
+                Text("利用規約")
+                    .underline()
+            })
             
             Text("および")
                 .foregroundStyle(.black)
             
-            if let url = URL(string: "https://www.apple.com/") {
-                Link(destination: url, label: {
-                    Text("プライバシーポリシー")
-                        .underline()
-                })
-            }
+            Link(destination: Constants.shared.privacyPolicyUrl, label: {
+                Text("プライバシーポリシー")
+                    .underline()
+            })
             
             Text("に同意して")
                 .foregroundStyle(.black)

@@ -10,6 +10,7 @@ import ComposableArchitecture
 import API
 import UserDefaults
 import Config
+import Constants
 
 @Reducer
 public struct Root {
@@ -106,6 +107,14 @@ public struct Root {
                 guard let config else { return .none }
                 state.config = config
                 
+                if let url = config.helpUrl {
+                    Constants.shared.heplUrl = URL(string: url)
+                }
+                
+                if let url = config.contactUrl {
+                    Constants.shared.contactUrl = URL(string: url)
+                }
+                                
                 if config.isInMaintenance {
                     state.alert = .init(
                         title: .init("メンテナンス中です"),

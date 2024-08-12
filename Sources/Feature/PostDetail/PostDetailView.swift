@@ -106,7 +106,8 @@ public struct PostDetailView: View {
                             .frame(width: 200, height: 200)
                     } else {
                         Image(uiImage: UIImage(named: "icon")!)
-                            .tint(.white)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: 160, height: 160)
                     }
                     
@@ -149,6 +150,7 @@ public struct PostDetailView: View {
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, 20)
+                .padding(.bottom)
             }
             .confirmationDialog("その他", isPresented: viewStore.$isShownActionSheet) {
                 if viewStore.isMine {

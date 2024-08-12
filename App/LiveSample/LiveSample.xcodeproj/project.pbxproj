@@ -22,6 +22,7 @@
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
 		56A42E792C5F70D00047415C /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56A42E782C5F70D00047415C /* FacebookCore */; };
+		56A42E7B2C69B60E0047415C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A42E7A2C69B60E0047415C /* Launch Screen.storyboard */; };
 		DF1355BB2C22679300629260 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = DF1355BA2C22679300629260 /* Assets */; };
 		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
 		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
@@ -83,6 +84,7 @@
 		56703F692B6FCA0D00939C0C /* LiveSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITests.swift; sourceTree = "<group>"; };
 		56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		56A42E7A2C69B60E0047415C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		56C954092B6FD31800E0B473 /* LiveSample */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LiveSample; path = ../..; sourceTree = "<group>"; };
 		DF191EB02BDFEF4000D92018 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF8868522BD13F2400A427A2 /* ViewBuildingClient+Impl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewBuildingClient+Impl.swift"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				56703F542B6FCA0B00939C0C /* ContentView.swift */,
 				56703F562B6FCA0C00939C0C /* Assets.xcassets */,
 				56703F582B6FCA0C00939C0C /* Preview Content */,
+				56A42E7A2C69B60E0047415C /* Launch Screen.storyboard */,
 			);
 			path = LiveSample;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			files = (
 				56703F5A2B6FCA0C00939C0C /* Preview Assets.xcassets in Resources */,
 				DF191EB12BDFEF4000D92018 /* GoogleService-Info.plist in Resources */,
+				56A42E7B2C69B60E0047415C /* Launch Screen.storyboard in Resources */,
 				56703F572B6FCA0C00939C0C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,12 +585,13 @@
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SPREET;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "プロフィール写真撮影のためカメラを使用します。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -619,12 +624,13 @@
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveSample/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SPREET;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "プロフィール写真撮影のためカメラを使用します。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報は、地図上での位置の表示に使用されます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
