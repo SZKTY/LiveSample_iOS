@@ -73,7 +73,7 @@ public struct AccountIdName {
             case .whatIsAccountIdButtonTapped:
                 state.alert = AlertState(
                     title: TextState("アカウントIDについて"),
-                    message: TextState("（サービス名）上であなたを一意に\n識別するIDです。\n他のユーザーと重複しないように\n設定いただきます。\n（アカウントIDもプロフィールに表示されます）")
+                    message: TextState("SPREET上であなたを一意に\n識別するIDです。\n他のユーザーと重複しないように\n設定いただきます。\n（アカウントIDもプロフィールに表示されます）")
                 )
                 return .none
                 

@@ -11,16 +11,15 @@ import Share
 public struct ShareView: UIViewControllerRepresentable {
     private let imageData: Data
     private let description: String
+    private let url: URL?
     
-    public init(imageData: Data, description: String) {
+    public init(imageData: Data, description: String, url: URL?) {
         self.imageData = imageData
         self.description = description
+        self.url = url
     }
     
     public func makeUIViewController(context: Context) -> UIActivityViewController {
-        let description = "setsumeibun ga hairimasu"
-        // ストアリンク？
-        let url = URL(string: "https://qiita.com/shiz/items/93a33446f289a8a9b65d")!
         let item = ShareActivityItemSource(imageData, title: description, url: url)
         let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         return activityViewController

@@ -12,6 +12,7 @@ import PostDetailStore
 import Assets
 import Share
 import ViewComponents
+import Constants
 
 public struct PostDetailView: View {
     @Environment(\.openURL) var openURL
@@ -190,7 +191,11 @@ public struct PostDetailView: View {
                                    action: \.actionSheet)
             )
             .popover(isPresented: viewStore.$isShowSharePopover) {
-                ShareView(imageData: viewStore.shareRenderedImageData!, description: "")
+                ShareView(
+                    imageData: viewStore.shareRenderedImageData!,
+                    description: viewStore.annotation.freeText,
+                    url: Constants.shared.storeUrl
+                )
             }
         }
     }

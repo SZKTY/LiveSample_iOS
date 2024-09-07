@@ -12,6 +12,7 @@ import Share
 import API
 import UserDefaults
 import PostAnnotation
+import Constants
 
 @Reducer
 public struct PostDetail {
@@ -208,11 +209,9 @@ public struct PostDetail {
                 return .none
                 
             case .actionSheet(.presented(.instagramTapped)):
-                // TODO: アプリURLに変更する（Configから差し込む？）
-                guard let url = URL(string: "https://qiita.com/SNQ-2001"),
+                guard let url = Constants.shared.storeUrl,
                       let data = state.shareRenderedImageData else { return .none }
                 
-                // TODO: 色どうするか決める
                 return .run { send in
                     await send(.shareInstagramResponse( Result {
                         try await snsClient.shareInstagramStorie(data, "#000823", "#09112F", url)
@@ -221,13 +220,15 @@ public struct PostDetail {
                 
             case .actionSheet(.presented(.XTapped)):
                 guard let imageData = state.shareRenderedImageData else { return .none }
-                // Do Something
-                print("check: X")
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     state.isShowSharePopover = true
                 } else {
-                    snsClient.showShareView(imageData: imageData)
+                    snsClient.showShareView(
+                        imageData: imageData,
+                        title: state.annotation.freeText,
+                        url: Constants.shared.storeUrl
+                    )
                 }
                 
                 return .none

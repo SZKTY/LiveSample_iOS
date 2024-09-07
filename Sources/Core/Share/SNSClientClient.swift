@@ -17,7 +17,7 @@ public struct SNSClient: Sendable {
                                                 _ backgroundBottomColor: String,
                                                 _ contentURL: URL) async throws -> Void
     
-    public var showShareView: (_ imageData: Data) -> Void
+    public var showShareView: (_ imageData: Data, _ title: String, _ url: URL?) -> Void
 }
 
 extension SNSClient: TestDependencyKey {
@@ -45,12 +45,8 @@ extension SNSClient: DependencyKey {
                     contentURL: contentURL
                 )
             },
-            showShareView: { imageData in
-                // アプリ名？
-                let description = "setsumeibun ga hairimasu"
-                // ストアリンク？
-                let url = URL(string: "https://qiita.com/shiz/items/93a33446f289a8a9b65d")!
-                let item = ShareActivityItemSource(imageData, title: description, url: url)
+            showShareView: { imageData, title, url in
+                let item = ShareActivityItemSource(imageData, title: title, url: url)
                 let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
                 let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
                 let viewController = scene?.keyWindow?.rootViewController

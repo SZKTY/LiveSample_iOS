@@ -17,7 +17,6 @@ import Constants
 @MainActor
 public struct SelectModeView: View {
     @Environment(\.openURL) var openURL
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var loginChecker: LoginChecker
     @EnvironmentObject var accountTypeChecker: AccountTypeChecker
     
@@ -86,27 +85,13 @@ public struct SelectModeView: View {
                     .disabled(!viewStore.isEnableStartButton)
                 }
                 
-                
                 Spacer()
-                
             }
             .disabled(viewStore.isBusy)
             .padding(.horizontal, 20)
             .background(Color.mainSubColor)
             .navigationTitle("4 / 4")
             .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(
-                        action: {
-                            dismiss()
-                        }, label: {
-                            Image(systemName: "chevron.backward")
-                                .font(.system(size: 17, weight: .medium))
-                        }
-                    ).tint(.black)
-                }
-            }
             .alert(store: store.scope(state: \.$alert, action: \.alert))
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in
                 loginChecker.isLogin = true

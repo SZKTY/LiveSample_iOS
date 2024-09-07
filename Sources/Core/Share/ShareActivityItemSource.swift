@@ -12,7 +12,7 @@ import LinkPresentation
 public final class ShareActivityItemSource: NSObject, UIActivityItemSource {
     private let linkMetadata: LPLinkMetadata = LPLinkMetadata()
     
-    public init(_ imageData: Data, title: String, url: URL) {
+    public init(_ imageData: Data, title: String, url: URL?) {
         super.init()
         
         if let uiImage = UIImage(data: imageData) {

@@ -107,6 +107,10 @@ public struct Root {
                 guard let config else { return .none }
                 state.config = config
                 
+                if let url = config.storeUrl {
+                    Constants.shared.storeUrl = URL(string: url)
+                }
+                
                 if let url = config.helpUrl {
                     Constants.shared.heplUrl = URL(string: url)
                 }
