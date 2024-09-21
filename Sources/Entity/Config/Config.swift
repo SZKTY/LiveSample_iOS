@@ -28,6 +28,9 @@ public struct Config: Equatable {
     // お問い合わせURL
     public var contactUrl: String?
     
+    // アーティスト登録フォームURL
+    public var artistFormUrl: String?
+    
     public init() {}
 }
 

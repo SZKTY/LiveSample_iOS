@@ -32,7 +32,7 @@ public struct WelcomeView: View {
         NavigationStack {
             WithViewStore(self.store, observe: { $0 }) { viewStore in
                 NavigationView {
-                    VStack(spacing: 20) {
+                    ZStack(alignment: .bottom) {
                         ZStack {
                             Image(uiImage: UIImage(named: "welcome")!)
                                 .resizable()
@@ -44,6 +44,7 @@ public struct WelcomeView: View {
                                 .scaledToFit()
                                 .frame(width: 400, height: 300)
                         }
+                        .frame(maxHeight: .infinity, alignment: .top)
                         
                         VStack(spacing: 20) {
                             // サインアップボタン
@@ -57,6 +58,17 @@ public struct WelcomeView: View {
                             }
                             
                             Button {
+                                if let url = Constants.shared.artistFormUrl {
+                                    openURL(url)
+                                }
+                            } label: {
+                                Text("アーティスト登録の方はこちら")
+                                    .font(.system(size: 14))
+                                    .bold()
+                                    .foregroundStyle(Color.mainBaseColor)
+                            }
+                            
+                            Button {
                                 if let url = Constants.shared.heplUrl {
                                     openURL(url)
                                 }
@@ -67,11 +79,11 @@ public struct WelcomeView: View {
                                     .foregroundStyle(Color.mainBaseColor)
                             }
                         }
-                        .padding(.bottom)
+                        .padding(36)
+                        .background(Color.mainSubColor)
                     }
                     .ignoresSafeArea()
                 }
-                .background(Color.mainSubColor)
             }
             .navigationDestination(
                 store: store.scope(state: \.$destination.mailAddressPassword,
@@ -118,7 +130,6 @@ struct LoginSignupButton: View {
                         .fill(isLogin ? Color.mainSubColor : Color.mainBaseColor)
                         .shadow(color: .gray, radius: 2, x: 0, y: 2)
                 )
-                .padding(.horizontal, 30)
         })
     }
 }

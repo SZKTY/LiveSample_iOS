@@ -11,16 +11,15 @@ public struct CheckBoxStyle: ToggleStyle {
     public init() {}
     
     public func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            Button {
-                configuration.isOn.toggle()
-            } label: {
+        Button {
+            configuration.isOn.toggle()
+        } label: {
+            HStack {
                 Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                configuration.label
             }
-            .foregroundStyle(configuration.isOn ? Color.accentColor : Color.primary)
-            
-            configuration.label
         }
+        .foregroundStyle(configuration.isOn ? Color.accentColor : Color.primary)
     }
 }
 

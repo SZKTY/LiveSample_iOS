@@ -14,19 +14,13 @@ import UserDefaults
 public struct SelectMode {
     public struct State: Equatable {
         @PresentationState public var alert: AlertState<Action.Alert>?
-        
-        @BindingState public var isCheckedYes: Bool = false
-        @BindingState public var isCheckedNo: Bool = false
         @BindingState public var isAgree: Bool = false
         @BindingState public var isBusy: Bool = false
-        
-        public var isEnableStartButton: Bool = false
-        
+                
         public init() {}
     }
     
     public enum Action: BindableAction {
-        case agreeButtonTapped
         case startButtonTapped
         case registerAccountTypeResponse(Result<RegisterAccountTypeResponse, Error>)
         case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
@@ -48,11 +42,6 @@ public struct SelectMode {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .agreeButtonTapped:
-                state.isAgree.toggle()
-                state.isEnableStartButton = state.isAgree && (state.isCheckedYes || state.isCheckedNo)
-                return .none
-                
             case .startButtonTapped:
                 guard let sessionId = userDefaults.sessionId, !state.isBusy else {
                     print("check: No Session ID ")
@@ -60,12 +49,11 @@ public struct SelectMode {
                 }
                 
                 state.isBusy = true
-                let type = state.isCheckedYes ? "artist" : "fan"
                 
                 return .run { send in
                     // アカウント種別をサーバーに登録する
                     await send(.registerAccountTypeResponse(Result {
-                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: type)
+                        try await registerAccountTypeClient.send(sessionId: sessionId, accountType: "fan")
                     }))
                 }
                 
@@ -76,11 +64,9 @@ public struct SelectMode {
                     return .none
                 }
                 
-                let type = state.isCheckedYes ? "artist" : "fan"
-                
                 return .run { send in
                     // アカウント種別をローカルに保存する
-                    await userDefaults.setAccountType(type)
+                    await userDefaults.setAccountType("fan")
                     
                     await send(.getUserInfoResponse(Result {
                         try await getUserInfoClient.send(sessionId: sessionId)
@@ -116,20 +102,6 @@ public struct SelectMode {
                 return .none
                 
             case .alert:
-                return .none
-                
-            case .binding(\.$isCheckedYes):
-                state.isCheckedNo = state.isCheckedYes
-                state.isEnableStartButton = state.isAgree
-                return .none
-                
-            case .binding(\.$isCheckedNo):
-                state.isCheckedYes = state.isCheckedNo
-                state.isEnableStartButton = state.isAgree
-                return .none
-                
-            case .binding(\.$isAgree):
-                state.isEnableStartButton = !state.isAgree && (state.isCheckedYes || state.isCheckedNo)
                 return .none
                 
             case .binding:

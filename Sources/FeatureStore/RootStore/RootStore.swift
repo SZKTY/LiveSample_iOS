@@ -118,6 +118,10 @@ public struct Root {
                 if let url = config.contactUrl {
                     Constants.shared.contactUrl = URL(string: url)
                 }
+                
+                if let url = config.artistFormUrl {
+                    Constants.shared.artistFormUrl = URL(string: url)
+                }
                                 
                 if config.isInMaintenance {
                     state.alert = .init(

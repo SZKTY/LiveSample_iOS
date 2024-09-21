@@ -31,59 +31,32 @@ public struct SelectModeView: View {
             VStack(alignment: .leading, spacing: 36) {
                 Spacer()
                 
-                Text("あなたはアーティストですか？")
-                    .font(.system(size: 20, weight: .heavy))
+                TermsOfServiceAndPrivacyPolicyView()
                 
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("活動状況によってご利用いただける機能が\n異なりますので、正しく選択してください。")
-                        .font(.system(size: 16, weight: .light))
-                        .underline()
+                Toggle(isOn: viewStore.$isAgree) {
+                    Text("はい")
+                        .font(.system(size: 24))
+                        .bold()
                     
-                    Text("アーティスト様が本人かどうかの確認をさせていただく場合があります。")
-                        .font(.system(size: 12, weight: .light))
-                        .underline()
                 }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Toggle(isOn: viewStore.$isCheckedYes) {
-                        Text("はい")
-                            .font(.system(size: 24))
-                            .bold()
-                            
-                    }
-                    .toggleStyle(.checkBox)
-                    
-                    Toggle(isOn: viewStore.$isCheckedNo) {
-                        Text("いいえ")
-                            .font(.system(size: 24))
-                            .bold()
-                    }
-                    .toggleStyle(.checkBox)
-                }
+                .toggleStyle(.checkBox)
                 .padding(.leading, 20)
                 
                 Spacer()
                     .frame(height: 60)
                 
-                VStack(spacing: 8) {
-                    Toggle(isOn: viewStore.$isAgree) {
-                        TermsOfServiceAndPrivacyPolicyView()
-                    }
-                    .toggleStyle(.checkBox)
-                    
-                    Button(action: {
-                        store.send(.startButtonTapped)
-                    }) {
-                        Text("SPREETをはじめる")
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 20, weight: .medium))
-                            .bold()
-                            .foregroundStyle(.white)
-                            .background(viewStore.isEnableStartButton ? Color.mainBaseColor : Color.inactiveColor)
-                            .cornerRadius(.infinity)
-                    }
-                    .disabled(!viewStore.isEnableStartButton)
+                Button(action: {
+                    store.send(.startButtonTapped)
+                }) {
+                    Text("SPREETをはじめる")
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .font(.system(size: 20, weight: .medium))
+                        .bold()
+                        .foregroundStyle(.white)
+                        .background(viewStore.isAgree ? Color.mainBaseColor : Color.inactiveColor)
+                        .cornerRadius(.infinity)
                 }
+                .disabled(!viewStore.isAgree)
                 
                 Spacer()
             }
@@ -114,24 +87,25 @@ public struct SelectModeView: View {
 
 struct TermsOfServiceAndPrivacyPolicyView: View {
     var body: some View {
-        HStack(spacing: 0) {
-            Link(destination: Constants.shared.termOfServiceUrl, label: {
-                Text("利用規約")
-                    .underline()
-            })
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 0) {
+                Link(destination: Constants.shared.termOfServiceUrl, label: {
+                    Text("利用規約")
+                        .underline()
+                })
+                Text("および")
+                    .foregroundStyle(.black)
+            }
             
-            Text("および")
-                .foregroundStyle(.black)
-            
-            Link(destination: Constants.shared.privacyPolicyUrl, label: {
-                Text("プライバシーポリシー")
-                    .underline()
-            })
-            
-            Text("に同意して")
-                .foregroundStyle(.black)
+            HStack {
+                Link(destination: Constants.shared.privacyPolicyUrl, label: {
+                    Text("プライバシーポリシー")
+                        .underline()
+                })
+                Text("に同意する")
+                    .foregroundStyle(.black)
+            }
         }
-        .font(.system(size: 12, weight: .light))
-        
+        .font(.system(size: 20, weight: .heavy))
     }
 }
