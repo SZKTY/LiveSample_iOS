@@ -85,6 +85,9 @@ extension RemoteConfigClient: DependencyKey {
         // お問い合わせURL
         config.contactUrl = Self.remoteConfig.configValue(forKey: "contact_url").stringValue
         
+        // アーティスト登録フォームURL
+        config.artistRegisterFormUrl = Self.remoteConfig.configValue(forKey: "artist_register_form_Url").stringValue
+        
         return config
     }
 }

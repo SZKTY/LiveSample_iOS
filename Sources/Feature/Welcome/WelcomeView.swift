@@ -58,7 +58,7 @@ public struct WelcomeView: View {
                             }
                             
                             Button {
-                                if let url = Constants.shared.artistFormUrl {
+                                if let url = Constants.shared.artistRegisterFormUrl {
                                     openURL(url)
                                 }
                             } label: {

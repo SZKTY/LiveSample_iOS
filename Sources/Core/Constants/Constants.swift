@@ -17,5 +17,5 @@ public struct Constants {
     public var storeUrl: URL?
     public var heplUrl: URL?
     public var contactUrl: URL?
-    public var artistFormUrl: URL?
+    public var artistRegisterFormUrl: URL?
 }

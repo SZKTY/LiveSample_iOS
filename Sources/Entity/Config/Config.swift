@@ -29,7 +29,7 @@ public struct Config: Equatable {
     public var contactUrl: String?
     
     // アーティスト登録フォームURL
-    public var artistFormUrl: String?
+    public var artistRegisterFormUrl: String?
     
     public init() {}
 }
