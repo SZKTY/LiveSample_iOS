@@ -85,50 +85,6 @@ public enum APIError: MessageRepresentableError {
     }
 }
 
-//extension APIError {
-//    public init?(statusCode: Int?, data: Data?) {
-//        switch (statusCode, data) {
-//        case (400?, let data?):
-//            do {
-//                let errors = try ErrorResponse.decode(data)
-//                self = .badRequest(errors: errors)
-//            } catch {
-//                self = .badRequest(errors: nil)
-//            }
-//        case (400?, .none):
-//            self = .badRequest(errors: nil)
-//        case (401?, let data?):
-//            let errors = try? ErrorResponse.decode(data)
-//            self = .unauthorized(errors: errors)
-//        case (403?, let data?):
-//            do {
-//                let errors = try ErrorResponse.decode(data)
-//                self = .forbidden(errors: errors)
-//            } catch {
-//                self = .forbidden(errors: nil)
-//            }
-//        case (403?, .none):
-//            self = .forbidden(errors: nil)
-//        case (404?, let data?):
-//            do {
-//                let errors = try ErrorResponse.decode(data)
-//                self = .notFound(errors: errors)
-//            } catch {
-//                self = .notFound(errors: nil)
-//            }
-//        case (404?, .none):
-//            self = .notFound(errors: nil)
-//        case (500?, let data?):
-//            let errors = try? ErrorResponse.decode(data)
-//            self = .internalServerError(errors: errors)
-//        case (503?, _):
-//            self = .serviceUnavailable
-//        default:
-//            return nil
-//        }
-//    }
-//}
-
 extension Error {
     public var asApiError: APIError? {
         return self as? APIError
