@@ -58,16 +58,16 @@ extension PostAnnotation {
         .init(
             postId: 1,
             postUserId: 12345,
-            postUserAccountName: "",
-            postUserAccountId: "",
+            postUserAccountName: "Test",
+            postUserAccountId: "Test1234",
             postUserProfileImagePath: "",
             postImagePath: "",
-            coordinateX: "",
-            coordinateY: "",
-            freeText: "",
-            startDatetime: "",
-            endDatetime: "",
-            createdAt: ""
+            coordinateX: "37.78501364540698",
+            coordinateY: "-122.40686186375606",
+            freeText: "Test",
+            startDatetime: "2024-10-19T02:05:25Z",
+            endDatetime: "2024-10-20T04:10:25Z",
+            createdAt: "2024-10-19T03:05:25Z"
         )
     }
 }

@@ -9,6 +9,9 @@ import SwiftUI
 import MapKit
 import Location
 import PostAnnotation
+import DateUtils
+import Extensions
+import Assets
 
 public struct MapViewRepresentable: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
@@ -176,13 +179,32 @@ public struct MapViewRepresentable: UIViewRepresentable {
         }
         
         public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            return nil
+            guard let _annotation = annotation as? PostAnnotation else { return nil }
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            annotationView.markerTintColor = getMarkerTintColor(from: _annotation.startDatetime)
+            return annotationView
         }
         
         public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             guard let annotation = view.annotation as? PostAnnotation else { return }
             selectedAnnotation = annotation
             didTapPinCallback?(annotation)
+        }
+        
+        private func getMarkerTintColor(from startDate: String) -> UIColor {
+            let date = DateUtils.dateFromString(string: startDate, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+            let diffInHours = date.timeIntervalSince(Date()) / 3600
+            
+            switch diffInHours {
+            case ..<1:
+                return .init(hex: "FF3A3E", alpha: 1.0) // 1時間以内
+            case 1..<12:
+                return .init(hex: "60DE73", alpha: 0.8) // 12時間以内
+            case 12..<24:
+                return .init(hex: "6A67EE", alpha: 0.8) // 24時間以内
+            default:
+                return .init(hex: "8D8D8D", alpha: 0.8) // それ以降
+            }
         }
     }
 }

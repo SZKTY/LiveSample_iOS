@@ -71,12 +71,15 @@ let coreTargets: [Target] = [
     .core(name: "Assets",dependencies: []),
     .core(name: "Constants", dependencies: []),
     .core(name: "DateUtils", dependencies: []),
+    .core(name: "Extensions", dependencies: []),
     .core(name: "Location", dependencies: []),
     .core(name: "ViewComponents", dependencies: [
         "Assets",
         "Location",
         "PostAnnotation",
-        "Share"
+        "Share",
+        "DateUtils",
+        "Extensions"
     ]),
     .core(name: "Validator", dependencies: []),
     .core(name: "Routing", dependencies: [
