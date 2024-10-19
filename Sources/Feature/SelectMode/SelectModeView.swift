@@ -64,6 +64,7 @@ public struct SelectModeView: View {
             .padding(.horizontal, 20)
             .background(Color.mainSubColor)
             .navigationTitle("4 / 4")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .alert(store: store.scope(state: \.$alert, action: \.alert))
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.didFinishRegisterAccountInfo)) { _ in

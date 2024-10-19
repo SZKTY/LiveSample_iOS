@@ -115,6 +115,7 @@ public struct MailAddressPasswordView: View {
             }
             .disabled(viewStore.isBusy)
             .navigationTitle(viewStore.isLogin ? "ログイン" : "1 / 4")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

@@ -149,6 +149,7 @@ public struct AccountIdNameView: View {
             }
             .disabled(viewStore.isBusy)
             .navigationTitle("2 / 4")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .navigationDestination(
                 store: self.store.scope(state: \.$destination.profileImage,
