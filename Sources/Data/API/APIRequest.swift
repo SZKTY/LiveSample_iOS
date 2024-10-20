@@ -24,7 +24,11 @@ public protocol APIRequest {
 // MARK: - extension
 extension APIRequest {
     public var baseURL: URL {
+#if DEBUG
+        return URL(string: "http://localhost:8080")!
+#else
         return URL(string: "https://inemuri-app.com")!
+#endif
     }
     
     public var url: URL {
