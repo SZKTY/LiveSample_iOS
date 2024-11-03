@@ -1,6 +1,6 @@
 //
-//  MailAddressPassword.swift
-//  
+//  Login.swift
+//
 //
 //  Created by toya.suzuki on 2024/03/24.
 //
@@ -14,7 +14,7 @@ import UserDefaults
 import Validator
 
 @Reducer
-public struct MailAddressPassword: Sendable {
+public struct Login: Sendable {
     public struct State: Equatable {
         @PresentationState public var destination: Path.State?
         @PresentationState public var alert: AlertState<Action.Alert>?
@@ -24,17 +24,12 @@ public struct MailAddressPassword: Sendable {
         @BindingState public var isEnableNextButton: Bool = false
         @BindingState public var isBusy: Bool = false
         
-        public var isLogin: Bool
-        
-        public init(isLogin: Bool) {
-            self.isLogin = isLogin
-        }
+        public init() {}
     }
     
     public enum Action: BindableAction {
         case nextButtonTapped
         case loginResponse(Result<LoginResponse, Error>)
-        case issueAccountResponse(Result<IssueAccountResponse, Error>)
         case getRequiredInfoResponse(Result<GetRequiredInfoResponse, Error>)
         case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
         case destination(PresentationAction<Path.Action>)
@@ -44,7 +39,6 @@ public struct MailAddressPassword: Sendable {
         case didChangePassword
         
         public enum Alert: Equatable {
-            case failToIssueAccount
             case failToLogin
         }
     }
@@ -52,7 +46,6 @@ public struct MailAddressPassword: Sendable {
     public init() {}
     
     // MARK: - Dependencies
-    @Dependency(\.issueAccountClient) var issueAccountClient
     @Dependency(\.loginClient) var loginClient
     @Dependency(\.getRequiredInfoClient) var getRequiredInfoClient
     @Dependency(\.getUserInfoClient) var getUserInfoClient
@@ -66,18 +59,11 @@ public struct MailAddressPassword: Sendable {
                 state.isBusy = true
                 
                 return .run { [
-                    isLogin = state.isLogin,
                     email = state.email,
                     password = state.password] send in
-                    if isLogin {
-                        await send(.loginResponse(Result {
-                            try await loginClient.send(email: email, password: password)
-                        }))
-                    } else {
-                        await send(.issueAccountResponse(Result {
-                            try await issueAccountClient.send(email: email, password: password)
-                        }))
-                    }
+                    await send(.loginResponse(Result {
+                        try await loginClient.send(email: email, password: password)
+                    }))
                 }
                 
             case let .loginResponse(.success(response)):
@@ -96,23 +82,6 @@ public struct MailAddressPassword: Sendable {
                 state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
                 state.isBusy = false
                 
-                return .none
-                
-            case let .issueAccountResponse(.success(response)):
-                print("check: issueAccount SUCCESS")
-                state.destination = .accountIdName(AccountIdName.State())
-                state.isBusy = false
-                
-                return .run { send in
-                    await self.userDefaults.setSessionId(response.sessionId)
-                }
-                
-            case let .issueAccountResponse(.failure(error)):
-                // TODO: エラーハンドリング
-                
-                print("check: issueAccount FAIL")
-                state.alert = AlertState(title: TextState(error.asApiError?.message ?? error.localizedDescription))
-                state.isBusy = false
                 return .none
                 
             case let .getRequiredInfoResponse(.success(response)):
@@ -177,9 +146,6 @@ public struct MailAddressPassword: Sendable {
             case .destination:
                 return .none
                 
-            case .alert(.presented(.failToIssueAccount)):
-                return .none
-                
             case .alert(.presented(.failToLogin)):
                 return .none
                 
@@ -206,7 +172,7 @@ public struct MailAddressPassword: Sendable {
     }
 }
 
-extension MailAddressPassword {
+extension Login {
     @Reducer(state: .equatable)
     public enum Path {
         case accountIdName(AccountIdName)
