@@ -89,7 +89,7 @@ public struct ProfileImageView: View {
             }
             .padding(.horizontal, 20)
             .background(Color.mainSubColor)
-            .navigationTitle("3 / 4")
+            .navigationTitle("5 / 6")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {

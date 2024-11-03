@@ -148,7 +148,7 @@ public struct AccountIdNameView: View {
                 
             }
             .disabled(viewStore.isBusy)
-            .navigationTitle("2 / 4")
+            .navigationTitle("4 / 6")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .navigationDestination(

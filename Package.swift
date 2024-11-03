@@ -85,7 +85,10 @@ let coreTargets: [Target] = [
     .core(name: "Routing", dependencies: [
         "RootStore",
         "WelcomeStore",
-        "MailAddressPasswordStore",
+        "LoginStore",
+        "MailAddressStore",
+        "PasswordStore",
+        "AuthenticationCodeStore",
         "AccountIdNameStore",
         "ProfileImageStore",
         "SelectModeStore",
@@ -136,8 +139,35 @@ let featureTargets: [Target] = [
         dependencies,
         popupView
     ]),
-    .feature(name: "MailAddressPassword", dependencies: [
-        "MailAddressPasswordStore",
+    .feature(name: "Login", dependencies: [
+        "LoginStore",
+        "Assets",
+        "ViewComponents",
+        "Routing",
+        composableArchitecture,
+        dependencies,
+        popupView
+    ]),
+    .feature(name: "MailAddress", dependencies: [
+        "MailAddressStore",
+        "Assets",
+        "ViewComponents",
+        "Routing",
+        composableArchitecture,
+        dependencies,
+        popupView
+    ]),
+    .feature(name: "Password", dependencies: [
+        "PasswordStore",
+        "Assets",
+        "ViewComponents",
+        "Routing",
+        composableArchitecture,
+        dependencies,
+        popupView
+    ]),
+    .feature(name: "AuthenticationCode", dependencies: [
+        "AuthenticationCodeStore",
         "Assets",
         "ViewComponents",
         "Routing",
@@ -243,12 +273,33 @@ let featureStoreTargets: [Target] = [
         "ProfileImageStore",
         composableArchitecture
     ]),
-    .featureStore(name: "MailAddressPasswordStore", dependencies: [
+    .featureStore(name: "LoginStore", dependencies: [
         "API",
         "UserDefaults",
         "Validator",
         "AccountIdNameStore",
         "SelectModeStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "MailAddressStore", dependencies: [
+        "API",
+        "UserDefaults",
+        "Validator",
+        "AuthenticationCodeStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "PasswordStore", dependencies: [
+        "API",
+        "UserDefaults",
+        "Validator",
+        "AccountIdNameStore",
+        composableArchitecture
+    ]),
+    .featureStore(name: "AuthenticationCodeStore", dependencies: [
+        "API",
+        "UserDefaults",
+        "Validator",
+        "PasswordStore",
         composableArchitecture
     ]),
     .featureStore(name: "ProfileImageStore", dependencies: [
@@ -271,7 +322,8 @@ let featureStoreTargets: [Target] = [
     .featureStore(name: "WelcomeStore", dependencies: [
         "API",
         "UserDefaults",
-        "MailAddressPasswordStore",
+        "LoginStore",
+        "MailAddressStore",
         "AccountIdNameStore",
         "SelectModeStore",
         composableArchitecture

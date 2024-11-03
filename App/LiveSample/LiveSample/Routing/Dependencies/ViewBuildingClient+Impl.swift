@@ -7,7 +7,10 @@
 
 import ComposableArchitecture
 import AccountIdName
-import MailAddressPassword
+import Login
+import MailAddress
+import Password
+import AuthenticationCode
 import ProfileImage
 import SelectMode
 import Welcome
@@ -27,8 +30,17 @@ extension ViewBuildingClient: DependencyKey {
             accountIdNameView: { store in
                 AnyView(AccountIdNameView(store: store))
             },
-            mailAddressPasswordView: { store in
-                AnyView(MailAddressPasswordView(store: store))
+            loginView: { store in
+                AnyView(LoginView(store: store))
+            },
+            mailAddressView: { store in
+                AnyView(MailAddressView(store: store))
+            },
+            passwordView: { store in
+                AnyView(PasswordView(store: store))
+            },
+            authenticationCodeView: { store in
+                AnyView(AuthenticationCodeView(store: store))
             },
             profileImageView: { store in
                 AnyView(ProfileImageView(store: store))

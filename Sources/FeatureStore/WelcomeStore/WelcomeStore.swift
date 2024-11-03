@@ -8,7 +8,8 @@
 import ComposableArchitecture
 import API
 import UserDefaults
-import MailAddressPasswordStore
+import MailAddressStore
+import LoginStore
 import AccountIdNameStore
 import SelectModeStore
 
@@ -68,13 +69,16 @@ public struct Welcome {
                 fatalError()
                 
             case .signInButtonTapped:
-                state.destination = .mailAddressPassword(MailAddressPassword.State(isLogin: false))
+                state.destination = .mailAddress(MailAddress.State())
                 return .none
+                
             case .loginButtonTapped:
-                state.destination = .mailAddressPassword(MailAddressPassword.State(isLogin: true))
+                state.destination = .login(Login.State())
                 return .none
+                
             case .binding:
                 return .none
+                
             case .destination(_):
                 return .none
             }
@@ -88,7 +92,8 @@ public struct Welcome {
 extension Welcome {
     @Reducer(state: .equatable)
     public enum Path {
-        case mailAddressPassword(MailAddressPassword)
+        case mailAddress(MailAddress)
+        case login(Login)
         case accountIdName(AccountIdName)
         case selectMode(SelectMode)
     }
