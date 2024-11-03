@@ -14,6 +14,7 @@ import EditProfileStore
 import PostAnnotation
 import API
 import UserDefaults
+import SwiftUI
 
 @Reducer
 public struct MapStore {
@@ -25,6 +26,7 @@ public struct MapStore {
         
         @BindingState public var isSelectPlaceMode: Bool = false
         @BindingState public var isShownPostDetailSheet: Bool = false
+        @BindingState public var isShownRecommendView: Bool = false
         @BindingState public var postAnnotations: [PostAnnotation] = []
         @BindingState public var isShowSuccessToast: Bool = false
         @BindingState public var text: String = ""
@@ -36,6 +38,8 @@ public struct MapStore {
     public enum Action: BindableAction {
         case floatingPlusButtonTapped
         case floatingHomeButtonTapped
+        case floatingRecommendButtonTapped
+        
         case annotationTapped(annotation: PostAnnotation)
         case postDetail(PresentationAction<PostDetail.Action>)
         case postDetailSheetDismiss
@@ -110,10 +114,15 @@ public struct MapStore {
                 state.myPage = MyPage.State()
                 return .none
                 
+            case .floatingRecommendButtonTapped:
+                state.isShownRecommendView = true
+                return .none
+                
             case let .annotationTapped(annotation):
                 state.isShownPostDetailSheet = true
                 state.postDetail = PostDetail.State(annotation: annotation)
                 return .none
+                
             case .postDetail(.presented(.delegate(.move))):
                 return .none
                 
