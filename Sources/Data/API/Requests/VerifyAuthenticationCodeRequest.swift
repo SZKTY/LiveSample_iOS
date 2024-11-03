@@ -19,8 +19,9 @@ public struct VerifyAuthenticationCodeRequest: PostRequest {
     public var headers: HTTPHeaders?
     public var parameters: Parameters?
     
-    public init(code: String) {
+    public init(email: String, code: String) {
         self.parameters = [
+            "email": email,
             "verification_code": code
         ]
     }

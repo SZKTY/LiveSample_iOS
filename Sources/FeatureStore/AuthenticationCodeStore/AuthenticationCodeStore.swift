@@ -55,9 +55,12 @@ public struct AuthenticationCode: Sendable {
                 guard !state.isBusy else { return .none }
                 state.isBusy = true
                 
-                return .run { [code = state.code] send in
+                return .run { [
+                    email = state.email,
+                    code = state.code
+                ] send in
                     await send(.verifyAuthenticationCodeResponse(Result {
-                        try await verifyauthenticationCodeClient.send(code: code)
+                        try await verifyauthenticationCodeClient.send(email: email, code: code)
                     }))
                 }
                 

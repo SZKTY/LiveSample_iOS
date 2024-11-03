@@ -11,7 +11,7 @@ import DependenciesMacros
 
 @DependencyClient
 public struct VerifyAuthenticationCodeClient: Sendable {
-    public var send: @Sendable (_ code: String) async throws -> VerifyAuthenticationCodeResponse
+    public var send: @Sendable (_ email: String, _ code: String) async throws -> VerifyAuthenticationCodeResponse
 }
 
 extension VerifyAuthenticationCodeClient: TestDependencyKey {
@@ -31,9 +31,9 @@ extension VerifyAuthenticationCodeClient: DependencyKey {
     
     static func request() -> Self {
         .init(
-            send: { code in
+            send: { email, code in
                 try await APIClient.send(
-                    VerifyAuthenticationCodeRequest(code: code),
+                    VerifyAuthenticationCodeRequest(email: email, code: code),
                     with: ""
                 )
             }
