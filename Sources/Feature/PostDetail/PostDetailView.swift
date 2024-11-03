@@ -47,8 +47,17 @@ public struct PostDetailView: View {
                         // 共有ボタン
                         Button {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                let renderer = ImageRenderer(content: body)
-                                if let image = renderer.uiImage, let data = image.pngData() {
+                                let scenes = UIApplication.shared.connectedScenes
+                                let windowScene = scenes.first as? UIWindowScene
+                                
+                                guard let window = windowScene?.windows.first else { return }
+                                
+                                let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
+                                let image = renderer.image { context in
+                                    window.layer.render(in: context.cgContext)
+                                }
+                                
+                                if let data = image.pngData() {
                                     viewStore.send(.squareAndArrowUpButtonTapped(data))
                                 }
                             }
