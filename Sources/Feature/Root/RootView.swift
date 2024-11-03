@@ -30,25 +30,25 @@ public struct RootView: View {
             switch viewStore.isInitialized {
             case true:
                 // ログイン済みか
-//                switch loginChecker.isLogin {
-//                case true:
+                switch loginChecker.isLogin {
+                case true:
                     MapView(
                         store: Store(
                             initialState: MapStore.State()) {
                                 MapStore()
                             }
                     )
-//                case false:
-//                    WelcomeView(
-//                        store: Store(
-//                            initialState: Welcome.State(
-//                                requiredInfo: viewStore.requiredInfo
-//                            )
-//                        ) {
-//                            Welcome()
-//                        }
-//                    )
-//                }
+                case false:
+                    WelcomeView(
+                        store: Store(
+                            initialState: Welcome.State(
+                                requiredInfo: viewStore.requiredInfo
+                            )
+                        ) {
+                            Welcome()
+                        }
+                    )
+                }
             case false:
                 ZStack {
                     Color.mainSubColor
