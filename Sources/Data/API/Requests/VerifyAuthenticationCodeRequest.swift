@@ -22,7 +22,7 @@ public struct VerifyAuthenticationCodeRequest: PostRequest {
     public init(email: String, code: String) {
         self.parameters = [
             "email": email,
-            "verification_code": code
+            "code": code
         ]
     }
 }
