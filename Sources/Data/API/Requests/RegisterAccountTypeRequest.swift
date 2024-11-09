@@ -21,7 +21,7 @@ public struct RegisterAccountTypeRequest: PostRequest {
     
     public init(accountType: String) {
         parameters = [
-            "account_type": accountType
+            "account_type": "artist"
         ]
     }
 }

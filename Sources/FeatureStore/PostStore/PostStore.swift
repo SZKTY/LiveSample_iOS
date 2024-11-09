@@ -167,8 +167,17 @@ public struct PostStore {
                                                    freeText: state.freeText,
                                                    coordinateX: "\(state.center.latitude)",
                                                    coordinateY: "\(state.center.longitude)",
-                                                   startDateTime: DateUtils.stringFromDate(date: state.startDateTime, format: "yyyy-MM-dd HH:mm:ss"),
-                                                   endDateTime: DateUtils.stringFromDate(date: state.endDateTime, format: "yyyy-MM-dd HH:mm:ss"))
+                                                   startDateTime: DateUtils.stringFromDate(
+                                                    date: state.startDateTime,
+                                                    format: "yyyy-MM-dd HH:mm:ss",
+                                                    isConvertToJa: true
+                                                   ),
+                                                   endDateTime: DateUtils.stringFromDate(
+                                                    date: state.endDateTime,
+                                                    format: "yyyy-MM-dd HH:mm:ss",
+                                                    isConvertToJa: true
+                                                   )
+                )
                 state.postEntity = postEntity
                 
                 return .run { send in
