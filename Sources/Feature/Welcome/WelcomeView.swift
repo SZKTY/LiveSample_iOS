@@ -17,7 +17,8 @@ import Constants
 public struct WelcomeView: View {
     @Environment(\.openURL) var openURL
     
-    @Dependency(\.viewBuildingClient.mailAddressPasswordView) var mailAddressPasswordView
+    @Dependency(\.viewBuildingClient.mailAddressView) var mailAddressView
+    @Dependency(\.viewBuildingClient.loginView) var loginView
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
     @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
     
@@ -86,10 +87,16 @@ public struct WelcomeView: View {
                 }
             }
             .navigationDestination(
-                store: store.scope(state: \.$destination.mailAddressPassword,
-                                   action: \.destination.mailAddressPassword)
+                store: store.scope(state: \.$destination.mailAddress,
+                                   action: \.destination.mailAddress)
             ) { store in
-                mailAddressPasswordView(store)
+                mailAddressView(store)
+            }
+            .navigationDestination(
+                store: store.scope(state: \.$destination.login,
+                                   action: \.destination.login)
+            ) { store in
+                loginView(store)
             }
             .navigationDestination(
                 store: store.scope(state: \.$destination.accountIdName,

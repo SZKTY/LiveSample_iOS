@@ -193,7 +193,8 @@ public struct MapViewRepresentable: UIViewRepresentable {
         
         private func getMarkerTintColor(from startDate: String) -> UIColor {
             let date = DateUtils.dateFromString(string: startDate, format: "yyyy-MM-dd'T'HH:mm:ssZ")
-            let diffInHours = date.timeIntervalSince(Date()) / 3600
+            let now = Date(timeIntervalSinceNow: 60 * 60 * 9)
+            let diffInHours = date.timeIntervalSince(now) / 3600
             
             switch diffInHours {
             case ..<1:
