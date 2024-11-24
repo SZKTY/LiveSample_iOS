@@ -98,6 +98,9 @@ let coreTargets: [Target] = [
         "PostStore",
         "PostDetailStore",
         "MapWithCrossStore",
+        "ResetPasswordEnterEmailStore",
+        "ResetPasswordEnterAuthenticationCodeStore",
+        "ResetPasswordEnterNewPasswordStore",
         composableArchitecture,
         dependencies,
         dependenciesMacros,
@@ -189,6 +192,8 @@ let featureTargets: [Target] = [
         "RootStore",
         "Welcome",
         "WelcomeStore",
+        "ResetPasswordEnterNewPassword",
+        "ResetPasswordEnterNewPasswordStore",
         "Map",
         "MapStore",
         "Assets",
@@ -263,7 +268,29 @@ let featureTargets: [Target] = [
         "ViewComponents",
         composableArchitecture,
         dependencies
-    ])
+    ]),
+    .feature(name: "ResetPasswordEnterEmail", dependencies: [
+        "ResetPasswordEnterEmailStore",
+        "Assets",
+        "Routing",
+        "ViewComponents",
+        composableArchitecture,
+        popupView
+    ]),
+    .feature(name: "ResetPasswordEnterAuthenticationCode", dependencies: [
+        "ResetPasswordEnterAuthenticationCodeStore",
+        "Assets",
+        "ViewComponents",
+        composableArchitecture,
+        popupView
+    ]),
+    .feature(name: "ResetPasswordEnterNewPassword", dependencies: [
+        "ResetPasswordEnterNewPasswordStore",
+        "Assets",
+        "ViewComponents",
+        composableArchitecture,
+        popupView
+    ]),
 ]
 
 let featureStoreTargets: [Target] = [
@@ -279,6 +306,7 @@ let featureStoreTargets: [Target] = [
         "Validator",
         "AccountIdNameStore",
         "SelectModeStore",
+        "ResetPasswordEnterEmailStore",
         composableArchitecture
     ]),
     .featureStore(name: "MailAddressStore", dependencies: [
@@ -365,7 +393,24 @@ let featureStoreTargets: [Target] = [
     ]),
     .featureStore(name: "MapWithCrossStore", dependencies: [
         composableArchitecture
-    ])
+    ]),
+    .featureStore(name: "ResetPasswordEnterEmailStore", dependencies: [
+        "ResetPasswordEnterAuthenticationCodeStore",
+        "API",
+        "UserDefaults",
+        "Validator",
+        composableArchitecture
+    ]),
+    .featureStore(name: "ResetPasswordEnterAuthenticationCodeStore", dependencies: [
+        "API",
+        "UserDefaults",
+        composableArchitecture
+    ]),
+    .featureStore(name: "ResetPasswordEnterNewPasswordStore", dependencies: [
+        "API",
+        "UserDefaults",
+        composableArchitecture
+    ]),
 ]
 
 let sampleTargets: [Target] = [

@@ -21,6 +21,9 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
+		569EA8982CF2B3540075C21E /* ResetPasswordEnterEmail in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */; };
+		569EA89A2CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */; };
+		569EA89C2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */; };
 		56A42E7B2C69B60E0047415C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A42E7A2C69B60E0047415C /* Launch Screen.storyboard */; };
 		56B407D02CD730C900E908BD /* MailAddress in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407CF2CD730C900E908BD /* MailAddress */; };
 		56B407D22CD730CF00E908BD /* Password in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407D12CD730CF00E908BD /* Password */; };
@@ -114,6 +117,7 @@
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
 				56B407D82CD7A9B200E908BD /* FacebookCore in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
+				569EA89A2CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
 				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
@@ -126,6 +130,7 @@
 				DF38C9C02C2E75D00052F85C /* EditProfileStore in Frameworks */,
 				56B407D02CD730C900E908BD /* MailAddress in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
+				569EA8982CF2B3540075C21E /* ResetPasswordEnterEmail in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
 				562CE1142BEEFBB300EDBD53 /* PostEntity in Frameworks */,
 				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
@@ -133,6 +138,7 @@
 				562CE1102BE8974B00EDBD53 /* MapWithCross in Frameworks */,
 				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
 				DF1355BB2C22679300629260 /* Assets in Frameworks */,
+				569EA89C2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword in Frameworks */,
 				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
 				DF9303662C1BED4F00F770AE /* PostAnnotation in Frameworks */,
 				562CE10C2BE6378C00EDBD53 /* Map in Frameworks */,
@@ -300,6 +306,9 @@
 				56B407D32CD730D600E908BD /* AuthenticationCode */,
 				56B407D52CD73BA400E908BD /* Login */,
 				56B407D72CD7A9B200E908BD /* FacebookCore */,
+				569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */,
+				569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */,
+				569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -822,6 +831,18 @@
 		562CE1152BEF60CD00EDBD53 /* UserDefaults */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserDefaults;
+		};
+		569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterEmail;
+		};
+		569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterAuthenticationCode;
+		};
+		569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterNewPassword;
 		};
 		56B407CF2CD730C900E908BD /* MailAddress */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import AccountIdNameStore
 import SelectModeStore
+import ResetPasswordEnterEmailStore
 import API
 import UserDefaults
 import Validator
@@ -29,6 +30,7 @@ public struct Login: Sendable {
     
     public enum Action: BindableAction {
         case nextButtonTapped
+        case resetPasswordButtonTapped
         case loginResponse(Result<LoginResponse, Error>)
         case getRequiredInfoResponse(Result<GetRequiredInfoResponse, Error>)
         case getUserInfoResponse(Result<GetUserInfoResponse, Error>)
@@ -65,6 +67,10 @@ public struct Login: Sendable {
                         try await loginClient.send(email: email, password: password)
                     }))
                 }
+                
+            case .resetPasswordButtonTapped:
+                state.destination = .resetPasswordEnterEmail(ResetPasswordEnterEmail.State())
+                return .none
                 
             case let .loginResponse(.success(response)):
                 print("check: Login SUCCESS")
@@ -177,6 +183,7 @@ extension Login {
     public enum Path {
         case accountIdName(AccountIdName)
         case selectMode(SelectMode)
+        case resetPasswordEnterEmail(ResetPasswordEnterEmail)
     }
 }
 

@@ -27,6 +27,7 @@ public struct LoginView: View {
     
     @Dependency(\.viewBuildingClient.accountIdNameView) var accountIdNameView
     @Dependency(\.viewBuildingClient.selectModeView) var selectModeView
+    @Dependency(\.viewBuildingClient.resetPasswordEnterEmailView) var resetPasswordEnterEmailView
     
     private let store: StoreOf<Login>
     
@@ -79,18 +80,27 @@ public struct LoginView: View {
                         
                     }
                     
-                    Button(action: {
-                        viewStore.send(.nextButtonTapped)
-                    }) {
-                        Text("ログイン")
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .font(.system(size: 20, weight: .heavy))
-                            .bold()
-                            .foregroundStyle(.white)
-                            .background(viewStore.isEnableNextButton ? Color.mainBaseColor : Color.inactiveColor)
-                            .cornerRadius(.infinity)
+                    VStack(spacing: 16) {
+                        Button(action: {
+                            viewStore.send(.nextButtonTapped)
+                        }) {
+                            Text("ログイン")
+                                .frame(maxWidth: .infinity, minHeight: 70)
+                                .font(.system(size: 20, weight: .heavy))
+                                .bold()
+                                .foregroundStyle(.white)
+                                .background(viewStore.isEnableNextButton ? Color.mainBaseColor : Color.inactiveColor)
+                                .cornerRadius(.infinity)
+                        }
+                        .disabled(!viewStore.isEnableNextButton)
+                        
+                        Button(action: {
+                            viewStore.send(.resetPasswordButtonTapped)
+                        }) {
+                            Text("パスワードリセットはこちら")
+                                .font(.system(size: 13, weight: .bold))
+                        }
                     }
-                    .disabled(!viewStore.isEnableNextButton)
                     
                     Spacer()
                 }
@@ -128,6 +138,12 @@ public struct LoginView: View {
                                    action: \.destination.selectMode)
             ) { store in
                 selectModeView(store)
+            }
+            .navigationDestination(
+                store: store.scope(state: \.$destination.resetPasswordEnterEmail,
+                                   action: \.destination.resetPasswordEnterEmail)
+            ) { store in
+                resetPasswordEnterEmailView(store)
             }
             .popup(isPresented: viewStore.$isBusy) {
                 VStack {

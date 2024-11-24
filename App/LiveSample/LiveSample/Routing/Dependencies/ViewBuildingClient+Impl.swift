@@ -21,6 +21,9 @@ import EditProfile
 import Post
 import PostDetail
 import MapWithCross
+import ResetPasswordEnterEmail
+import ResetPasswordEnterAuthenticationCode
+import ResetPasswordEnterNewPassword
 import SwiftUI
 
 extension ViewBuildingClient: DependencyKey {
@@ -68,6 +71,15 @@ extension ViewBuildingClient: DependencyKey {
             },
             mapWithCrossView: { store in
                 AnyView(MapWithCrossView(store: store))
+            },
+            resetPasswordEnterEmailView: { store in
+                AnyView(ResetPasswordEnterEmailView(store: store))
+            }, 
+            resetPasswordEnterAuthenticationCodeView: { store in
+                AnyView(ResetPasswordEnterAuthenticationCodeView(store: store))
+            },
+            resetPasswordEnterNewPasswordView: { store in
+                AnyView(ResetPasswordEnterNewPasswordView(store: store))
             }
         )
     }

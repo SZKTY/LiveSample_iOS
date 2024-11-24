@@ -23,6 +23,9 @@ import EditProfileStore
 import PostStore
 import PostDetailStore
 import MapWithCrossStore
+import ResetPasswordEnterEmailStore
+import ResetPasswordEnterAuthenticationCodeStore
+import ResetPasswordEnterNewPasswordStore
 
 @DependencyClient
 public struct ViewBuildingClient {
@@ -41,6 +44,9 @@ public struct ViewBuildingClient {
     public var postView: @Sendable (_ store: StoreOf<PostStore>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var postDetailView: @Sendable (_ store: StoreOf<PostDetail>) -> AnyView = { _ in AnyView(EmptyView()) }
     public var mapWithCrossView: @Sendable (_ store: StoreOf<MapWithCrossStore>) -> AnyView = { _ in AnyView(EmptyView()) }
+    public var resetPasswordEnterEmailView: @Sendable (_ store: StoreOf<ResetPasswordEnterEmail>) -> AnyView = { _ in AnyView(EmptyView()) }
+    public var resetPasswordEnterAuthenticationCodeView: @Sendable (_ store: StoreOf<ResetPasswordEnterAuthenticationCode>) -> AnyView = { _ in AnyView(EmptyView()) }
+    public var resetPasswordEnterNewPasswordView: @Sendable (_ store: StoreOf<ResetPasswordEnterNewPassword>) -> AnyView = { _ in AnyView(EmptyView()) }
 }
 
 // MARK: - Dependnecies
