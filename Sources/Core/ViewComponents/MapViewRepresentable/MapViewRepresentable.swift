@@ -15,11 +15,7 @@ import Assets
 
 public struct MapViewRepresentable: UIViewRepresentable {
     @StateObject private var manager = LocationManager.shared
-    @Binding private var postAnnotations: [PostAnnotation] {
-        didSet {
-            print("check: coutn = \(postAnnotations.count)")
-        }
-    }
+    @Binding private var postAnnotations: [PostAnnotation]
     
     private var didLongPressCallback: (() -> Void)?
     private var didChangeCenterRegionCallback: ((CLLocationCoordinate2D) -> Void)?
