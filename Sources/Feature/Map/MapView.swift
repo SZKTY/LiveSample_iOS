@@ -24,7 +24,7 @@ public struct MapView: View {
     
     // State側で管理するとAnimationを付けた際にエラーが出るため、View側で泣く泣く管理する
     @State var isShownRecommendView: Bool = false
-    
+    @State var isShownHintView: Bool = false
     
     private let store: StoreOf<MapStore>
     
@@ -60,17 +60,22 @@ public struct MapView: View {
                                     }
                                 }
                                 
-                                // レコメンド一覧ボタン
-                                FloatingButton(imageName: "person.badge.plus", isBaseColor: false, isLarge: false) {
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            isShownRecommendView = true
-                                        }
+                                // ヒントボタン
+                                FloatingButton(imageName: "questionmark.circle", isBaseColor: false, isLarge: false) {
+                                    isShownHintView = true
                                 }
+                                
+                                //                                // レコメンド一覧ボタン
+                                //                                FloatingButton(imageName: "person.badge.plus", isBaseColor: false, isLarge: false) {
+                                //                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                //                                            isShownRecommendView = true
+                                //                                        }
+                                //                                }
                             }
                         }.opacity(viewStore.isSelectPlaceMode ? 0 : 1)
                         
                         
-                        FloatingView(position: .topLeading) {
+                        FloatingView(position: .bottomTailing) {
                             // 投稿作成ボタン
                             FloatingButton(imageName: "plus") {
                                 DispatchQueue.main.async {
@@ -92,6 +97,10 @@ public struct MapView: View {
                             }
                         })
                         .opacity(viewStore.isSelectPlaceMode ? 1 : 0)
+                        
+                        if isShownHintView {
+                            HintView(isOpen: $isShownHintView)
+                        }
                     }
                     .popup(isPresented: viewStore.$isShowSuccessToast) {
                         // 投稿作成完了のトーストバナー
@@ -154,6 +163,121 @@ public struct MapView: View {
         }
     }
 }
+
+public struct HintView: View {
+    @Binding private var isOpen: Bool
+    private let maxWidth = UIScreen.main.bounds.width
+    private let maxHeight = UIScreen.main.bounds.height
+    
+    public init(isOpen: Binding<Bool>) {
+        _isOpen = isOpen
+    }
+    
+    public var body: some View {
+        ZStack {
+            Color.black
+                .edgesIgnoringSafeArea(.all)
+                .opacity(0.7)
+                .onTapGesture {
+                    isOpen.toggle()
+                }
+            
+            VStack(spacing: .zero) {
+                Text("ヒント")
+                    .font(.system(size: 22, weight: .bold))
+                
+                Spacer()
+                    .frame(height: 12)
+                
+                ScrollView {
+                    Spacer()
+                        .frame(height: 24)
+                    
+                    VStack(spacing: 36) {
+                        VStack(spacing: 12) {
+                            Text("ピンの色表示について")
+                                .font(.system(size: 16, weight: .bold))
+                            
+                            Text("開催までの残り時間によってピンの色が変わります\n気になるライブがあったらチェックしてみましょう")
+                                .font(.system(size: 10))
+                                .multilineTextAlignment(.center)
+                            
+                            HStack {
+                                VStack {
+                                    Image("RedPin")
+                                    Text("開催中")
+                                }
+                                VStack {
+                                    Image("YellowPin")
+                                    Text("~1時間")
+                                }
+                                VStack {
+                                    Image("GreenPin")
+                                    Text("~12時間")
+                                }
+                                VStack {
+                                    Image("BluePin")
+                                    Text("~24時間")
+                                }
+                                VStack {
+                                    Image("GrayPin")
+                                    Text("24時間以上")
+                                }
+                            }
+                            .font(.system(size: 8))
+                        }
+                        
+                        VStack(spacing: 12) {
+                            Text("行きたいライブがみつかったら")
+                                .font(.system(size: 16, weight: .bold))
+                            
+                            VStack(spacing: 4) {
+                                Text("まずはなにより現地で応援してみましょう！\n直接会いにきてくれることは\n必ずアーティストの励みになります。")
+                                Text("次にいつ会えるかわからないアーティストもいるので、\n気になったら積極的に現地で応援してみてください！")
+                            }
+                            .font(.system(size: 10))
+                            .multilineTextAlignment(.center)
+                        }
+                        
+                        VStack(spacing: 12) {
+                            Text("応援したいアーティストがみつかったら")
+                                .font(.system(size: 16, weight: .bold))
+                            
+                            VStack(spacing: 4) {
+                                Text("ぜひ他のSNSや音楽サイトをチェックしてみてください！\nSPREETはアーティストが路上ライブ以外の場でも\n活躍していくことを心より願っています！")
+                                Text("みなさんでアーティストの夢を叶えるべく\n応援していきましょう！")
+                            }
+                            .font(.system(size: 10))
+                            .multilineTextAlignment(.center)
+                        }
+                        
+                        HStack(spacing: .zero) {
+                            Text("わからないことがあれば")
+                            
+                            Button(action: {
+                                
+                            }, label: {
+                                Text("ヘルプページ")
+                                    .underline()
+                            })
+                            
+                            Text("へ")
+                        }
+                        .font(.system(size: 12))
+                    }
+                }.scrollIndicators(.never)
+            }
+            .padding(.vertical, 24)
+            .padding(.horizontal, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.mainSubColor)
+            .cornerRadius(40)
+            .padding(.horizontal, maxWidth / 12)
+            .padding(.vertical, maxHeight / 6)
+        }
+    }
+}
+
 
 public struct SideRecommendView: View {
     @Binding private var isOpen: Bool
@@ -220,36 +344,36 @@ public struct RecommendCellView: View {
     
     public var body: some View {
         HStack(spacing: 12) {
-//            AsyncImage(
-//                url: URL(string: viewStore.annotation.postUserProfileImagePath)
-//            ) { image in
-//                image
-//                    .resizable()
-//                    .scaledToFill()
-//                    .frame(
-//                        width: UIScreen.main.bounds.width*0.15,
-//                        height: UIScreen.main.bounds.width*0.15
-//                    )
-//                    .clipShape(Circle())
-//            } placeholder: {
-                Image(uiImage: UIImage(named: "noImage")!)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(
-                        width: UIScreen.main.bounds.width*0.15,
-                        height: UIScreen.main.bounds.width*0.15
-                    )
-                    .clipShape(Circle())
-//            }
+            //            AsyncImage(
+            //                url: URL(string: viewStore.annotation.postUserProfileImagePath)
+            //            ) { image in
+            //                image
+            //                    .resizable()
+            //                    .scaledToFill()
+            //                    .frame(
+            //                        width: UIScreen.main.bounds.width*0.15,
+            //                        height: UIScreen.main.bounds.width*0.15
+            //                    )
+            //                    .clipShape(Circle())
+            //            } placeholder: {
+            Image(uiImage: UIImage(named: "noImage")!)
+                .resizable()
+                .scaledToFill()
+                .frame(
+                    width: UIScreen.main.bounds.width*0.15,
+                    height: UIScreen.main.bounds.width*0.15
+                )
+                .clipShape(Circle())
+            //            }
             
             VStack(alignment: .leading) {
                 Text("HogeHoge")
-                .foregroundColor(.black)
-                .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.black)
+                    .font(.system(size: 16, weight: .medium))
                 
                 Text("PiyoPiyoPiyoPiyo")
-                .foregroundColor(.black)
-                .font(.system(size: 12))
+                    .foregroundColor(.black)
+                    .font(.system(size: 12))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
