@@ -8,20 +8,16 @@
 import SwiftUI
 import Assets
 
-public struct FloatingButton: View {
-    private let position: FloatingButtonPosition
-    private let imageName: String
-    private let isBaseColor: Bool
-    private let action: () -> ()
+public struct FloatingView<Content: View>: View {
+    private let position: FloatingPosition
+    private let content: Content
     
-    public init(position: FloatingButtonPosition,
-                imageName: String,
-                isBaseColor: Bool = true,
-                action: @escaping () -> Void) {
+    public init(
+        position: FloatingPosition,
+        @ViewBuilder content: () -> Content
+    ) {
         self.position = position
-        self.imageName = imageName
-        self.isBaseColor = isBaseColor
-        self.action = action
+        self.content = content()
     }
     
     public var body: some View {
@@ -35,18 +31,7 @@ public struct FloatingButton: View {
                     Spacer()
                 }
                 
-                Button(action: {
-                    self.action()
-                }, label: {
-                    Image(systemName: imageName)
-                        .foregroundColor(isBaseColor ? .white : Color.mainBaseColor)
-                        .font(.system(size: 24))
-                        .bold()
-                })
-                .frame(width: 60, height: 60)
-                .background(isBaseColor ? Color.mainBaseColor : Color.mainSubColor)
-                .cornerRadius(30.0)
-                .shadow(color: .gray, radius: 3, x: 3, y: 3)
+                content
                 .padding(makeEdgeInsets())
                 
                 if position == .topLeading || position == .bottomLeading {
@@ -76,7 +61,7 @@ public struct FloatingButton: View {
     
 }
 
-public enum FloatingButtonPosition {
+public enum FloatingPosition {
     case topLeading
     case topTailing
     case bottomLeading

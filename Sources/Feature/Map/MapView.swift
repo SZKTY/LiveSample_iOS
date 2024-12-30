@@ -12,6 +12,7 @@ import MapStore
 import MapKit
 import Routing
 import ViewComponents
+import Assets
 
 public struct MapView: View {
     @EnvironmentObject var accountTypeChecker: AccountTypeChecker
@@ -20,6 +21,10 @@ public struct MapView: View {
     @Dependency(\.viewBuildingClient.myPageView) private var myPageView
     @Dependency(\.viewBuildingClient.postDetailView) private var postDetailView
     @Dependency(\.viewBuildingClient.editProfileView) private var editProfileView
+    
+    // State側で管理するとAnimationを付けた際にエラーが出るため、View側で泣く泣く管理する
+    @State var isShownRecommendView: Bool = false
+    
     
     private let store: StoreOf<MapStore>
     
@@ -46,21 +51,35 @@ public struct MapView: View {
                             viewStore.send(.annotationTapped(annotation: annotation))
                         })
                         
-                        // マイページボタン
-                        FloatingButton(position: .topLeading, imageName: "line.3.horizontal", isBaseColor: false) {
-                            DispatchQueue.main.async {
-                                viewStore.send(.floatingHomeButtonTapped)
+                        FloatingView(position: .topLeading) {
+                            VStack {
+                                // マイページボタン
+                                FloatingButton(imageName: "line.3.horizontal", isBaseColor: false) {
+                                    DispatchQueue.main.async {
+                                        viewStore.send(.floatingHomeButtonTapped)
+                                    }
+                                }
+                                
+                                // レコメンド一覧ボタン
+                                FloatingButton(imageName: "person.badge.plus", isBaseColor: false, isLarge: false) {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            isShownRecommendView = true
+                                        }
+                                }
                             }
-                        }
-                        .opacity(viewStore.isSelectPlaceMode ? 0 : 1)
+                        }.opacity(viewStore.isSelectPlaceMode ? 0 : 1)
                         
-                        // 投稿作成ボタン
-                        FloatingButton(position: .bottomTailing, imageName: "plus") {
-                            DispatchQueue.main.async {
-                                viewStore.send(.floatingPlusButtonTapped)
-                            }
+                        
+                        FloatingView(position: .topLeading) {
+                            // 投稿作成ボタン
+                            FloatingButton(imageName: "plus") {
+                                DispatchQueue.main.async {
+                                    viewStore.send(.floatingPlusButtonTapped)
+                                }
+                            }.opacity(accountTypeChecker.accountType == .artist && !viewStore.isSelectPlaceMode ? 1 : 0)
                         }
-                        .opacity(accountTypeChecker.accountType == .artist && !viewStore.isSelectPlaceMode ? 1 : 0)
+                        
+                        SideRecommendView(isOpen: $isShownRecommendView)
                         
                         // 場所選択モード
                         SelectPLaceModeView(scopeTopPadding: geometry.safeAreaInsets.top, action: {
@@ -133,6 +152,107 @@ public struct MapView: View {
                     ])
             }
         }
+    }
+}
+
+public struct SideRecommendView: View {
+    @Binding private var isOpen: Bool
+    private let maxWidth = UIScreen.main.bounds.width
+    
+    private var safeAreaInsets: UIEdgeInsets {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        return windowScene?.windows.first?.safeAreaInsets ?? .zero
+    }
+    
+    public init(
+        isOpen: Binding<Bool>
+    ) {
+        _isOpen = isOpen
+    }
+    
+    public var body: some View {
+        ZStack {
+            Color.black
+                .edgesIgnoringSafeArea(.all)
+                .opacity(isOpen ? 0.7 : 0)
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isOpen.toggle()
+                    }
+                }
+            
+            VStack(spacing: .zero) {
+                Text("イチ推しアーティスト")
+                    .font(.system(size: 20, weight: .bold))
+                    .padding(.vertical, 20)
+                
+                
+                VStack(spacing: 16) {
+                    ForEach(0...6, id: \.self) { _ in
+                        RecommendCellView()
+                    }
+                }
+                .padding(.horizontal, 20)
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.mainSubColor)
+            .padding(.top, safeAreaInsets.top)
+            .cornerRadius(40)
+            .clipShape(
+                .rect(
+                    topLeadingRadius: 40,
+                    bottomLeadingRadius: 40,
+                    bottomTrailingRadius: .zero,
+                    topTrailingRadius: .zero
+                )
+            )
+            .padding(.leading, maxWidth / 4)
+            .offset(x: isOpen ? 0 : maxWidth)
+        }
+    }
+}
+
+public struct RecommendCellView: View {
+    
+    public init() {}
+    
+    public var body: some View {
+        HStack(spacing: 12) {
+//            AsyncImage(
+//                url: URL(string: viewStore.annotation.postUserProfileImagePath)
+//            ) { image in
+//                image
+//                    .resizable()
+//                    .scaledToFill()
+//                    .frame(
+//                        width: UIScreen.main.bounds.width*0.15,
+//                        height: UIScreen.main.bounds.width*0.15
+//                    )
+//                    .clipShape(Circle())
+//            } placeholder: {
+                Image(uiImage: UIImage(named: "noImage")!)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(
+                        width: UIScreen.main.bounds.width*0.15,
+                        height: UIScreen.main.bounds.width*0.15
+                    )
+                    .clipShape(Circle())
+//            }
+            
+            VStack(alignment: .leading) {
+                Text("HogeHoge")
+                .foregroundColor(.black)
+                .font(.system(size: 16, weight: .medium))
+                
+                Text("PiyoPiyoPiyoPiyo")
+                .foregroundColor(.black)
+                .font(.system(size: 12))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
