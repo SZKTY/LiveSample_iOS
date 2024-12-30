@@ -127,10 +127,33 @@ public struct MapView: View {
                 }
             ) { store in
                 postDetailView(store)
+                    .backgroundClearSheet()
                     .presentationDetents([
                         .fraction(0.8)
                     ])
             }
+        }
+    }
+}
+
+extension View {
+    func backgroundClearSheet() -> some View {
+        background(BackgroundClearView())
+    }
+}
+
+struct BackgroundClearView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        return InnerView()
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+    }
+    
+    private class InnerView: UIView {
+        override func didMoveToWindow() {
+            super.didMoveToWindow()
+            superview?.superview?.backgroundColor = .clear
         }
     }
 }
