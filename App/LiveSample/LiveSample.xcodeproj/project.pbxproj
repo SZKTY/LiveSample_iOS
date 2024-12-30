@@ -21,8 +21,15 @@
 		56703F642B6FCA0D00939C0C /* LiveSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F632B6FCA0D00939C0C /* LiveSampleTests.swift */; };
 		56703F6E2B6FCA0D00939C0C /* LiveSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6D2B6FCA0D00939C0C /* LiveSampleUITests.swift */; };
 		56703F702B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56703F6F2B6FCA0D00939C0C /* LiveSampleUITestsLaunchTests.swift */; };
-		56A42E792C5F70D00047415C /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56A42E782C5F70D00047415C /* FacebookCore */; };
+		569EA8982CF2B3540075C21E /* ResetPasswordEnterEmail in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */; };
+		569EA89A2CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */; };
+		569EA89C2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword in Frameworks */ = {isa = PBXBuildFile; productRef = 569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */; };
 		56A42E7B2C69B60E0047415C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A42E7A2C69B60E0047415C /* Launch Screen.storyboard */; };
+		56B407D02CD730C900E908BD /* MailAddress in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407CF2CD730C900E908BD /* MailAddress */; };
+		56B407D22CD730CF00E908BD /* Password in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407D12CD730CF00E908BD /* Password */; };
+		56B407D42CD730D600E908BD /* AuthenticationCode in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407D32CD730D600E908BD /* AuthenticationCode */; };
+		56B407D62CD73BA400E908BD /* Login in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407D52CD73BA400E908BD /* Login */; };
+		56B407D82CD7A9B200E908BD /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56B407D72CD7A9B200E908BD /* FacebookCore */; };
 		DF1355BB2C22679300629260 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = DF1355BA2C22679300629260 /* Assets */; };
 		DF191E972BD8AAC500D92018 /* MapStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E962BD8AAC500D92018 /* MapStore */; };
 		DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF191E982BD8AAC500D92018 /* MyPageStore */; };
@@ -35,8 +42,6 @@
 		DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620C92BD7BE3E00C79F36 /* AccountIdName */; };
 		DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */; };
 		DF7620CE2BD7BE3E00C79F36 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620CD2BD7BE3E00C79F36 /* API */; };
-		DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */; };
-		DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */; };
 		DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D72BD7BE3E00C79F36 /* ProfileImage */; };
 		DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */; };
 		DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = DF7620DB2BD7BE3E00C79F36 /* Root */; };
@@ -100,6 +105,7 @@
 				DF7620DA2BD7BE3E00C79F36 /* ProfileImageStore in Frameworks */,
 				DF38C9BE2C2E75D00052F85C /* EditProfile in Frameworks */,
 				562CE1122BE8974B00EDBD53 /* MapWithCrossStore in Frameworks */,
+				56B407D62CD73BA400E908BD /* Login in Frameworks */,
 				DF7620D82BD7BE3E00C79F36 /* ProfileImage in Frameworks */,
 				DF9303612C1B04E700F770AE /* PostDetail in Frameworks */,
 				DF191E972BD8AAC500D92018 /* MapStore in Frameworks */,
@@ -109,31 +115,35 @@
 				DF9303632C1B04E700F770AE /* PostDetailStore in Frameworks */,
 				DF191EA32BD8EA9100D92018 /* Post in Frameworks */,
 				DF7620F32BD8898D00C79F36 /* Validator in Frameworks */,
+				56B407D82CD7A9B200E908BD /* FacebookCore in Frameworks */,
 				DF7620E42BD7BE3E00C79F36 /* SelectMode in Frameworks */,
+				569EA89A2CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode in Frameworks */,
 				DF7620E02BD7BE3E00C79F36 /* Routing in Frameworks */,
 				DF7620EA2BD7BE3E00C79F36 /* ViewComponents in Frameworks */,
-				56A42E792C5F70D00047415C /* FacebookCore in Frameworks */,
 				DF191EA52BD8EA9100D92018 /* PostStore in Frameworks */,
 				DF7620E62BD7BE3E00C79F36 /* SelectModeStore in Frameworks */,
 				DF38C9BC2C2E68590052F85C /* Share in Frameworks */,
 				DF7620CC2BD7BE3E00C79F36 /* AccountIdNameStore in Frameworks */,
 				DF191E992BD8AAC500D92018 /* MyPageStore in Frameworks */,
+				56B407D42CD730D600E908BD /* AuthenticationCode in Frameworks */,
+				56B407D22CD730CF00E908BD /* Password in Frameworks */,
 				DF38C9C02C2E75D00052F85C /* EditProfileStore in Frameworks */,
+				56B407D02CD730C900E908BD /* MailAddress in Frameworks */,
 				DF7620DC2BD7BE3E00C79F36 /* Root in Frameworks */,
+				569EA8982CF2B3540075C21E /* ResetPasswordEnterEmail in Frameworks */,
 				DF7620DE2BD7BE3E00C79F36 /* RootStore in Frameworks */,
 				562CE1142BEEFBB300EDBD53 /* PostEntity in Frameworks */,
 				DF7620CA2BD7BE3E00C79F36 /* AccountIdName in Frameworks */,
 				562CE10A2BE5DA0D00EDBD53 /* Location in Frameworks */,
 				562CE1102BE8974B00EDBD53 /* MapWithCross in Frameworks */,
-				DF7620D42BD7BE3E00C79F36 /* MailAddressPassword in Frameworks */,
 				DF7620EC2BD7BE3E00C79F36 /* Welcome in Frameworks */,
 				DF1355BB2C22679300629260 /* Assets in Frameworks */,
+				569EA89C2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword in Frameworks */,
 				DF7620EE2BD7BE3E00C79F36 /* WelcomeStore in Frameworks */,
 				DF9303662C1BED4F00F770AE /* PostAnnotation in Frameworks */,
 				562CE10C2BE6378C00EDBD53 /* Map in Frameworks */,
 				DF7620E22BD7BE3E00C79F36 /* SampleCounter in Frameworks */,
 				562CE10E2BE6379500EDBD53 /* MyPage in Frameworks */,
-				DF7620D62BD7BE3E00C79F36 /* MailAddressPasswordStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,8 +270,6 @@
 				DF7620C92BD7BE3E00C79F36 /* AccountIdName */,
 				DF7620CB2BD7BE3E00C79F36 /* AccountIdNameStore */,
 				DF7620CD2BD7BE3E00C79F36 /* API */,
-				DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */,
-				DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */,
 				DF7620D72BD7BE3E00C79F36 /* ProfileImage */,
 				DF7620D92BD7BE3E00C79F36 /* ProfileImageStore */,
 				DF7620DB2BD7BE3E00C79F36 /* Root */,
@@ -293,7 +301,14 @@
 				DF38C9BB2C2E68590052F85C /* Share */,
 				DF38C9BD2C2E75D00052F85C /* EditProfile */,
 				DF38C9BF2C2E75D00052F85C /* EditProfileStore */,
-				56A42E782C5F70D00047415C /* FacebookCore */,
+				56B407CF2CD730C900E908BD /* MailAddress */,
+				56B407D12CD730CF00E908BD /* Password */,
+				56B407D32CD730D600E908BD /* AuthenticationCode */,
+				56B407D52CD73BA400E908BD /* Login */,
+				56B407D72CD7A9B200E908BD /* FacebookCore */,
+				569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */,
+				569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */,
+				569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */,
 			);
 			productName = LiveSample;
 			productReference = 56703F4F2B6FCA0B00939C0C /* LiveSample.app */;
@@ -579,7 +594,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10000;
+				CURRENT_PROJECT_VERSION = 10001;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9K3B3ZYB2V;
@@ -600,7 +615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.inemuri.LiveSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -622,7 +637,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10000;
+				CURRENT_PROJECT_VERSION = 10001;
 				DEVELOPMENT_ASSET_PATHS = "\"LiveSample/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9K3B3ZYB2V;
@@ -643,7 +658,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.inemuri.LiveSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -817,7 +832,35 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = UserDefaults;
 		};
-		56A42E782C5F70D00047415C /* FacebookCore */ = {
+		569EA8972CF2B3540075C21E /* ResetPasswordEnterEmail */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterEmail;
+		};
+		569EA8992CF2B83B0075C21E /* ResetPasswordEnterAuthenticationCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterAuthenticationCode;
+		};
+		569EA89B2CF2BB9A0075C21E /* ResetPasswordEnterNewPassword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ResetPasswordEnterNewPassword;
+		};
+		56B407CF2CD730C900E908BD /* MailAddress */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MailAddress;
+		};
+		56B407D12CD730CF00E908BD /* Password */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Password;
+		};
+		56B407D32CD730D600E908BD /* AuthenticationCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AuthenticationCode;
+		};
+		56B407D52CD73BA400E908BD /* Login */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Login;
+		};
+		56B407D72CD7A9B200E908BD /* FacebookCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 56A42E772C5F70D00047415C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
@@ -865,14 +908,6 @@
 		DF7620CD2BD7BE3E00C79F36 /* API */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = API;
-		};
-		DF7620D32BD7BE3E00C79F36 /* MailAddressPassword */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MailAddressPassword;
-		};
-		DF7620D52BD7BE3E00C79F36 /* MailAddressPasswordStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MailAddressPasswordStore;
 		};
 		DF7620D72BD7BE3E00C79F36 /* ProfileImage */ = {
 			isa = XCSwiftPackageProductDependency;

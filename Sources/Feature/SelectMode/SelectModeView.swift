@@ -63,7 +63,7 @@ public struct SelectModeView: View {
             .disabled(viewStore.isBusy)
             .padding(.horizontal, 20)
             .background(Color.mainSubColor)
-            .navigationTitle("4 / 4")
+            .navigationTitle("6 / 6")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .alert(store: store.scope(state: \.$alert, action: \.alert))

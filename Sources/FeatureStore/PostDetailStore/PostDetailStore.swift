@@ -26,15 +26,52 @@ public struct PostDetail {
         public var isMine: Bool = true
         public var shareRenderedImageData: Data?
         
+        public var isBeginning: Bool {
+            // 日本時間 (JST) タイムゾーンを定義
+            let japanTimeZone = TimeZone(identifier: "Asia/Tokyo")!
+            
+            // 開始日時
+            let startDate = DateUtils.dateFromString(
+                string: annotation.startDatetime,
+                format: "yyyy-MM-dd'T'HH:mm:ssZ"
+            )
+            
+            //　終了日時
+            let endDate = DateUtils.dateFromString(
+                string: annotation.endDatetime,
+                format: "yyyy-MM-dd'T'HH:mm:ssZ"
+            )
+            
+            // 現在の日本時間を取得
+            let now = Date()
+            guard let jstNow = Calendar.current.date(byAdding: .second, value: japanTimeZone.secondsFromGMT(for: now), to: now) else {
+                return false
+            }
+            
+            print("check: jstNow = \(jstNow)")
+            
+            // 日本時間で現在時刻が範囲内かどうかを判定
+            return jstNow >= startDate && jstNow <= endDate
+        }
+        
         public var dateString: String {
-            let date = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+            let date = DateUtils.dateFromString(
+                string: annotation.startDatetime,
+                format: "yyyy-MM-dd'T'HH:mm:ssZ"
+            )
             let dateString = DateUtils.stringFromDate(date: date, format: "MM/dd（EEE）")
             return dateString
         }
         
         public var startToFinishTimeString: String {
-            let startDate = DateUtils.dateFromString(string: annotation.startDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ")
-            let endDate = DateUtils.dateFromString(string: annotation.endDatetime, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+            let startDate = DateUtils.dateFromString(
+                string: annotation.startDatetime,
+                format: "yyyy-MM-dd'T'HH:mm:ssZ"
+            )
+            let endDate = DateUtils.dateFromString(
+                string: annotation.endDatetime,
+                format: "yyyy-MM-dd'T'HH:mm:ssZ"
+            )
             let startTimeString = DateUtils.stringFromDate(date: startDate, format: "HH:mm")
             let endTimeString = DateUtils.stringFromDate(date: endDate, format: "HH:mm")
             return startTimeString + " ~ " + endTimeString

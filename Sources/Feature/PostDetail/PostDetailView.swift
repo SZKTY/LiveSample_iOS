@@ -25,6 +25,13 @@ public struct PostDetailView: View {
         ]
     )
     
+    private let red = Gradient(
+        stops: [
+            .init(color: Color(uiColor: UIColor(red: 255/255, green: 58/255, blue: 62/255, alpha: 1)), location: 0.0),
+            .init(color: Color(uiColor: UIColor(red: 255/255, green: 58/255, blue: 62/255, alpha: 1)), location: 1.0)
+        ]
+    )
+    
     public nonisolated init(store: StoreOf<PostDetail>) {
         self.store = store
         self.store.send(.initialize)
@@ -34,44 +41,63 @@ public struct PostDetailView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ZStack {
                 LinearGradient(
-                    gradient: gradient,
+                    gradient: viewStore.isBeginning ? red : gradient,
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
+                .opacity(0.9)
                 .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack(spacing: 16) {
-                        Spacer()
-                        
-                        // 共有ボタン
-                        Button {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                let renderer = ImageRenderer(content: body)
-                                if let image = renderer.uiImage, let data = image.pngData() {
-                                    viewStore.send(.squareAndArrowUpButtonTapped(data))
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 22))
-                                .bold()
-                                .frame(width: 24, height: 24)
+                    ZStack {
+                        if viewStore.isBeginning {
+                            Text("Now Playing....")
                                 .foregroundColor(.white)
+                                .font(.system(size: 20, weight: .bold))
                         }
                         
-                        // 三点リーダ
-                        Button {
-                            viewStore.send(.ellipsisButtonTapped)
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .font(.system(size: 22))
-                                .bold()
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.white)
+                        HStack(spacing: 16) {
+                            Spacer()
+                            
+                            // 共有ボタン
+                            Button {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    let scenes = UIApplication.shared.connectedScenes
+                                    let windowScene = scenes.first as? UIWindowScene
+                                    
+                                    guard let window = windowScene?.windows.first else { return }
+                                    
+                                    let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
+                                    let image = renderer.image { context in
+                                        window.layer.render(in: context.cgContext)
+                                    }
+                                    
+                                    if let data = image.pngData() {
+                                        viewStore.send(.squareAndArrowUpButtonTapped(data))
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                                    .font(.system(size: 22))
+                                    .bold()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
+                            
+                            // 三点リーダ
+                            Button {
+                                viewStore.send(.ellipsisButtonTapped)
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .font(.system(size: 22))
+                                    .bold()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
                         }
                     }
-                    .padding(.vertical)
+                    .padding(.bottom)
+                    .padding(.top, 28)
                     
                     HStack {
                         Text(viewStore.dateString)

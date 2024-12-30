@@ -42,6 +42,10 @@ public struct MapViewRepresentable: UIViewRepresentable {
     // 初期化
     public func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
+        let configuration = MKStandardMapConfiguration(elevationStyle: .flat, emphasisStyle: .muted)
+        configuration.showsTraffic = false
+        configuration.pointOfInterestFilter = .excludingAll
+        mapView.preferredConfiguration = configuration
         mapView.delegate = context.coordinator
         
         if let region = self.region {
@@ -176,8 +180,13 @@ public struct MapViewRepresentable: UIViewRepresentable {
         
         public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             guard let _annotation = annotation as? PostAnnotation else { return nil }
-            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: nil)
-            annotationView.markerTintColor = getMarkerTintColor(from: _annotation.startDatetime)
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            if getMarkerImage(from: _annotation.startDatetime) == nil {
+                print("check: NIL _annotation.startDatetime \(_annotation.startDatetime)")
+            }
+            
+            annotationView.image = getMarkerImage(from: _annotation.startDatetime)
+            annotationView.displayPriority = .required
             return annotationView
         }
         
@@ -189,7 +198,8 @@ public struct MapViewRepresentable: UIViewRepresentable {
         
         private func getMarkerTintColor(from startDate: String) -> UIColor {
             let date = DateUtils.dateFromString(string: startDate, format: "yyyy-MM-dd'T'HH:mm:ssZ")
-            let diffInHours = date.timeIntervalSince(Date()) / 3600
+            let now = Date(timeIntervalSinceNow: 60 * 60 * 9)
+            let diffInHours = date.timeIntervalSince(now) / 3600
             
             switch diffInHours {
             case ..<1:
@@ -200,6 +210,25 @@ public struct MapViewRepresentable: UIViewRepresentable {
                 return .init(hex: "6A67EE", alpha: 0.8) // 24時間以内
             default:
                 return .init(hex: "8D8D8D", alpha: 0.8) // それ以降
+            }
+        }
+        
+        private func getMarkerImage(from startDate: String) -> UIImage? {
+            let date = DateUtils.dateFromString(string: startDate, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+            let now = Date(timeIntervalSinceNow: 60 * 60 * 9)
+            let diffInHours = date.timeIntervalSince(now) / 3600
+            
+            switch diffInHours {
+            case ..<0:
+                return UIImage(named: "RedPin")
+            case 0..<1:
+                return UIImage(named: "YellowPin") // 1時間以内
+            case 1..<12:
+                return UIImage(named: "GreenPin") // 12時間以内
+            case 12..<24:
+                return UIImage(named: "BluePin") // 24時間以内
+            default:
+                return UIImage(named: "GrayPin") // それ以降
             }
         }
     }

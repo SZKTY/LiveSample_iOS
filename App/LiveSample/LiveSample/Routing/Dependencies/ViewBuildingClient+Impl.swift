@@ -7,7 +7,10 @@
 
 import ComposableArchitecture
 import AccountIdName
-import MailAddressPassword
+import Login
+import MailAddress
+import Password
+import AuthenticationCode
 import ProfileImage
 import SelectMode
 import Welcome
@@ -18,6 +21,9 @@ import EditProfile
 import Post
 import PostDetail
 import MapWithCross
+import ResetPasswordEnterEmail
+import ResetPasswordEnterAuthenticationCode
+import ResetPasswordEnterNewPassword
 import SwiftUI
 
 extension ViewBuildingClient: DependencyKey {
@@ -27,8 +33,17 @@ extension ViewBuildingClient: DependencyKey {
             accountIdNameView: { store in
                 AnyView(AccountIdNameView(store: store))
             },
-            mailAddressPasswordView: { store in
-                AnyView(MailAddressPasswordView(store: store))
+            loginView: { store in
+                AnyView(LoginView(store: store))
+            },
+            mailAddressView: { store in
+                AnyView(MailAddressView(store: store))
+            },
+            passwordView: { store in
+                AnyView(PasswordView(store: store))
+            },
+            authenticationCodeView: { store in
+                AnyView(AuthenticationCodeView(store: store))
             },
             profileImageView: { store in
                 AnyView(ProfileImageView(store: store))
@@ -56,6 +71,15 @@ extension ViewBuildingClient: DependencyKey {
             },
             mapWithCrossView: { store in
                 AnyView(MapWithCrossView(store: store))
+            },
+            resetPasswordEnterEmailView: { store in
+                AnyView(ResetPasswordEnterEmailView(store: store))
+            }, 
+            resetPasswordEnterAuthenticationCodeView: { store in
+                AnyView(ResetPasswordEnterAuthenticationCodeView(store: store))
+            },
+            resetPasswordEnterNewPasswordView: { store in
+                AnyView(ResetPasswordEnterNewPasswordView(store: store))
             }
         )
     }

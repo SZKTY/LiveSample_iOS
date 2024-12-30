@@ -139,7 +139,7 @@ public struct PostView: View {
                     .frame(height: 100)
                     
                     VStack {
-                        Text(DateUtils.stringFromDate(date: viewStore.date, format: "M/d (EEE)") + "   |   " + DateUtils.stringFromDate(date: viewStore.startDateTime, format: "HH:mm") + "  ~  " + DateUtils.stringFromDate(date: viewStore.endDateTime, format: "HH:mm"))
+                        Text(DateUtils.stringFromDate(date: viewStore.date, format: "M/d (EEE)", isConvertToJa: true) + "   |   " + DateUtils.stringFromDate(date: viewStore.startDateTime, format: "HH:mm", isConvertToJa: true) + "  ~  " + DateUtils.stringFromDate(date: viewStore.endDateTime, format: "HH:mm", isConvertToJa: true))
                             .font(.system(size: 18))
                     }
                     .frame(maxWidth: .infinity, minHeight: 40)
